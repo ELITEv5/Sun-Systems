@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ELITE TEAM6 — Autonomous Monetary Protocol</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;700&family=Epilogue:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #E8B84B;
+  --gold-dim: rgba(232,184,75,0.13);
+  --gold-border: rgba(232,184,75,0.2);
+  --teal: #2ECFBF;
+  --teal-dim: rgba(46,207,191,0.1);
+  --orange: #F06A35;
+  --orange-dim: rgba(240,106,53,0.1);
+  --violet: #9B7EE8;
+  --violet-dim: rgba(155,126,232,0.1);
+  --bg: #080808;
+  --bg2: #0D0D0F;
+  --bg3: #131316;
+  --bg4: #1A1A1E;
+  --border: rgba(255,255,255,0.06);
+  --border-hi: rgba(255,255,255,0.11);
+  --text: #ECEAE3;
+  --text-2: #9B9890;
+  --text-3: #4E4C49;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Epilogue',sans-serif;overflow-x:hidden;line-height:1.6;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3rem;background:rgba(8,8,8,0.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-id{display:flex;align-items:center;gap:0.75rem;}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px rgba(232,184,75,0.55);animation:pdot 2.8s ease-in-out infinite;}
+@keyframes pdot{0%,100%{opacity:1;box-shadow:0 0 8px rgba(232,184,75,0.55);}50%{opacity:0.55;box-shadow:0 0 16px rgba(232,184,75,0.25);}}
+.nav-logo{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--text);}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{font-family:'IBM Plex Mono',monospace;font-size:0.66rem;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;color:var(--text-3);transition:color 0.2s;}
+.nav-links a:hover{color:var(--text-2);}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:9rem 2rem 6rem;position:relative;overflow:hidden;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(232,184,75,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(232,184,75,0.025) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 10%,transparent 80%);}
+.hero-tag{display:inline-flex;align-items:center;gap:0.6rem;padding:0.38rem 1rem;border:1px solid var(--gold-border);border-radius:2px;font-family:'IBM Plex Mono',monospace;font-size:0.63rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:2.5rem;opacity:0;animation:up 0.7s 0.1s forwards;}
+.hero-tag-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);opacity:0.7;}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(3.2rem,8vw,7rem);line-height:1.03;letter-spacing:-0.025em;max-width:960px;opacity:0;animation:up 0.8s 0.25s forwards;}
+.hero h1 .ital{font-style:italic;color:var(--gold);}
+.hero h1 .dim{color:var(--text-2);}
+.hero-desc{font-size:clamp(1rem,1.8vw,1.15rem);color:var(--text-2);font-weight:300;max-width:600px;margin:2.5rem auto 0;line-height:1.85;opacity:0;animation:up 0.8s 0.4s forwards;}
+.hero-hayek{margin:3rem auto 0;max-width:680px;padding:1.8rem 2.5rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border);opacity:0;animation:up 0.8s 0.55s forwards;}
+.hero-hayek blockquote{font-family:'DM Serif Display',serif;font-size:clamp(1.1rem,2vw,1.4rem);font-style:italic;color:var(--text-2);line-height:1.6;margin-bottom:0.7rem;}
+.hero-hayek cite{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-3);}
+.hero-cta{display:flex;gap:1rem;margin-top:3.5rem;justify-content:center;flex-wrap:wrap;opacity:0;animation:up 0.8s 0.7s forwards;}
+.btn{display:inline-flex;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;padding:0.85rem 2rem;border-radius:2px;transition:all 0.2s;border:none;cursor:pointer;}
+.btn-gold{background:var(--gold);color:#080808;}
+.btn-gold:hover{background:#f0c75a;transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,184,75,0.22);}
+.btn-outline{background:transparent;color:var(--text-2);border:1px solid var(--border-hi);}
+.btn-outline:hover{color:var(--text);border-color:rgba(255,255,255,0.2);}
+
+/* TICKER */
+.ticker{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg2);padding:0.78rem 0;}
+.ticker-inner{display:flex;gap:5rem;width:max-content;animation:scroll 38s linear infinite;white-space:nowrap;}
+.ti{font-family:'IBM Plex Mono',monospace;font-size:0.63rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-3);}
+.ti em{font-style:normal;margin-left:0.5rem;}
+@keyframes scroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+/* SECTIONS */
+section{padding:7rem 2rem;}
+.wrap{max-width:1180px;margin:0 auto;}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--text-3);margin-bottom:1rem;}
+.sec-title{font-family:'DM Serif Display',serif;font-size:clamp(2rem,4vw,3.2rem);line-height:1.12;letter-spacing:-0.015em;margin-bottom:1.3rem;}
+.sec-body{color:var(--text-2);font-size:1rem;line-height:1.85;max-width:640px;font-weight:300;}
+
+/* IDEALS */
+#ideals{background:var(--bg2);border-top:1px solid var(--border);}
+.ideals-layout{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;margin-bottom:4.5rem;}
+.ideals-quote{margin-top:2rem;padding:1.8rem 2rem;border-left:3px solid var(--gold);background:var(--gold-dim);border-radius:0 3px 3px 0;}
+.ideals-quote p{font-family:'DM Serif Display',serif;font-size:1.15rem;font-style:italic;color:var(--text);line-height:1.65;margin-bottom:0.6rem;}
+.ideals-quote cite{font-family:'IBM Plex Mono',monospace;font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-3);}
+.ideals-pillars{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+.pillar{background:var(--bg3);padding:1.8rem;transition:background 0.2s;}
+.pillar:hover{background:var(--bg4);}
+.pillar-mark{font-family:'IBM Plex Mono',monospace;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;}
+.pillar h4{font-family:'DM Serif Display',serif;font-size:1.1rem;margin-bottom:0.5rem;}
+.pillar p{font-size:0.82rem;color:var(--text-2);line-height:1.65;}
+
+.proof-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+.proof-cell{background:var(--bg3);padding:2rem 1.8rem;}
+.proof-num{font-family:'DM Serif Display',serif;font-size:2.4rem;color:var(--gold);line-height:1;margin-bottom:0.4rem;}
+.proof-label{font-size:0.8rem;color:var(--text-2);line-height:1.5;}
+
+/* ASSETS */
+#assets{background:var(--bg);border-top:1px solid var(--border);}
+.asset-block{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:2px;}
+.asset-block:last-child{margin-bottom:0;}
+.asset-main{background:var(--bg2);padding:3.5rem;border-right:1px solid var(--border);}
+.asset-details{background:var(--bg2);padding:3.5rem;display:flex;flex-direction:column;gap:2.2rem;}
+.asset-color-bar{width:36px;height:3px;border-radius:1px;margin-bottom:2rem;}
+.asset-badge{display:inline-flex;align-items:center;gap:0.45rem;font-family:'IBM Plex Mono',monospace;font-size:0.6rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;padding:0.28rem 0.75rem;border-radius:2px;margin-bottom:1.2rem;width:fit-content;}
+.asset-name{font-family:'DM Serif Display',serif;font-size:clamp(2.2rem,3.5vw,3.5rem);line-height:1.05;letter-spacing:-0.02em;margin-bottom:0.5rem;}
+.asset-tagline{font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;margin-bottom:1.8rem;}
+.asset-desc{font-size:0.95rem;color:var(--text-2);line-height:1.82;font-weight:300;}
+.asset-cta{display:flex;gap:0.6rem;flex-wrap:wrap;margin-top:2rem;}
+.asset-link{display:inline-flex;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;padding:0.6rem 1.2rem;border-radius:2px;transition:all 0.2s;width:fit-content;}
+.detail-label{font-family:'IBM Plex Mono',monospace;font-size:0.57rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-3);margin-bottom:0.7rem;}
+.detail-item{display:flex;align-items:flex-start;gap:0.7rem;padding:0.65rem 0;border-bottom:1px solid var(--border);font-size:0.84rem;color:var(--text-2);line-height:1.5;}
+.detail-item:last-child{border-bottom:none;}
+.detail-item strong{color:var(--text);font-size:0.82rem;display:block;margin-bottom:0.15rem;}
+.dmark{width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:0.55rem;}
+.ca-stack{display:flex;flex-direction:column;gap:0.38rem;}
+.ca-row{display:flex;align-items:center;gap:0.6rem;padding:0.5rem 0.75rem;background:var(--bg4);border-radius:2px;border:1px solid var(--border);}
+.ca-lbl{font-family:'IBM Plex Mono',monospace;font-size:0.56rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);min-width:72px;}
+.ca-addr{font-family:'IBM Plex Mono',monospace;font-size:0.59rem;color:var(--text-2);word-break:break-all;}
+
+/* pSunDAI */
+.a-gold .asset-color-bar{background:var(--gold);}
+.a-gold .asset-badge{background:var(--gold-dim);color:var(--gold);}
+.a-gold .asset-tagline{color:var(--gold);}
+.a-gold .dmark{background:var(--gold);}
+.a-gold .asset-link{background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-border);}
+.a-gold .asset-link:hover{background:rgba(232,184,75,0.22);}
+/* SunPLS */
+.a-teal .asset-color-bar{background:var(--teal);}
+.a-teal .asset-badge{background:var(--teal-dim);color:var(--teal);}
+.a-teal .asset-tagline{color:var(--teal);}
+.a-teal .dmark{background:var(--teal);}
+.a-teal .asset-link{background:var(--teal-dim);color:var(--teal);border:1px solid rgba(46,207,191,0.2);}
+.a-teal .asset-link:hover{background:rgba(46,207,191,0.2);}
+
+/* RISE */
+#rise{background:var(--bg2);border-top:1px solid var(--border);}
+.rise-layout{display:grid;grid-template-columns:1.1fr 0.9fr;gap:5rem;align-items:start;}
+.rise-mechanics{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+.mech{background:var(--bg3);padding:1.45rem 1.7rem;display:flex;gap:1.2rem;align-items:flex-start;transition:background 0.2s;}
+.mech:hover{background:var(--bg4);}
+.mech-tag{font-family:'IBM Plex Mono',monospace;font-size:0.58rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--orange);min-width:3.2rem;padding-top:0.22rem;}
+.mech-text strong{display:block;font-size:0.87rem;color:var(--text);margin-bottom:0.18rem;}
+.mech-text span{font-size:0.8rem;color:var(--text-2);line-height:1.6;}
+.rise-charity{margin-top:2rem;padding:1.8rem 2rem;background:rgba(240,106,53,0.04);border:1px solid rgba(240,106,53,0.15);border-radius:4px;}
+.charity-label{font-family:'IBM Plex Mono',monospace;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);margin-bottom:0.8rem;}
+.charity-text{font-size:0.88rem;color:var(--text-2);line-height:1.72;font-weight:300;}
+.rise-aside{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+.ra-cell{background:var(--bg3);padding:1.5rem 1.7rem;}
+.ra-label{font-family:'IBM Plex Mono',monospace;font-size:0.56rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-3);margin-bottom:0.4rem;}
+.ra-val{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--orange);line-height:1.1;margin-bottom:0.35rem;}
+.ra-sub{font-size:0.8rem;color:var(--text-2);line-height:1.55;}
+
+/* LORE */
+#lore{background:var(--bg);border-top:1px solid var(--border);}
+.lore-layout{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:4rem;}
+.lore-card{background:var(--bg2);border:1px solid rgba(155,126,232,0.16);border-radius:5px;overflow:hidden;}
+.lore-bar{height:3px;background:linear-gradient(90deg,var(--violet),rgba(155,126,232,0.25));}
+.lore-inner{padding:2.2rem;}
+.lore-badge{display:inline-flex;align-items:center;gap:0.45rem;padding:0.27rem 0.72rem;background:var(--violet-dim);color:var(--violet);border-radius:2px;font-family:'IBM Plex Mono',monospace;font-size:0.59rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:1.2rem;width:fit-content;}
+.lore-name{font-family:'DM Serif Display',serif;font-size:2rem;line-height:1.1;margin-bottom:0.35rem;}
+.lore-tagline{font-family:'IBM Plex Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;color:rgba(155,126,232,0.55);margin-bottom:1.2rem;}
+.lore-body{font-size:0.88rem;color:var(--text-2);line-height:1.75;font-weight:300;}
+.destiny-card{background:var(--bg2);border:1px solid rgba(155,126,232,0.13);border-radius:5px;overflow:hidden;margin-top:1.5rem;}
+.dt-top{padding:1.8rem 2.2rem;border-bottom:1px solid rgba(155,126,232,0.1);}
+.dt-name{font-family:'DM Serif Display',serif;font-size:1.4rem;margin-bottom:0.3rem;}
+.dt-sub{font-family:'IBM Plex Mono',monospace;font-size:0.61rem;color:rgba(155,126,232,0.5);letter-spacing:0.1em;margin-bottom:1rem;}
+.dt-intro{font-size:0.84rem;color:var(--text-2);line-height:1.7;font-weight:300;}
+.ritual-seq{padding:1.4rem 2.2rem;display:flex;flex-direction:column;}
+.rs{display:flex;align-items:flex-start;gap:1rem;padding:0.55rem 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:0.8rem;}
+.rs:last-child{border-bottom:none;}
+.rs-ic{font-size:0.85rem;min-width:1.4rem;}
+.rs-step{font-weight:700;color:var(--text);margin-right:0.35rem;}
+.rs-desc{color:var(--text-2);}
+.dt-warn{margin:0 2.2rem 1.4rem;padding:0.72rem 1rem;background:rgba(155,126,232,0.05);border-left:2px solid var(--violet);font-family:'IBM Plex Mono',monospace;font-size:0.59rem;line-height:1.6;color:rgba(155,126,232,0.55);}
+.dt-links{padding:0 2.2rem 2rem;display:flex;gap:0.6rem;flex-wrap:wrap;}
+.dt-link{display:inline-flex;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;padding:0.6rem 1.2rem;background:var(--violet-dim);color:var(--violet);border:1px solid rgba(155,126,232,0.2);border-radius:2px;transition:all 0.2s;}
+.dt-link:hover{background:rgba(155,126,232,0.18);}
+
+/* DISCLAIMER + FOOTER */
+.disclaimer{padding:1.8rem 2rem;background:rgba(232,184,75,0.025);border-top:1px solid rgba(232,184,75,0.08);text-align:center;}
+.disclaimer p{font-family:'IBM Plex Mono',monospace;font-size:0.59rem;color:var(--text-3);max-width:800px;margin:0 auto;line-height:1.85;letter-spacing:0.03em;}
+footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--border);}
+.fi{max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.fl{font-family:'IBM Plex Mono',monospace;font-size:0.66rem;letter-spacing:0.2em;color:var(--gold);text-transform:uppercase;}
+.flinks{display:flex;gap:2rem;list-style:none;}
+.flinks a{font-family:'IBM Plex Mono',monospace;font-size:0.59rem;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;color:var(--text-3);transition:color 0.2s;}
+.flinks a:hover{color:var(--text-2);}
+
+@keyframes up{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.65s ease,transform 0.65s ease;}
+.reveal.in{opacity:1;transform:translateY(0);}
+
+@media(max-width:980px){
+  nav{padding:1rem 1.5rem;}.nav-links{display:none;}
+  .ideals-layout,.asset-block,.rise-layout,.lore-layout{grid-template-columns:1fr;gap:2rem;}
+  .proof-row{grid-template-columns:1fr 1fr;}
+  .ideals-pillars{grid-template-columns:1fr;}
+  .asset-block{display:flex;flex-direction:column;}
+  section{padding:4.5rem 1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-id">
+    <div class="nav-dot"></div>
+    <span class="nav-logo">Elite Team6</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#ideals">Philosophy</a></li>
+    <li><a href="#assets">Assets</a></li>
+    <li><a href="#rise">RISE</a></li>
+    <li><a href="#lore">SunDAI</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+
+  <div class="hero-tag">
+    <div class="hero-tag-dot"></div>
+    Experimental · Live on PulseChain
+  </div>
+
+  <h1>An <span class="ital">Autonomous</span><br><span class="dim">Monetary</span> Protocol</h1>
+
+  <p class="hero-desc">
+    Immutable, ownerless CDP contracts that create and manage synthetic assets without human oversight. No admin keys. No upgrade paths. No governance. No one to call if something goes wrong. The math runs — or it doesn't.
+  </p>
+
+  <div class="hero-hayek">
+    <blockquote>"I don't believe we shall ever have good money again before we take the thing out of the hands of government — we can't take it violently out of the hands of government, all we can do is by some sly roundabout way introduce something they can't stop."</blockquote>
+    <cite>— F.A. Hayek, 1984</cite>
+  </div>
+
+  <div class="hero-cta">
+    <a href="#assets" class="btn btn-gold">Explore the Protocol</a>
+    <a href="#ideals" class="btn btn-outline">The Philosophy</a>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ti">Autonomous Monetary Protocol<em style="color:var(--gold)">Experimental · Live</em></span>
+    <span class="ti">pSunDAI<em style="color:var(--gold)">CDP Stable Asset · PulseChain</em></span>
+    <span class="ti">SunPLS<em style="color:var(--teal)">Floating Peg · Live Epochs</em></span>
+    <span class="ti">RISE<em style="color:var(--orange)">pSunDAI Yield · Veteran Charity</em></span>
+    <span class="ti">No Admin Keys<em style="color:var(--text-3)">No Governance · No Owners</em></span>
+    <span class="ti">Immutable<em style="color:var(--text-3)">No Upgrade Path · Ever</em></span>
+    <span class="ti">SunDAI<em style="color:var(--violet)">The Meme · Destiny Vault · $1 Event</em></span>
+    <span class="ti">Autonomous Monetary Protocol<em style="color:var(--gold)">Experimental · Live</em></span>
+    <span class="ti">pSunDAI<em style="color:var(--gold)">CDP Stable Asset · PulseChain</em></span>
+    <span class="ti">SunPLS<em style="color:var(--teal)">Floating Peg · Live Epochs</em></span>
+    <span class="ti">RISE<em style="color:var(--orange)">pSunDAI Yield · Veteran Charity</em></span>
+    <span class="ti">No Admin Keys<em style="color:var(--text-3)">No Governance · No Owners</em></span>
+    <span class="ti">Immutable<em style="color:var(--text-3)">No Upgrade Path · Ever</em></span>
+    <span class="ti">SunDAI<em style="color:var(--violet)">The Meme · Destiny Vault · $1 Event</em></span>
+  </div>
+</div>
+
+<!-- IDEALS / PHILOSOPHY -->
+<section id="ideals">
+  <div class="wrap">
+
+    <div class="ideals-layout reveal">
+      <div>
+        <p class="eyebrow">The Philosophy</p>
+        <h2 class="sec-title">True DeFi has no owners</h2>
+        <p class="sec-body">
+          Hayek argued that the monopoly on money creation is the root of monetary instability — that competitive, decentralized alternatives would produce sounder money than any central authority ever could. Most DeFi protocols claim to embody this ideal while quietly retaining admin keys, upgrade proxies, and governance mechanisms that concentrate power in the hands of a few.
+        </p>
+        <p class="sec-body" style="margin-top:1.1rem;">
+          This protocol takes Hayek's challenge seriously. Not as branding. As architecture. There is no multisig that can pause the system. No governance vote that can alter the rules. No upgrade path that can change the fee structure. Once deployed, the protocol belongs to no one — and therefore to everyone who uses it.
+        </p>
+        <div class="ideals-quote">
+          <p>"The curious task of economics is to demonstrate to men how little they really know about what they imagine they can design."</p>
+          <cite>— F.A. Hayek, The Fatal Conceit, 1988</cite>
+        </div>
+      </div>
+
+      <div>
+        <div class="ideals-pillars">
+          <div class="pillar">
+            <div class="pillar-mark">Immutable</div>
+            <h4>Code is law — permanently</h4>
+            <p>Every contract is deployed without an upgrade path. The rules set at launch are the rules forever. No proxy. No patch. No exception.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-mark">Ownerless</div>
+            <h4>Renounced at deployment</h4>
+            <p>Ownership is renounced before the protocol goes live. No privileged address can pause operations, extract collateral, or modify behavior outside the protocol's own mechanics.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-mark">No Governance</div>
+            <h4>Parameters cannot be voted on</h4>
+            <p>There is no DAO, no token vote, no committee. The system's rules were set once. The absence of governance is not a limitation — it is the point.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-mark">Permissionless</div>
+            <h4>Any wallet can operate it</h4>
+            <p>Epoch advances, oracle updates, liquidations — all permissionless. The system doesn't need its builders to survive. Any wallet in the world can keep it running.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-mark">Self-Referential</div>
+            <h4>No external oracle dependency</h4>
+            <p>Price feeds derive from the protocol's own on-chain liquidity via TWAP. No Chainlink. No external data provider. No single point of failure outside the contract itself.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-mark">Autonomous</div>
+            <h4>The system manages itself</h4>
+            <p>Liquidations, rate epochs, Dutch auctions — the protocol responds to market conditions automatically. It has no operator. It requires no maintenance call.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proof-row reveal" style="margin-top:3rem;">
+      <div class="proof-cell">
+        <div class="proof-num">0</div>
+        <div class="proof-label">Admin keys across all deployed contracts</div>
+      </div>
+      <div class="proof-cell">
+        <div class="proof-num">0</div>
+        <div class="proof-label">Emergency interventions across all live epochs</div>
+      </div>
+      <div class="proof-cell">
+        <div class="proof-num">CDP</div>
+        <div class="proof-label">Collateralized Debt Position architecture — battle-tested model, trustless execution</div>
+      </div>
+      <div class="proof-cell">
+        <div class="proof-num">∞</div>
+        <div class="proof-label">Upgrade paths available to the team — none exist, none can be created</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ASSETS -->
+<section id="assets">
+  <div class="wrap">
+    <div class="reveal" style="margin-bottom:4rem;">
+      <p class="eyebrow">Core Assets</p>
+      <h2 class="sec-title">Two live experiments in<br>autonomous value</h2>
+      <p class="sec-body">pSunDAI and SunPLS are both CDP-issued assets proving the protocol's mechanics from different angles. Each is immutable, ownerless, and running on PulseChain right now — without anyone's permission and without anyone's help.</p>
+    </div>
+
+    <!-- pSunDAI -->
+    <div class="asset-block a-gold reveal">
+      <div class="asset-main">
+        <div class="asset-color-bar"></div>
+        <div class="asset-badge"><svg width="6" height="6" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg> CDP Stable Asset · PulseChain</div>
+        <h3 class="asset-name">pSunDAI</h3>
+        <p class="asset-tagline">// Collateralized equilibrium — no custodian required</p>
+        <p class="asset-desc">
+          pSunDAI is minted by locking PLS as collateral in a CDP vault. There is no centralized oracle, no team that can print tokens at will, and no governance that can change the minting rules. The system determines how much pSunDAI can exist based entirely on the collateral locked against it.
+        </p>
+        <p class="asset-desc" style="margin-top:1rem;">
+          The internal value reference <strong style="color:var(--gold)">R</strong> is the system's equilibrium calculation — derived from collateral state each epoch, never declared or adjusted by any human. R is not a price floor or a promise. It is what the protocol's own math says pSunDAI is worth relative to its backing.
+        </p>
+        <p class="asset-desc" style="margin-top:1rem;">
+          When a vault falls below the 130% collateral ratio, Dutch auction mechanics liquidate it automatically — permissionlessly, with a bonus growing from 2% to 5% to incentivize public participation. The system restores its own health. No one needs to be called.
+        </p>
+        <div class="asset-cta">
+          <a href="https://ipfs.io/ipfs/bafybeiea24wk6ocucxjyyjekz6xcypl5ulkg3ems6tfl2oogod3mdphveq/index.html" target="_blank" class="asset-link">Open Vault →</a>
+          <a href="https://ipfs.io/ipfs/bafybeiecid627j7eidfdc72dsyebec36nks4evv6gqr7en5vvymk3x6xna/sSunDAI.html" target="_blank" class="asset-link" style="font-size:0.58rem;">sSunDAI Staking →</a>
+        </div>
+      </div>
+      <div class="asset-details">
+        <div>
+          <div class="detail-label">Mechanics</div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Lock PLS → Mint pSunDAI</strong>Deposit PLS at a minimum 130% collateral ratio. The vault issues pSunDAI up to that limit — math-enforced, not admin-enforced.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Epoch-based rate updates</strong>Anyone can trigger an epoch advance. The stability rate adjusts based on system state. Permissionless. Continuous. Automatic.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Dutch auction liquidations</strong>Undercollateralized vaults are opened to public liquidation with a growing incentive bonus. The protocol self-heals without any operator.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Redeem pSunDAI → PLS at R</strong>Permissionless redemption. pSunDAI × R = PLS returned. The arbitrage mechanism keeps the system honest without external enforcement.</div></div>
+        </div>
+        <div>
+          <div class="detail-label">Contract Addresses</div>
+          <div class="ca-stack">
+            <div class="ca-row"><span class="ca-lbl">pSunDAI</span><span class="ca-addr">0x5529c1cb179b2c256501031adCDAfC22D9c6d236</span></div>
+            <div class="ca-row"><span class="ca-lbl">Vault</span><span class="ca-addr">0x789472Ef7fa74cB8898Ed38cAa5d18f4D49EcC6d</span></div>
+            <div class="ca-row"><span class="ca-lbl">Oracle</span><span class="ca-addr">0xC19C8201701585D9087F261eaCd3Ee3345251Da3</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SunPLS -->
+    <div class="asset-block a-teal reveal">
+      <div class="asset-main">
+        <div class="asset-color-bar"></div>
+        <div class="asset-badge"><svg width="6" height="6" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg> Floating Peg Asset · Live</div>
+        <h3 class="asset-name">SunPLS</h3>
+        <p class="asset-tagline">// A peg that walks — not one that breaks</p>
+        <p class="asset-desc">
+          SunPLS is the protocol's earliest live deployment and its most important proof of concept. A CDP-issued floating peg asset collateralized by PLS — running autonomously through every market condition, including a period where PulseChain collateral lost the majority of its value. The system managed it without a single emergency intervention.
+        </p>
+        <p class="asset-desc" style="margin-top:1rem;">
+          The key architectural innovation is the <strong style="color:var(--teal)">creeping confirmation oracle</strong>. Price moves above 5% require three sequential confirmations, each stepping at 10% per epoch. The oracle cannot be manipulated in a single block or flash transaction. The system is structurally resistant to the attack vectors that have broken other protocols.
+        </p>
+        <p class="asset-desc" style="margin-top:1rem;">
+          R tracks system state — not a declared peg but a computed output of the protocol's own math. It can rise, fall, or hold based on what the collateral actually supports. A peg that responds to reality rather than defending an arbitrary number.
+        </p>
+        <div class="asset-cta">
+          <a href="https://ipfs.io/ipfs/bafybeigbbfwtonwvyv4isujc5pbhianl6wm25h3xlqozbl6dlmduh5lvuy/index.html" target="_blank" class="asset-link">Open Vault →</a>
+          <a href="https://ipfs.io/ipfs/bafybeiekay5yht6gz6spstgaxxel3by2bog5pokacdx25e3zumb3442gju/sSunPLS.html" target="_blank" class="asset-link" style="font-size:0.58rem;">sSunPLS Staking →</a>
+        </div>
+      </div>
+      <div class="asset-details">
+        <div>
+          <div class="detail-label">The oracle design</div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Single-pair TWAP</strong>Price derived from the SunPLS/WPLS PulseX pair. No external data feed. The protocol reads its own market.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Creeping confirmation</strong>Moves above 5% require 3 sequential epoch confirmations stepping at 10% each. Manipulation-resistant by design — the oracle cannot be force-crashed.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>R is computed, not declared</strong>The equilibrium value updates each epoch based on actual collateral and debt state. No human sets it. No governance can override it.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>sSunPLS auto-compounding</strong>Stake SunPLS for sSunPLS. Yield compounds automatically without manual claim loops.</div></div>
+        </div>
+        <div>
+          <div class="detail-label">Contract Addresses</div>
+          <div class="ca-stack">
+            <div class="ca-row"><span class="ca-lbl">SunPLS</span><span class="ca-addr">0x04b37fa64a8d73a37D636608e5F6F8E5ce1541Aa</span></div>
+            <div class="ca-row"><span class="ca-lbl">Vault</span><span class="ca-addr">0x6521899F840847de88E87A121447FfB7b5aF9aF0</span></div>
+            <div class="ca-row"><span class="ca-lbl">Oracle</span><span class="ca-addr">0xc8B4d7d885D41826CB46376676638449332aeA87</span></div>
+            <div class="ca-row"><span class="ca-lbl">Controller</span><span class="ca-addr">0x0e736966F6d0dCd41acd575c3dDece3b3B6033A7</span></div>
+            <div class="ca-row"><span class="ca-lbl">sSunPLS</span><span class="ca-addr">0x9b03a144A3dBaF1bf069474447168A9af54aA6a4</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- RISE -->
+<section id="rise">
+  <div class="wrap">
+    <div class="rise-layout">
+      <div>
+        <p class="eyebrow" style="color:var(--orange)">Supporting Mechanism</p>
+        <h2 class="sec-title reveal">RISE — demand engine for pSunDAI</h2>
+        <p class="sec-body reveal" style="margin-bottom:2.5rem;">RISE is not a standalone bet. It is a purpose-built mechanism that creates continuous structural buy pressure on pSunDAI while distributing that yield to holders automatically — and directs part of its existence toward something beyond finance.</p>
+
+        <div class="rise-mechanics reveal">
+          <div class="mech">
+            <div class="mech-tag">Buy</div>
+            <div class="mech-text">
+              <strong>0.45% fee on every purchase</strong>
+              <span>0.10% burned permanently. 0.35% auto-converts to pSunDAI and distributes to all RISE holders. Every buy creates deflation and yield simultaneously.</span>
+            </div>
+          </div>
+          <div class="mech">
+            <div class="mech-tag">Sell</div>
+            <div class="mech-text">
+              <strong>4.00% fee on every sale</strong>
+              <span>1.00% burned permanently. 3.00% auto-converts to pSunDAI and distributes to holders. Sellers fund the yield of everyone who stays. Conviction is rewarded structurally.</span>
+            </div>
+          </div>
+          <div class="mech">
+            <div class="mech-tag">LP</div>
+            <div class="mech-text">
+              <strong>2× reward weight for liquidity providers</strong>
+              <span>Providing RISE/WPLS liquidity doubles share weight in the yield distribution. The protocol rewards those who support the market, not just those who hold.</span>
+            </div>
+          </div>
+          <div class="mech">
+            <div class="mech-tag">Hold</div>
+            <div class="mech-text">
+              <strong>No staking required — yield is automatic</strong>
+              <span>Hold RISE in any wallet. pSunDAI accumulates automatically. Claim after a 1-hour cooldown. Minimum: 0.369 pSunDAI — a nod to PulseChain's Chain ID 369.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rise-charity reveal">
+          <div class="charity-label">★ The Noble Element</div>
+          <div class="charity-text">RISE has directed funds to veteran charities — Wounded Warrior Project, Fisher House Foundation, and the USO. This was not an afterthought attached for marketing. It was written into the project's identity from launch. Code can serve a purpose beyond its own mechanics. RISE does.</div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="rise-aside">
+          <div class="ra-cell">
+            <div class="ra-label">Every trade</div>
+            <div class="ra-val">Buys pSunDAI</div>
+            <div class="ra-sub">Fees from every swap auto-convert to pSunDAI and distribute to holders. Not a promise — it is the contract's logic. Immutable.</div>
+          </div>
+          <div class="ra-cell">
+            <div class="ra-label">Supply</div>
+            <div class="ra-val">Burns permanently</div>
+            <div class="ra-sub">0.10% burned on buys. 1.00% burned on sells. Every interaction reduces the supply forever. No minting. Fixed ceiling.</div>
+          </div>
+          <div class="ra-cell">
+            <div class="ra-label">Contract</div>
+            <div class="ca-stack" style="margin-top:0.5rem;">
+              <div class="ca-row"><span class="ca-lbl">RISE</span><span class="ca-addr">0xE558edc934FDbB65cdF4868617D5F0D80595aD11</span></div>
+            </div>
+          </div>
+        </div>
+        <a href="https://elitev5.github.io/Old-Glory-RISE-Token/old-glory-token-dapp/index.html" target="_blank" style="display:inline-flex;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;padding:0.65rem 1.3rem;background:rgba(240,106,53,0.1);color:var(--orange);border:1px solid rgba(240,106,53,0.2);border-radius:2px;margin-top:1.2rem;transition:background 0.2s;">Open RISE Dapp →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUNDAI / LORE -->
+<section id="lore">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow" style="color:var(--violet)">The Lore Layer</p>
+      <h2 class="sec-title">SunDAI — where the meme<br>meets the mechanism</h2>
+      <p class="sec-body">PulseChain has its own creation mythology: pDAI, the original stable asset, carries a community narrative of returning to $1. SunDAI is built on that lore — a community token with no owners, no team allocation, and one unusual property: when it actually reaches $1, something real and irreversible happens inside the protocol. The lore becomes the mechanism.</p>
+    </div>
+
+    <div class="lore-layout">
+      <div>
+        <div class="lore-card reveal">
+          <div class="lore-bar"></div>
+          <div class="lore-inner">
+            <div class="lore-badge"><svg width="6" height="6" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg> Community Token · PulseChain</div>
+            <h3 class="lore-name">SunDAI</h3>
+            <p class="lore-tagline">// The meme with a destination</p>
+            <p class="lore-body">SunDAI launched with 90% of its total supply placed directly on the open market. No team allocation. No VC wallets. No vesting schedule waiting to sell on holders. There is no owner. Max supply: 16,712,160 — fixed forever, no mint function, no exceptions.</p>
+            <p class="lore-body" style="margin-top:0.9rem;">The community has always held SunDAI. And when SunDAI reaches $1, they are the ones who receive the protocol's rebirth — pSunDAI distributed proportional to their staked conviction in the Destiny Vault. The meme resolves into collateral.</p>
+            <div class="ca-stack" style="margin-top:1.4rem;">
+              <div class="ca-row"><span class="ca-lbl">SunDAI</span><span class="ca-addr">0x41C6b24019Bd67CC58fe7bb059D532C12356712B</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="destiny-card reveal">
+          <div class="dt-top">
+            <div class="lore-badge" style="margin-bottom:1rem;">⚫ Destiny Vault · Black Hole Protocol</div>
+            <h3 class="dt-name">The Blackhole Destiny Event</h3>
+            <p class="dt-sub">// When SunDAI touches $1 — the vault collapses — pSunDAI is reborn</p>
+            <p class="dt-intro">Stake SunDAI or SunDAI/WPLS LP tokens before ignition. LP stakes earn 1.5× vault weight. Your share of the vault at the moment of ignition is your share of all pSunDAI minted at rebirth. When SunDAI hits $1.00, the ritual executes on-chain — and it cannot be stopped, reversed, or modified by anyone.</p>
+          </div>
+          <div class="ritual-seq">
+            <div class="rs"><span class="rs-ic">🔥</span><div><span class="rs-step">Ignite —</span><span class="rs-desc">Vault locks at $1 · all staked assets convert to PLS</span></div></div>
+            <div class="rs"><span class="rs-ic">💥</span><div><span class="rs-step">Supernova —</span><span class="rs-desc">PLS deposited as collateral into the pSunDAI vault</span></div></div>
+            <div class="rs"><span class="rs-ic">✨</span><div><span class="rs-step">Rebirth —</span><span class="rs-desc">pSunDAI minted from the new collateral position</span></div></div>
+            <div class="rs"><span class="rs-ic">☀️</span><div><span class="rs-step">Claim —</span><span class="rs-desc">Receive your proportional share of the new Sun</span></div></div>
+          </div>
+          <div class="dt-warn">⚠ POINT OF NO RETURN — Staked assets become permanent collateral at ignition. Only commit what you are willing to see destroyed and reborn as pSunDAI.</div>
+          <div class="ca-stack" style="margin:0 2.2rem 1.2rem;">
+            <div class="ca-row"><span class="ca-lbl">SunDAI</span><span class="ca-addr">0x41C6b24019Bd67CC58fe7bb059D532C12356712B</span></div>
+            <div class="ca-row"><span class="ca-lbl">Destiny Vault</span><span class="ca-addr">0x652137bf4a3CA4c7eb70981b4eB821C4Fd3F11c3</span></div>
+            <div class="ca-row"><span class="ca-lbl">pSunDAI</span><span class="ca-addr">0x5529c1cb179b2c256501031adCDAfC22D9c6d236</span></div>
+          </div>
+          <div class="dt-links">
+            <a href="https://ipfs.io/ipfs/bafybeia5s47wptey5jlaqlzevz3b2hfgnpfukha2krfq5ibliyodebrkbq/index.html" target="_blank" class="dt-link">Open Destiny Vault →</a>
+            <a href="https://ipfs.io/ipfs/bafybeiea24wk6ocucxjyyjekz6xcypl5ulkg3ems6tfl2oogod3mdphveq/index.html" target="_blank" class="dt-link" style="font-size:0.58rem;">pSunDAI Vault →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  <p>This website is for informational purposes only and does not constitute financial, investment, or legal advice. All digital assets involve significant risk including total loss of principal. Do not participate with more than you can afford to lose. ELITE TEAM6 protocols are experimental, immutable smart contracts deployed without admin controls — read and understand all contract code before interacting. Nothing on this page represents a promise, projection, or guarantee of any financial outcome. DYOR.</p>
+</div>
+
+<footer>
+  <div class="fi">
+    <div class="fl">Elite Team6 · Autonomous Monetary Protocol</div>
+    <ul class="flinks">
+      <li><a href="https://github.com/ELITEv5/SunPLS" target="_blank">GitHub</a></li>
+      <li><a href="https://ipfs.io/ipfs/bafybeiea24wk6ocucxjyyjekz6xcypl5ulkg3ems6tfl2oogod3mdphveq/index.html" target="_blank">pSunDAI</a></li>
+      <li><a href="https://ipfs.io/ipfs/bafybeigbbfwtonwvyv4isujc5pbhianl6wm25h3xlqozbl6dlmduh5lvuy/index.html" target="_blank">SunPLS</a></li>
+      <li><a href="https://elitev5.github.io/Old-Glory-RISE-Token/old-glory-token-dapp/index.html" target="_blank">RISE</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:0.07});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
