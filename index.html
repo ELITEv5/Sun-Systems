@@ -384,6 +384,7 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
         <div class="asset-cta">
           <a href="https://ipfs.io/ipfs/bafybeiea24wk6ocucxjyyjekz6xcypl5ulkg3ems6tfl2oogod3mdphveq/index.html" target="_blank" class="asset-link">Open Vault →</a>
           <a href="https://ipfs.io/ipfs/bafybeiecid627j7eidfdc72dsyebec36nks4evv6gqr7en5vvymk3x6xna/sSunDAI.html" target="_blank" class="asset-link" style="font-size:0.68rem;">sSunDAI Staking →</a>
+          <button onclick="toggleHelpDesk()" class="asset-link" style="border:1px solid var(--gold-border);background:var(--gold-dim);color:var(--gold);font-family:'IBM Plex Mono',monospace;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;">☀️ Ask AI →</button>
         </div>
       </div>
       <div class="asset-details">
@@ -606,5 +607,326 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
 const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:0.07});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>
+
+<!-- AI HELP DESK -->
+<div id="helpdesk-overlay" onclick="if(event.target===this)toggleHelpDesk()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:1000;backdrop-filter:blur(4px);"></div>
+
+<div id="helpdesk-panel" style="display:none;position:fixed;bottom:2rem;right:2rem;width:min(420px,calc(100vw - 2rem));max-height:min(640px,calc(100vh - 4rem));background:var(--bg2);border:1px solid var(--gold-border);border-radius:4px;z-index:1001;display:none;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,0.6),0 0 0 1px rgba(232,184,75,0.08);">
+
+  <!-- Header -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;border-bottom:1px solid var(--border);flex-shrink:0;">
+    <div style="display:flex;align-items:center;gap:0.6rem;">
+      <img src="SunPLS_token.png" style="width:22px;height:22px;border-radius:50%;animation:sunpls-pulse 2.6s ease-in-out infinite;">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);">pSunDAI Help Desk</span>
+    </div>
+    <button onclick="toggleHelpDesk()" style="background:none;border:none;color:var(--text-3);cursor:pointer;font-size:1.1rem;line-height:1;padding:0.2rem 0.4rem;border-radius:2px;transition:color 0.2s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-3)'">✕</button>
+  </div>
+
+  <!-- Messages -->
+  <div id="hd-messages" style="flex:1;overflow-y:auto;padding:1.25rem;display:flex;flex-direction:column;gap:0.9rem;min-height:0;">
+    <div style="display:flex;gap:0.6rem;align-items:flex-start;">
+      <img src="SunPLS_token.png" style="width:20px;height:20px;border-radius:50%;flex-shrink:0;margin-top:0.15rem;">
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:2px 8px 8px 8px;padding:0.75rem 1rem;font-size:0.85rem;color:var(--text-2);line-height:1.6;max-width:90%;">
+        Ask me anything about pSunDAI — how vaults work, the oracle system, liquidations, minting, or anything else about the protocol.
+      </div>
+    </div>
+  </div>
+
+  <!-- Input -->
+  <div style="padding:1rem 1.25rem;border-top:1px solid var(--border);flex-shrink:0;display:flex;gap:0.6rem;">
+    <input id="hd-input" type="text" placeholder="Ask about pSunDAI..." onkeydown="if(event.key==='Enter')sendHelpDeskMessage()"
+      style="flex:1;background:var(--bg4);border:1px solid var(--border);border-radius:2px;padding:0.6rem 0.85rem;font-family:'Epilogue',sans-serif;font-size:0.85rem;color:var(--text);outline:none;transition:border-color 0.2s;"
+      onfocus="this.style.borderColor='var(--gold-border)'" onblur="this.style.borderColor='var(--border)'">
+    <button onclick="sendHelpDeskMessage()" id="hd-send"
+      style="background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:2px;padding:0.6rem 1rem;font-family:'IBM Plex Mono',monospace;font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);cursor:pointer;transition:background 0.2s;white-space:nowrap;"
+      onmouseover="this.style.background='rgba(232,184,75,0.22)'" onmouseout="this.style.background='var(--gold-dim)'">Send</button>
+  </div>
+</div>
+
+<script>
+function toggleHelpDesk() {
+  const panel = document.getElementById('helpdesk-panel');
+  const overlay = document.getElementById('helpdesk-overlay');
+  const isOpen = panel.style.display === 'flex';
+  panel.style.display = isOpen ? 'none' : 'flex';
+  overlay.style.display = isOpen ? 'none' : 'block';
+  if (!isOpen) setTimeout(() => document.getElementById('hd-input').focus(), 50);
+}
+
+const HD_SYSTEM = `You are the AI help desk assistant for Elite Team6 — builders of an autonomous monetary protocol on PulseChain. You are knowledgeable, precise, and helpful. Be concise: 2-4 sentences for simple questions, detailed for technical ones. Never give financial advice or encourage investment. If unsure, say so.
+
+━━━ PSUNDAI (SunDAI ASA — Autonomous Stable Asset) ━━━
+
+OVERVIEW:
+- Full name: SunDAI ASA v5.6 "Immortal Edition" — the world's first fully autonomous stable asset vault
+- pSunDAI is a USD-pegged stable asset minted by locking PLS as collateral in a CDP vault
+- No admins, no keepers, no governance, no upgrades — ever. Fully immutable.
+- Built by ELITE TEAM6. Deployed January 2026 on PulseChain.
+
+VAULT MECHANICS:
+- Minimum collateral ratio to mint: 150%
+- Liquidation threshold: 110% CR
+- Stability fee: 0.5% per year — accrues only on interaction (gas-efficient)
+- Liquidation bonus: 2%–5%, time-weighted over a 3-hour Dutch auction window
+- Global health halt: new minting pauses system-wide if aggregate CR drops below 130%
+- User-controlled recovery: after 30 days with zero debt, users can recover collateral without any admin
+- Even if oracle stops forever, users can always repay and withdraw collateral
+- One-click UX: Deposit+Mint, Repay+Auto-Withdraw, Repay to Health, Mint Max, Withdraw Max Safe
+
+ORACLE SYSTEM (Hybrid Oracle v5.1 + Vault v5.6 — Dual-Layer Protection):
+Oracle Layer (v5.1):
+- Median-filtered TWAP + spot hybrid across 5 major PulseX stable pairs: DAI v1, DAI v2, USDC v1, USDC v2, USDT
+- Flash crash immunity: 4-hour confirmation period before accepting ANY price drop
+- Responsive to pumps: 1-hour confirmation period for upward moves
+- Progressive stepping: after confirmation, steps 5% down (or 10% up) every 30 minutes toward target
+- Smart recovery: cancels confirmation if price recovers before window ends
+- Anti-grief: manual poke() rate-limited to once per 30 minutes
+- Flash crashes under 4h: completely ignored — zero liquidation risk
+
+Vault Layer (v5.6):
+- Price clamp: ±10% maximum movement per update
+- Asymmetric cooldown: 4h for dumps (safety-first), 1h for pumps (responsive)
+- Instant clamp lift: when price returns to normal range
+- Uses peekPriceView() to avoid oracle cooldown issues
+
+Combined effect:
+- Flash crashes (<4h): fully ignored
+- Real drops (>4h): 4h confirm + gradual 5% stepping = measured, safe response
+- Real pumps (>1h): 1h confirm + 10% stepping = quicker value recognition
+- Oracle failure: vault continues on last known good price; 24h fallback from live pairs
+
+SECURITY:
+- No upgradeability, no owner functions, no emergency pauses
+- Verified source code on PulseScan
+- Battle-tested on mainnet
+
+CONTRACTS (v5.6 Immortal Edition):
+- pSunDAI Token: 0x5529c1cb179b2c256501031adCDAfC22D9c6d236
+- Vault (v5.6): 0x789472Ef7fa74cB8898Ed38cAa5d18f4D49EcC6d
+- Hybrid Oracle (v5.1): 0xC19C8201701585D9087F261eaCd3Ee3345251Da3
+- sSunDAI (auto-compounding staking): stake pSunDAI/PLS LP, earn boosted trading fees
+
+━━━ SUNPLS ━━━
+
+OVERVIEW:
+- First live implementation of the ProjectUSD specification
+- Floating peg asset — NOT pegged to USD. R is denominated in PLS.
+- R (internal equilibrium value) is computed by the autonomous controller from actual collateral/debt state each epoch. It was seeded at the oracle price of PLS at genesis and has evolved automatically ever since.
+- Intellectual lineage: Hayek's 1976 "Denationalisation of Money" → ProjectUSD specification → SunPLS implementation. Three independent lines of reasoning converging on the same architecture.
+- Epochs and oracle have been running flawlessly for months. Zero emergency interventions.
+
+THE P/R/r FEEDBACK LOOP:
+- P = market price of SunPLS (in PLS)
+- R = internal equilibrium value (computed, not declared)
+- r = system interest rate
+- Controller formula: ε = |P − R|, Δr = K × ε
+- When SunPLS trades below R: rates tighten → discourages new minting → supply contracts → price rises toward R
+- When SunPLS trades above R: rates ease → encourages minting → supply expands → price falls toward R
+- Includes: deadband (ignores tiny deviations), rate change limiter, redemption value damping, oracle degradation handling
+
+VAULT PARAMETERS:
+- Minimum collateral ratio to mint: 150%
+- Withdrawal cooldown: 5 minutes
+
+CR ZONE MAP:
+- Above 150%: Healthy. Can mint and withdraw. Completely immune to redemption.
+- 130%–150%: Distressed. Redemption-eligible. Cannot mint more.
+- 110%–130%: Seriously distressed. Redemption-eligible. Approaching liquidation.
+- Below 110%: Liquidatable. Dutch auction active.
+
+REDEMPTION MECHANISM:
+- Formula: PLS_out = SunPLS × R
+- Only vaults at or below 130% CR can be targeted
+- Vault owner keeps 0.5% fee as compensation for involuntary exit
+- 5-minute gap after redemption before liquidation is allowed (gives vault owners time to respond)
+- Creates arbitrage pressure: if SunPLS < R, buy SunPLS → redeem for PLS → profit → price rises
+
+LIQUIDATION:
+- Threshold: below 110% CR
+- Dutch auction: bonus grows from 2% → 5% over 3 hours
+- Minimum liquidation size: 20% of vault debt
+- Permissionless — anyone can liquidate
+
+STABILITY MECHANISMS (3 independent layers):
+1. Collateralized Vaults — over-collateralization enforces backing
+2. Redemption Arbitrage — holders redeem at R, creates convergence pressure
+3. Autonomous Controller — P/R/r feedback loop adjusts borrowing incentives
+
+ORACLE (SunPLS):
+- Single-pair TWAP from SunPLS/WPLS PulseX pair
+- Four degradation modes (A: fresh update, B: peek fallback, C: stored buffer, D: frozen epoch)
+- System NEVER freezes — deposits, repayments, withdrawals stay live even with dead oracle
+- Bad debt tracked on-chain, never silent (Invariant I11)
+
+KEY INVARIANTS:
+- CR ≥ 150% to mint or withdraw
+- Vaults below 110% CR can be liquidated
+- Only vaults at or below 130% CR can be redeemed against
+- Dead oracle never blocks deposit, repay, or withdraw
+- No admin, no pause, no upgrade after deploy
+
+CONTRACTS (v1.4 canonical deployment):
+- SunPLS Token: 0x04b37fa64a8d73a37D636608e5F6F8E5ce1541Aa
+- Vault (v1.4): 0x6521899F840847de88E87A121447FfB7b5aF9aF0
+- Oracle (v1.2): 0xc8B4d7d885D41826CB46376676638449332aeA87
+- Controller (v4.3): 0x0e736966F6d0dCd41acd575c3dDece3b3B6033A7
+- sSunPLS: 0x9b03a144A3dBaF1bf069474447168A9af54aA6a4
+- SunPLS/WPLS PLP Pair: 0xca46e01F4bF6938e8d8b8d22a570fFE96E9F0b19
+
+━━━ RISE (Old Glory RISE) ━━━
+
+OVERVIEW:
+- Full name: Old Glory RISE
+- Demand engine for pSunDAI — creates perpetual, mechanical buy pressure
+- Every RISE trade → fees auto-swap to pSunDAI from DEX → distributed to all RISE holders
+- Also funds veteran charities. Has donated $300+ to Wounded Warrior Project, Fisher House Foundation, USO.
+- "Speculation serves stability. Volatility becomes value. Trading volume supports veterans."
+
+THE FLYWHEEL:
+RISE volume ↑ → fees buy pSunDAI → pSunDAI distributed to holders → RISE more attractive → more volume → more pSunDAI demand (repeats)
+
+FEE MECHANICS:
+- Buy fee: 0.45% total (0.10% burned permanently + 0.35% converted to pSunDAI yield)
+- Sell fee: 4.00% total (1.00% burned permanently + 3.00% converted to pSunDAI yield)
+- Fees accumulate as RISE → auto-swap to pSunDAI → distribute proportionally to holders
+- Dumpers fund the yield of everyone who holds. Conviction is rewarded structurally.
+
+LP MULTIPLIER:
+- Provide RISE/WPLS liquidity → earn 2x share weight in yield distribution
+- Same RISE amount = double the pSunDAI rewards
+
+HOW TO CLAIM YIELD:
+- No staking required — hold RISE in any wallet
+- pSunDAI accumulates automatically
+- 1-hour claim cooldown between claims
+- Minimum claim: 0.369 pSunDAI (a nod to PulseChain's Chain ID 369)
+- Minimum balance to receive yield: 1 RISE
+
+TOKENOMICS:
+- Total supply: 10,000,000 RISE
+- Treasury: 1,000,000 RISE (10%) — used ONLY for future burns via Treasury Accelerator
+- Circulating: 9,000,000 RISE (90% community-held)
+- Burn mechanics: 0.10% burned on every buy, 1.00% burned on every sell
+- Treasury Accelerator: treasury claims pSunDAI yield → swaps pSunDAI → PLS → RISE → burns permanently
+
+DEFLATION PROJECTIONS (volume-dependent):
+- $5k/day volume: ~17% annual deflation
+- $50k/day volume: ~173% annual deflation
+- $100k+/day volume: ~347%+ annual deflation
+
+TECHNICAL:
+- Pull-based yield (gas efficient)
+- Atomic swaps (no failed transactions)
+- Fork of OGT v9 (11 iterations of refinement)
+- No admin keys, owner renounced, no governance, no upgrades
+
+CONTRACT:
+- RISE Token: 0xE558edc934FDbB65cdF4868617D5F0D80595aD11
+
+━━━ SUNDAI & THE DESTINY VAULT ━━━
+
+SUNDAI TOKEN:
+- Community token on PulseChain — no team allocation, no VC wallets, no vesting
+- 90% of total supply placed directly on open market at launch
+- Max supply: 16,712,160 — fixed forever, no mint function, no exceptions
+- No owner. Contract address: 0x41C6b24019Bd67CC58fe7bb059D532C12356712B
+
+THE DESTINY VAULT (Blackhole Event):
+- Stake SunDAI or SunDAI/WPLS LP tokens before ignition
+- LP stakes earn 1.5× vault weight vs plain SunDAI
+- Your share of vault at ignition = your share of all pSunDAI minted at rebirth
+
+IGNITION TRIGGER:
+- When SunDAI price reaches $1.00, the vault triggers on-chain — cannot be stopped, reversed, or modified
+
+THE RITUAL (irreversible sequence):
+1. IGNITE — vault locks at $1, all staked assets convert to PLS
+2. SUPERNOVA — PLS deposited as collateral into the pSunDAI vault
+3. REBIRTH — pSunDAI minted from the new collateral position
+4. CLAIM — stakers receive proportional share of newly minted pSunDAI
+
+⚠️ POINT OF NO RETURN: staked assets become permanent collateral at ignition. Only commit what you are willing to see destroyed and reborn as pSunDAI.
+
+CONTRACTS:
+- SunDAI: 0x41C6b24019Bd67CC58fe7bb059D532C12356712B
+- Destiny Vault: 0x652137bf4a3CA4c7eb70981b4eB821C4Fd3F11c3
+- pSunDAI (rebirth target): 0x5529c1cb179b2c256501031adCDAfC22D9c6d236
+
+━━━ PHILOSOPHY & GENERAL ━━━
+
+CORE PRINCIPLES:
+- Immutable: no upgrade path, ever. Rules set at deployment are rules forever.
+- Ownerless: ownership renounced before going live. No privileged address exists.
+- No governance: no DAO, no token vote, no committee. Parameters cannot be voted on.
+- Permissionless: anyone can trigger epochs, advance oracles, execute liquidations
+- Self-referential: price feeds from protocol's own on-chain liquidity, not external oracles
+- Autonomous: the system manages itself — liquidations, rate epochs, Dutch auctions, all automatic
+
+INTELLECTUAL LINEAGE:
+- F.A. Hayek, "Denationalisation of Money" (1976): argued government monopoly on money is root of monetary instability; proposed competing private currencies earning trust through demonstrated stability
+- ProjectUSD specification: translated Hayek's vision into concrete architecture — defining the P/R/r feedback loop, redemption mechanism, closed-loop stability guarantee
+- SunPLS: first live implementation of that specification
+- Three independent lines of reasoning (Hayek, ProjectUSD spec author, ELITE TEAM6) converging on the same architecture across 50 years
+
+NETWORK:
+- PulseChain (Chain ID 369)
+- All contracts verified on PulseScan
+- GitHub: https://github.com/ELITEv5/SunPLS and https://github.com/ELITEv5/SunDAI`;
+
+let hdHistory = [];
+
+async function sendHelpDeskMessage() {
+  const input = document.getElementById('hd-input');
+  const messages = document.getElementById('hd-messages');
+  const sendBtn = document.getElementById('hd-send');
+  const text = input.value.trim();
+  if (!text) return;
+
+  // User bubble
+  messages.innerHTML += `
+    <div style="display:flex;justify-content:flex-end;">
+      <div style="background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:8px 2px 8px 8px;padding:0.75rem 1rem;font-size:0.85rem;color:var(--text);line-height:1.6;max-width:90%;">${text.replace(/</g,'&lt;')}</div>
+    </div>`;
+  input.value = '';
+  messages.scrollTop = messages.scrollHeight;
+
+  // Add to history
+  hdHistory.push({ role: 'user', content: text });
+
+  // Thinking bubble
+  const thinkId = 'hd-think-' + Date.now();
+  messages.innerHTML += `
+    <div id="${thinkId}" style="display:flex;gap:0.6rem;align-items:flex-start;">
+      <img src="SunPLS_token.png" style="width:20px;height:20px;border-radius:50%;flex-shrink:0;margin-top:0.15rem;animation:sunpls-pulse 2.6s ease-in-out infinite;">
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:2px 8px 8px 8px;padding:0.75rem 1rem;font-size:0.85rem;color:var(--text-3);line-height:1.6;">thinking…</div>
+    </div>`;
+  messages.scrollTop = messages.scrollHeight;
+  sendBtn.disabled = true;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: HD_SYSTEM,
+        messages: hdHistory
+      })
+    });
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || 'Sorry, something went wrong.';
+    hdHistory.push({ role: 'assistant', content: reply });
+    const replyHtml = reply.replace(/</g,'&lt;').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
+    document.getElementById(thinkId).querySelector('div:last-child').innerHTML = replyHtml;
+  } catch(e) {
+    document.getElementById(thinkId).querySelector('div:last-child').textContent = 'Connection error — please try again.';
+  }
+
+  sendBtn.disabled = false;
+  messages.scrollTop = messages.scrollHeight;
+}
+</script>
+
 </body>
 </html>
