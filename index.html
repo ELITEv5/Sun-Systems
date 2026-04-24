@@ -962,13 +962,18 @@ async function sendHelpDeskMessage() {
         messages: hdHistory
       })
     });
-    const data = await res.json();
-    const reply = data.content?.[0]?.text || 'Sorry, something went wrong.';
+    const rawText = await res.text();
+    let data;
+    try { data = JSON.parse(rawText); } catch(e) {
+      throw new Error('Worker returned: ' + rawText.slice(0, 200));
+    }
+    if (data.error) throw new Error(data.error.message || JSON.stringify(data.error));
+    const reply = data.content?.[0]?.text || 'No response content.';
     hdHistory.push({ role: 'assistant', content: reply });
     const replyHtml = reply.replace(/</g,'&lt;').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
     document.getElementById(thinkId).querySelector('div:last-child').innerHTML = replyHtml;
   } catch(e) {
-    document.getElementById(thinkId).querySelector('div:last-child').textContent = 'Connection error — please try again.';
+    document.getElementById(thinkId).querySelector('div:last-child').innerHTML = '<span style="color:var(--orange);">Error: ' + e.message.replace(/</g,'&lt;') + '</span>';
   }
 
   sendBtn.disabled = false;
