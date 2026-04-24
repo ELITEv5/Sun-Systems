@@ -353,15 +353,15 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
         <div class="asset-color-bar"></div>
         <div class="asset-badge"><svg width="6" height="6" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg> CDP Stable Asset · PulseChain</div>
         <h3 class="asset-name">pSunDAI</h3>
-        <p class="asset-tagline">// Collateralized equilibrium — no custodian required</p>
+        <p class="asset-tagline">// USD-pegged CDP — dual-layer oracle, five stable pairs</p>
         <p class="asset-desc">
-          pSunDAI is minted by locking PLS as collateral in a CDP vault. There is no centralized oracle, no team that can print tokens at will, and no governance that can change the minting rules. The system determines how much pSunDAI can exist based entirely on the collateral locked against it.
+          pSunDAI is minted by locking PLS as collateral at a minimum 150% collateral ratio. The system targets a $1.00 peg — not through governance or admin action, but through a dual-layer oracle protection system that is the most sophisticated price defense ever deployed in autonomous DeFi.
         </p>
         <p class="asset-desc" style="margin-top:1rem;">
-          The internal value reference <strong style="color:var(--gold)">R</strong> is the system's equilibrium calculation — derived from collateral state each epoch, never declared or adjusted by any human. R is not a price floor or a promise. It is what the protocol's own math says pSunDAI is worth relative to its backing.
+          The <strong style="color:var(--gold)">Hybrid Oracle v5.1</strong> aggregates a median across five independent PulseX stable pairs (DAI v1/v2, USDC v1/v2, USDT). Flash crashes under 4 hours are completely ignored. Real drops require a 4-hour confirmation period before the price steps down — in 5% increments every 30 minutes. Upward moves confirm in 1 hour and step at 10%. The oracle cannot be force-crashed in a single block or session.
         </p>
         <p class="asset-desc" style="margin-top:1rem;">
-          When a vault falls below the 130% collateral ratio, Dutch auction mechanics liquidate it automatically — permissionlessly, with a bonus growing from 2% to 5% to incentivize public participation. The system restores its own health. No one needs to be called.
+          A second vault-level clamp enforces a ±10% maximum price movement per update with an asymmetric cooldown — 4 hours for dumps, 1 hour for pumps. Two independent layers. Both must be beaten to cause illegitimate liquidations. Neither can be.
         </p>
         <div class="asset-cta">
           <a href="https://ipfs.io/ipfs/bafybeiea24wk6ocucxjyyjekz6xcypl5ulkg3ems6tfl2oogod3mdphveq/index.html" target="_blank" class="asset-link">Open Vault →</a>
@@ -370,11 +370,14 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
       </div>
       <div class="asset-details">
         <div>
-          <div class="detail-label">Mechanics</div>
-          <div class="detail-item"><div class="dmark"></div><div><strong>Lock PLS → Mint pSunDAI</strong>Deposit PLS at a minimum 130% collateral ratio. The vault issues pSunDAI up to that limit — math-enforced, not admin-enforced.</div></div>
-          <div class="detail-item"><div class="dmark"></div><div><strong>Epoch-based rate updates</strong>Anyone can trigger an epoch advance. The stability rate adjusts based on system state. Permissionless. Continuous. Automatic.</div></div>
-          <div class="detail-item"><div class="dmark"></div><div><strong>Dutch auction liquidations</strong>Undercollateralized vaults are opened to public liquidation with a growing incentive bonus. The protocol self-heals without any operator.</div></div>
-          <div class="detail-item"><div class="dmark"></div><div><strong>Redeem pSunDAI → PLS at R</strong>Permissionless redemption. pSunDAI × R = PLS returned. The arbitrage mechanism keeps the system honest without external enforcement.</div></div>
+          <div class="detail-label">Oracle &amp; Mechanics</div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Five-pair median oracle</strong>Price aggregated from five PulseX stable pools via median-filtered TWAP + spot hybrid. No single pool can skew the feed. Manipulation requires dominating five independent markets simultaneously.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Asymmetric confirmation system</strong>Drops require 4-hour confirmation + 5% steps every 30 min. Pumps confirm in 1 hour + 10% steps. Flash crashes under 4h are fully ignored — zero liquidation risk from short-duration attacks.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Vault-level ±10% price clamp</strong>A second independent layer caps price movement per update. 4h cooldown for dumps, 1h for pumps. Both layers must be bypassed to trigger illegitimate liquidations.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Lock PLS → Mint pSunDAI</strong>Deposit PLS at 150% minimum collateral ratio. Liquidation threshold is 110%. Global health halt pauses new minting if system-wide ratio drops below 130%.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>0.5% annual stability fee</strong>Accrues only on interaction — gas-efficient and automatic. Dutch auction liquidations run 2%–5% over a 3-hour window. The system self-heals without any operator.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Oracle failure resilience</strong>If the oracle stops updating, the vault continues operating on last known good price. Repayments and withdrawals are never blocked — users always retain access to their collateral regardless of oracle state.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>30-day user-controlled recovery</strong>If a user's debt is zero and 30 days have passed, they can recover their collateral unilaterally — no admin, no keeper, no permission required. The user controls their own exit, always.</div></div>
         </div>
         <div>
           <div class="detail-label">Contract Addresses</div>
@@ -393,15 +396,15 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
         <div class="asset-color-bar"></div>
         <div class="asset-badge"><svg width="6" height="6" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg> Floating Peg Asset · Live</div>
         <h3 class="asset-name">SunPLS</h3>
-        <p class="asset-tagline">// A peg that walks — not one that breaks</p>
+        <p class="asset-tagline">// A peg that walks with the market — not one that breaks against it</p>
         <p class="asset-desc">
-          SunPLS is the protocol's earliest live deployment and its most important proof of concept. A CDP-issued floating peg asset collateralized by PLS — running autonomously through every market condition, including a period where PulseChain collateral lost the majority of its value. The system managed it without a single emergency intervention.
+          SunPLS is the protocol's earliest live deployment and the first implementation of the <strong style="color:var(--teal)">ProjectUSD specification</strong> — a fully autonomous monetary system built around a P/R/r feedback loop. Rather than targeting a dollar price, SunPLS tracks its own internal equilibrium <strong style="color:var(--teal)">R</strong> — a value denominated in PLS, derived from the protocol's collateral and debt state. R is not a price someone declared. It is what the math computed at genesis and has evolved from ever since, epoch by epoch, automatically.
         </p>
         <p class="asset-desc" style="margin-top:1rem;">
-          The key architectural innovation is the <strong style="color:var(--teal)">creeping confirmation oracle</strong>. Price moves above 5% require three sequential confirmations, each stepping at 10% per epoch. The oracle cannot be manipulated in a single block or flash transaction. The system is structurally resistant to the attack vectors that have broken other protocols.
+          The system observes the market price of SunPLS in PLS (P), measures its deviation from R, and adjusts the borrowing interest rate (r) to nudge supply and demand back toward equilibrium. Trade below R and rates tighten, discouraging new minting. Trade above R and rates ease, encouraging it. Automated monetary policy — no board meeting, no vote, no discretion.
         </p>
         <p class="asset-desc" style="margin-top:1rem;">
-          R tracks system state — not a declared peg but a computed output of the protocol's own math. It can rise, fall, or hold based on what the collateral actually supports. A peg that responds to reality rather than defending an arbitrary number.
+          Epochs and oracle updates have been running flawlessly for months. No emergency interventions. No frozen epochs. No failed liquidations. The system has operated exactly as designed through real market conditions — proof that fully autonomous monetary architecture works without anyone maintaining it.
         </p>
         <div class="asset-cta">
           <a href="https://ipfs.io/ipfs/bafybeigbbfwtonwvyv4isujc5pbhianl6wm25h3xlqozbl6dlmduh5lvuy/index.html" target="_blank" class="asset-link">Open Vault →</a>
@@ -410,11 +413,14 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
       </div>
       <div class="asset-details">
         <div>
-          <div class="detail-label">The oracle design</div>
-          <div class="detail-item"><div class="dmark"></div><div><strong>Single-pair TWAP</strong>Price derived from the SunPLS/WPLS PulseX pair. No external data feed. The protocol reads its own market.</div></div>
-          <div class="detail-item"><div class="dmark"></div><div><strong>Creeping confirmation</strong>Moves above 5% require 3 sequential epoch confirmations stepping at 10% each. Manipulation-resistant by design — the oracle cannot be force-crashed.</div></div>
-          <div class="detail-item"><div class="dmark"></div><div><strong>R is computed, not declared</strong>The equilibrium value updates each epoch based on actual collateral and debt state. No human sets it. No governance can override it.</div></div>
-          <div class="detail-item"><div class="dmark"></div><div><strong>sSunPLS auto-compounding</strong>Stake SunPLS for sSunPLS. Yield compounds automatically without manual claim loops.</div></div>
+          <div class="detail-label">Floating Peg Mechanics</div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>P/R/r feedback loop</strong>The autonomous controller compares market price (P) against internal equilibrium (R) and adjusts the interest rate (r) each epoch. Price deviation drives rate response — no human discretion, no board meeting. Automated monetary policy.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>R is computed, not declared</strong>The equilibrium value updates each epoch based on actual collateral and debt state. No human sets a target. No governance can defend an arbitrary number. R is what the math says it is.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Vault CR zones — mint at 150%</strong>Above 150%: healthy, can mint and withdraw. 130%–150%: distressed, cannot mint more. Below 130%: redemption-eligible. Below 110%: liquidatable. Vault owners above 130% are completely immune to redemption.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Redemptions at R — with vault owner protection</strong>Only vaults at or below 130% CR can be redeemed against at R-value. The vault owner keeps a 0.5% fee as compensation for involuntary exit. A 5-minute gap after redemption prevents immediate follow-on liquidation.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Liquidations: below 110%</strong>Vaults that fall below 110% are opened to Dutch auction liquidation with a growing 2%–5% incentive bonus over 3 hours. The protocol self-heals automatically — no operator required.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Single-pair TWAP oracle with four degradation modes</strong>Price derived from the SunPLS/WPLS PulseX pair. If the oracle goes dark, the controller degrades gracefully through fallback modes — the system never freezes. Deposits, repayments, and withdrawals remain live even with a dead oracle.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>sSunPLS auto-compounding</strong>Stake SunPLS for sSunPLS. Yield accumulates and compounds automatically without manual claim loops.</div></div>
         </div>
         <div>
           <div class="detail-label">Contract Addresses</div>
