@@ -1230,22 +1230,58 @@ async function sendHelpDeskMessage() {
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
         max_tokens: 1000,
+        stream: true,
         system: HD_SYSTEM,
         messages: hdHistory
       })
     });
-    const rawText = await res.text();
-    let data;
-    try { data = JSON.parse(rawText); } catch(e) {
-      throw new Error('Worker returned: ' + rawText.slice(0, 200));
+
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error('Worker error: ' + errText.slice(0, 200));
     }
-    if (data.error) throw new Error(data.error.message || JSON.stringify(data.error));
-    const reply = data.content?.[0]?.text || 'No response content.';
-    hdHistory.push({ role: 'assistant', content: reply });
-    const replyHtml = reply.replace(/</g,'&lt;').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
-    document.getElementById(thinkId).querySelector('div:last-child').innerHTML = replyHtml;
+
+    const bubble = document.getElementById(thinkId).querySelector('div:last-child');
+    bubble.innerHTML = '';
+    let fullReply = '';
+
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop();
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) continue;
+        const data = line.slice(6).trim();
+        if (data === '[DONE]') continue;
+        try {
+          const parsed = JSON.parse(data);
+          const delta = parsed.delta?.text || '';
+          if (delta) {
+            fullReply += delta;
+            const html = fullReply
+              .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+              .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+              .replace(/\n\n/g,'<br><br>')
+              .replace(/\n/g,'<br>');
+            bubble.innerHTML = html;
+            messages.scrollTop = messages.scrollHeight;
+          }
+        } catch(e) { /* skip malformed SSE lines */ }
+      }
+    }
+
+    if (fullReply) hdHistory.push({ role: 'assistant', content: fullReply });
+    else bubble.innerHTML = '<span style="color:var(--orange);">No response received.</span>';
+
   } catch(e) {
-    document.getElementById(thinkId).querySelector('div:last-child').innerHTML = '<span style="color:var(--orange);">Error: ' + e.message.replace(/</g,'&lt;') + '</span>';
+    const bubble = document.getElementById(thinkId)?.querySelector('div:last-child');
+    if (bubble) bubble.innerHTML = '<span style="color:var(--orange);">Error: ' + e.message.replace(/</g,'&lt;') + '</span>';
   }
 
   sendBtn.disabled = false;
