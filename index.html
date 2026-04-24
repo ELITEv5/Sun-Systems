@@ -952,7 +952,7 @@ async function sendHelpDeskMessage() {
   sendBtn.disabled = true;
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch('https://sundai-helpdesk.dev-f49.workers.dev/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
