@@ -213,12 +213,14 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
 }
 </style>
 </head>
-<body>
+<body id="top">
 
 <nav>
   <div class="nav-id">
-    <img src="SunPLS_token.png" alt="SunPLS" class="sunpls-logo-img sunpls-pulse nav-sunpls">
-    <span class="nav-logo">Elite Team6</span>
+    <a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" style="display:flex;align-items:center;gap:0.6rem;text-decoration:none;cursor:pointer;" title="Back to top">
+      <img src="SunPLS_token.png" alt="SunPLS" class="sunpls-logo-img sunpls-pulse nav-sunpls">
+      <span class="nav-logo">Elite Team6</span>
+    </a>
   </div>
   <ul class="nav-links">
     <li><a href="#ideals">Philosophy</a></li>
