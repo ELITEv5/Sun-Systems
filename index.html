@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ELITE TEAM6 — Autonomous Monetary Protocol</title>
+<link rel="icon" type="image/png" href="SunPLS_token.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;700&family=Epilogue:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
@@ -185,6 +186,19 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
 .flinks a{font-family:'IBM Plex Mono',monospace;font-size:0.59rem;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;color:var(--text-3);transition:color 0.2s;}
 .flinks a:hover{color:var(--text-2);}
 
+/* SUNPLS LOGO */
+.sunpls-logo-img{border-radius:50%;display:block;object-fit:cover;}
+@keyframes sunpls-pulse{
+  0%,100%{box-shadow:0 0 8px 2px rgba(46,207,191,0.45),0 0 24px 6px rgba(46,207,191,0.18);}
+  50%{box-shadow:0 0 22px 8px rgba(46,207,191,0.75),0 0 60px 18px rgba(46,207,191,0.3);}
+}
+.sunpls-pulse{animation:sunpls-pulse 2.6s ease-in-out infinite;}
+.nav-sunpls{width:28px;height:28px;flex-shrink:0;}
+.hero-sunpls-wrap{display:flex;justify-content:center;margin-bottom:2.2rem;opacity:0;animation:up 0.8s 0.05s forwards;}
+.hero-sunpls{width:96px;height:96px;}
+.sunpls-logo-wrap{display:flex;justify-content:center;margin-bottom:2.5rem;}
+.sunpls-logo{width:96px;height:96px;}
+
 @keyframes up{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
 .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.65s ease,transform 0.65s ease;}
 .reveal.in{opacity:1;transform:translateY(0);}
@@ -203,7 +217,7 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
 
 <nav>
   <div class="nav-id">
-    <div class="nav-dot"></div>
+    <img src="SunPLS_token.png" alt="SunPLS" class="sunpls-logo-img sunpls-pulse nav-sunpls">
     <span class="nav-logo">Elite Team6</span>
   </div>
   <ul class="nav-links">
@@ -221,6 +235,10 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
   <div class="hero-tag">
     <div class="hero-tag-dot"></div>
     Experimental · Live on PulseChain
+  </div>
+
+  <div class="hero-sunpls-wrap">
+    <img src="SunPLS_token.png" alt="SunPLS" class="sunpls-logo-img sunpls-pulse hero-sunpls">
   </div>
 
   <h1>An <span class="ital">Autonomous</span><br><span class="dim">Monetary</span> Protocol</h1>
@@ -394,6 +412,9 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
     <div class="asset-block a-teal reveal">
       <div class="asset-main">
         <div class="asset-color-bar"></div>
+        <div class="sunpls-logo-wrap">
+          <img src="SunPLS_token.png" alt="SunPLS" class="sunpls-logo-img sunpls-pulse sunpls-logo">
+        </div>
         <div class="asset-badge"><svg width="6" height="6" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg> Floating Peg Asset · Live</div>
         <h3 class="asset-name">SunPLS</h3>
         <p class="asset-tagline">// A peg that walks with the market — not one that breaks against it</p>
