@@ -694,7 +694,8 @@ STUCK: "I can't withdraw"
 → Ask: how long ago did you deposit, and do you have any debt?
 
 STUCK: "I can't mint"
-→ Check: did system health drop below 130%? (System undercollateralized). Is your vault below 150% CR? (Insufficient collateral). Are you passing zero? (Zero mint).
+→ Check: did system health drop below 130%? If so, manual mint() is blocked BUT depositAndAutoMintPLS() still works and actually helps system health — always suggest this first. Is your vault below 150% CR? (Insufficient collateral). Are you passing zero? (Zero mint).
+→ Key insight: "System undercollateralized" only hits manual mint() without a deposit. The 1-click depositAndAutoMintPLS() is never blocked by system health — it's the intended recovery path.
 → Suggest: call maxMint(yourAddress) first to see exactly how much you can mint.
 
 STUCK: "my vault seems undercollateralized / I might get liquidated"
@@ -765,7 +766,7 @@ USER FUNCTIONS:
 - depositPLS() payable — send native PLS, auto-wraps to WPLS
 - deposit(uint256 amount) — deposit WPLS; requires ERC20 approve(vault, amount) first
 - depositAndAutoMintPLS() payable — one-click: deposit PLS + mint at 155% buffer
-- mint(uint256 amount) — mint pSunDAI; reverts if system health < 130% or vault would go below 150%
+- mint(uint256 amount) — mint pSunDAI; reverts if system health < 130% AND you are not depositing new collateral. depositAndAutoMintPLS() bypasses this check by design — see SYSTEM HEALTH NOTE below.
 - repay(uint256 amount) — burn pSunDAI from your wallet to reduce debt
 - repayAndAutoWithdraw(uint256 repayAmount) — repay + auto-withdraw collateral back to exactly 150%
 - autoRepayToHealth() — repay just enough to restore 150% CR, no manual math needed
@@ -785,7 +786,12 @@ VIEW FUNCTIONS (call free, no gas):
 REVERT REASONS & FIXES:
 "Too small" → amount < 1e14 (0.0001 minimum for any action)
 "Zero mint" → called mint(0)
-"System undercollateralized" → system CR < 130%; minting paused protocol-wide until CR recovers; repaying debt helps
+"System undercollateralized" → system CR < 130% AND you called mint() directly without depositing new collateral. Fix: use depositAndAutoMintPLS() instead — it always bypasses this check because depositing+minting at 155% mathematically improves system health. The 1-click path is the self-healing mechanism — it is never blocked.
+
+SYSTEM HEALTH NOTE — IMPORTANT:
+mint() alone: blocked if systemHealth() < 130%.
+depositAndAutoMintPLS(): always allowed regardless of system health — by design.
+Why: depositing new collateral + minting at 155% always improves the system ratio. Blocking it would refuse exactly the medicine the system needs. Example: system at 116% (1000 PLS collateral, 862 pSunDAI debt). User deposits 100 PLS, auto-mints 64.5 pSunDAI at 155%. New health: 1100/926.5 = 118.7% — improved. So "System undercollateralized" only appears on manual mint() without a simultaneous deposit.
 "Not enough collateral" / "Insufficient collateral" → vault would drop below 150% CR; deposit more or mint less; call maxMint() first
 "Invalid repay" → repaying more than current debt or zero; note: debt grows slightly from interest, check vaultInfo() for exact current debt
 "Invalid withdraw" / "Invalid amount" → withdrawing more than collateral or zero
@@ -1086,7 +1092,7 @@ Step 7: After ignition, the sequence is: ignite() → triggerSupernova() → tri
 
 ── GENERAL TROUBLESHOOTING ──
 "My tx reverted with no reason string" → Use vaultInfo(), canLiquidate(), canRedeem() to check state before calling. Most silent reverts are safety checks.
-"I can't mint even with collateral" → Check systemHealth(). If < 130% system-wide minting is halted. Also check your specific vault CR with vaultInfo().
+"I can't mint even with collateral" → Check systemHealth(). If < 130%, manual mint() is blocked — but depositAndAutoMintPLS() still works and improves system health. Always use the 1-click path when system health is low. Also check your vault CR via vaultInfo().
 "The oracle price looks wrong" → For pSunDAI call getPriceStatus(). For SunPLS call getCreepingState(). Prices move deliberately slowly by design.
 "My debt is higher than I expected" → Interest accrues silently at 0.5%/yr (pSunDAI) or per the Controller rate (SunPLS). Always read fresh debt from vaultInfo().
 "I'm getting Cooldown active" → Wait 5 minutes after depositing before withdrawing. This is hardcoded in both vaults.
