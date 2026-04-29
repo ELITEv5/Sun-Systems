@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ELITE TEAM6 — Autonomous Monetary Protocol</title>
 <link rel="icon" type="image/png" href="SunPLS_token.png">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="SunPLS_token.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Sun Systems">
+<meta name="theme-color" content="#e8b84b">
+<meta name="mobile-web-app-capable" content="yes">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;700&family=Epilogue:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
@@ -1324,5 +1331,13 @@ async function sendHelpDeskMessage() {
 }
 </script>
 
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/Sun-Systems/sw.js')
+      .catch(err => console.log('SW registration failed:', err));
+  });
+}
+</script>
 </body>
 </html>
