@@ -401,6 +401,7 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
         </p>
         <div class="asset-cta">
           <a href="https://elitev5.github.io/SunDAI/vault/index5_7.html" target="_blank" class="asset-link" style="font-size:0.68rem;">Open Vault →</a>
+          <a href="https://elitev5.github.io/SunDAI/vault/liquidations5_7.html" target="_blank" class="asset-link" style="font-size:0.68rem;">Liquidations →</a>
         </div>
       </div>
       <div class="asset-details">
@@ -488,7 +489,6 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
         </p>
         <div class="asset-cta">
           <a href="https://ipfs.io/ipfs/bafybeigbbfwtonwvyv4isujc5pbhianl6wm25h3xlqozbl6dlmduh5lvuy/index.html" target="_blank" class="asset-link">Open Vault →</a>
-          <a href="https://ipfs.io/ipfs/bafybeiekay5yht6gz6spstgaxxel3by2bog5pokacdx25e3zumb3442gju/sSunPLS.html" target="_blank" class="asset-link" style="font-size:0.68rem;">sSunPLS Staking →</a>
         </div>
       </div>
       <div class="asset-details">
@@ -545,15 +545,15 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
           <div class="mech">
             <div class="mech-tag">Buy</div>
             <div class="mech-text">
-              <strong>0.45% fee on every purchase</strong>
-              <span>0.10% burned permanently. 0.35% auto-converts to pSunDAI and distributes to all RISE holders. Every buy creates deflation and yield simultaneously.</span>
+              <strong>Fee scales with ecosystem health — capped at 5%</strong>
+              <span>Buy fees start at 0% during the launch phase and increase proportionally as pSunDAI LP deepens. A portion burns RISE permanently; the rest auto-converts to pSunDAI and distributes to holders. Hard cap: 5% — immutable.</span>
             </div>
           </div>
           <div class="mech">
             <div class="mech-tag">Sell</div>
             <div class="mech-text">
-              <strong>4.00% fee on every sale</strong>
-              <span>1.00% burned permanently. 3.00% auto-converts to pSunDAI and distributes to holders. Sellers fund the yield of everyone who stays. Conviction is rewarded structurally.</span>
+              <strong>Fee scales with ecosystem health — capped at 5%</strong>
+              <span>Sell fees follow the same logic — 0% at launch, rising in proportion to ecosystem maturity. A portion burns RISE permanently; the rest funds pSunDAI yield. Hard cap: 5% — immutable. Conviction is structurally rewarded as the ecosystem grows.</span>
             </div>
           </div>
           <div class="mech">
@@ -588,12 +588,12 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
           <div class="ra-cell">
             <div class="ra-label">Supply</div>
             <div class="ra-val">Burns permanently</div>
-            <div class="ra-sub">0.10% burned on buys. 1.00% burned on sells. Every interaction reduces the supply forever. No minting. Fixed ceiling.</div>
+            <div class="ra-sub">A portion of every fee burns RISE forever. No minting. Fixed ceiling of 10,000,000. Every interaction at non-zero fees reduces supply permanently.</div>
           </div>
           <div class="ra-cell">
             <div class="ra-label">Contract</div>
             <div class="ca-stack" style="margin-top:0.5rem;">
-              <div class="ca-row"><span class="ca-lbl">RISE</span><span class="ca-addr">0xE558edc934FDbB65cdF4868617D5F0D80595aD11</span></div>
+              <div class="ca-row"><span class="ca-lbl">RISE</span><span class="ca-addr">0x572e19392E62c29Bfc9217c7CEC647E6BC03c714</span></div>
             </div>
           </div>
         </div>
@@ -824,7 +824,7 @@ STUCK: "I want to close my vault completely"
 
 ━━━ CRITICAL: FIVE COMPLETELY DIFFERENT ASSETS — NEVER MIX THEIR LOGIC ━━━
 
-1. pSunDAI — USD-pegged stable asset on PulseChain. Targets $1.00. Minted by locking PLS at 150% CR. Has NO floating R value, NO controller, NO P/R/r feedback loop. Its oracle is the 5-pair hybrid median (DAI/USDC/USDT pools on PulseX). Stability fee 0.5%/yr. Liquidation at 110%. NO redemption mechanism — users repay debt to exit. Chain ID 369. UI: https://elitev5.github.io/SunDAI/vault/index5_7.html
+1. pSunDAI — USD-pegged stable asset on PulseChain. Targets $1.00. Minted by locking PLS at 150% CR. Has NO floating R value, NO controller, NO P/R/r feedback loop. Its oracle is the 5-pair hybrid median (DAI/USDC/USDT pools on PulseX). Stability fee 0.5%/yr. Liquidation at 110%. NO redemption mechanism — users repay debt to exit. Chain ID 369. UI: https://elitev5.github.io/SunDAI/vault/index5_7.html | Liquidations: https://elitev5.github.io/SunDAI/vault/liquidations5_7.html
 
 2. SunPLS — Floating peg asset on PulseChain. Does NOT target $1. NOT pegged to USD. R is an internal equilibrium value denominated in WPLS per SunPLS — seeded at genesis oracle price and evolved by the Controller ever since. Has a P/R/r feedback loop via the ProjectUSD Controller. Has REDEMPTION (burn SunPLS → receive PLS at R-value from distressed vaults ≤130% CR). Has NO stability fee. Has NO 5-pair oracle — uses single-pair TWAP (SunPLS/WPLS on PulseX) with creeping confirmation. Chain ID 369.
 
@@ -832,7 +832,7 @@ STUCK: "I want to close my vault completely"
 
 4. SunDAI — Community meme token on PulseChain. NOT a stable asset. NOT pegged to anything. Max supply 16,712,160. No mint function. Has the Destiny Vault: stake SunDAI before it hits $1, then it triggers an irreversible sequence converting stakes into pSunDAI collateral. SunDAI itself has no vault, no oracle, no CDP mechanics.
 
-5. RISE (Old Glory RISE) — Demand/yield token. NOT a stable asset. NOT a CDP. Every trade auto-converts fees to pSunDAI distributed to holders. No staking, no vault, no collateral. Has buy/sell fees and a Treasury Accelerator that burns RISE permanently.
+5. RISE (Old Glory RISE v13) — Demand/yield token. NOT a stable asset. NOT a CDP. Every trade auto-converts fees to pSunDAI distributed to holders. No staking, no vault, no collateral. Fees start at 0% (launch phase) and scale proportionally with ecosystem health (pSunDAI LP depth) — hard-capped at 5% buy and 5% sell, immutable. Has Protocol-Owned Liquidity (POL): a configurable portion of fees deepens the RISE/WPLS LP permanently (LP tokens burned to dead address).
 
 RULES:
 - pSunDAI has NO R value, NO controller, NO redemption mechanism, NO P/R/r loop (PulseChain)
@@ -1157,16 +1157,17 @@ REVERT REASONS:
 "Nothing to claim" → your address has no stake weight
 ⚠️ Once ignited, stakes are PERMANENTLY gone — converted to pSunDAI collateral. Cannot be reversed.
 
-━━━ RISE (Old Glory RISE) ━━━
-Contract: 0xE558edc934FDbB65cdF4868617D5F0D80595aD11
+━━━ RISE (Old Glory RISE v13) ━━━
+Contract: 0x572e19392E62c29Bfc9217c7CEC647E6BC03c714
 
 Every trade auto-converts fees to pSunDAI and distributes to holders. No staking needed.
-Buy fee: 0.45% (0.10% burn + 0.35% yield) | Sell fee: 4.00% (1.00% burn + 3.00% yield)
+Fees: Start at 0% during the launch phase. Scale proportionally with ecosystem health (pSunDAI LP depth). Hard-capped at 5% buy and 5% sell — immutable by design. A portion of active fees burns RISE permanently; the rest converts to pSunDAI yield for holders.
 LP multiplier: RISE/WPLS liquidity providers earn 2× share weight
-Claim cooldown: 1 hour | Min claim: 0.369 pSunDAI | Min hold to receive yield: 1 RISE
-Supply: 10,000,000 (9M community, 1M treasury for burns only)
-Treasury Accelerator: treasury claims yield → buys RISE → burns permanently
-Veteran charity: $300+ donated to Wounded Warrior Project, Fisher House, USO
+Claim cooldown: 1 hour | Min claim: 0.369 pSunDAI (nod to PulseChain Chain ID 369) | Min hold to receive yield: 1 RISE
+Supply: 10,000,000
+POL (Protocol-Owned Liquidity): configurable polBips portion of fees auto-adds RISE/WPLS liquidity. LP tokens burned permanently to 0x0000000000000000000000000000000000000369. Deepens the floor with every trade. polBips starts at 0 and increases as LP matures.
+processYield(): public permissionless function — anyone can call to trigger fee conversion and pSunDAI distribution without waiting for a trade.
+Veteran charity: funds directed to Wounded Warrior Project, Fisher House Foundation, and the USO.
 
 ━━━ STEP-BY-STEP INTERACTIVE GUIDES ━━━
 
