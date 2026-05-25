@@ -250,7 +250,7 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
 
   <div class="hero-tag">
     <div class="hero-tag-dot"></div>
-    Experimental · Live on PulseChain
+    Experimental · Live on PulseChain &amp; Base
   </div>
 
   <div class="hero-sunpls-wrap">
@@ -339,9 +339,9 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
             <p>Epoch advances, oracle updates, liquidations — all permissionless. The system doesn't need its builders to survive. Any wallet in the world can keep it running.</p>
           </div>
           <div class="pillar">
-            <div class="pillar-mark">Self-Referential</div>
-            <h4>No external oracle dependency</h4>
-            <p>Price feeds derive from the protocol's own on-chain liquidity via TWAP. No Chainlink. No external data provider. No single point of failure outside the contract itself.</p>
+            <div class="pillar-mark">Cross-Validated</div>
+            <h4>No oracle is trusted unchecked</h4>
+            <p>PulseChain deployments derive price entirely from on-chain liquidity via TWAP — no external dependency. On Base, Chainlink is automatically cross-validated against Uniswap v3 TWAP. In every deployment, no single data source can be wrong undetected.</p>
           </div>
           <div class="pillar">
             <div class="pillar-mark">Autonomous</div>
@@ -425,6 +425,48 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
       </div>
     </div>
 
+    <!-- bSunDAI -->
+    <div class="asset-block a-blue reveal">
+      <div class="asset-main">
+        <div class="asset-color-bar"></div>
+        <div class="asset-badge"><svg width="6" height="6" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg> CDP Stable Asset · Base</div>
+        <h3 class="asset-name">bSunDAI</h3>
+        <p class="asset-tagline">// ETH-backed CDP on Base — hybrid Chainlink + Uniswap TWAP oracle</p>
+        <p class="asset-desc">
+          bSunDAI is the Base chain deployment of the SunDAI CDP architecture — ETH-collateralized, targeting a $1.00 peg, with no admin keys, no upgrade path, and no owner. Mint bSunDAI by depositing WETH at a minimum 150% collateral ratio.
+        </p>
+        <p class="asset-desc" style="margin-top:1rem;">
+          The <strong style="color:#4B8EFF">Hybrid Oracle v6.4</strong> uses Chainlink (via Aave) as the primary price source, backed by a median of three independent Uniswap v3 WETH/USDC pools. If they agree within 30%, Chainlink is used. If they diverge significantly, the TWAP takes over. A USDC depeg guard completely disables TWAP if Aave's oracle reports USDC below $0.97 — at which point Chainlink is used exclusively. This eliminates the risk of a USDC collapse corrupting the price feed.
+        </p>
+        <p class="asset-desc" style="margin-top:1rem;">
+          A vault-level ±10% clamp provides a second independent layer with asymmetric cooldowns — 4 hours for drops, 1 hour for pumps. Two protection layers. Fully autonomous. Deployed on Base.
+        </p>
+        <div class="asset-cta">
+          <a href="https://elitev5.github.io/SunDAI/BaseVault/index.html" target="_blank" class="asset-link" style="font-size:0.68rem;">Open Vault →</a>
+          <a href="https://elitev5.github.io/SunDAI/BaseVault/liquidations.html" target="_blank" class="asset-link" style="font-size:0.68rem;">Liquidations →</a>
+        </div>
+      </div>
+      <div class="asset-details">
+        <div>
+          <div class="detail-label">Oracle &amp; Mechanics</div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Chainlink-primary hybrid oracle</strong>Chainlink (Aave-backed) is the primary price source, validated against three Uniswap v3 WETH/USDC pool TWAPs. When they agree (within 30%), Chainlink is used. When they diverge, TWAP takes over. If Chainlink dies completely, TWAP continues automatically. Two systems that cross-check each other — neither alone can be wrong undetected.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>USDC depeg guard</strong>If Aave's oracle reports USDC below $0.97, all TWAP feeds are disabled and the vault operates on Chainlink alone. Protects against a USDC collapse cascading into illegitimate liquidations.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Vault-level ±10% price clamp</strong>A second independent layer caps price movement per update — 4-hour cooldown for dumps, 1-hour for pumps. Both layers must be bypassed to trigger illegitimate liquidations.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Lock ETH → Mint bSunDAI</strong>Deposit WETH at 150% minimum collateral ratio. Liquidation threshold is 110%. Global health halt pauses new minting if system-wide ratio drops below 130%.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>0.5% annual stability fee + $0.995 peg floor</strong>Stability fee accrues only on interaction. Dutch auction liquidations start at a 10% bonus and decrease to 2% over 3 hours — act fast for maximum reward. A hard peg floor is enforced via redemption: anyone can burn bSunDAI to receive $1 of ETH (minus 0.5% fee), making any price below $0.995 instantly arb-profitable.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Zombie vault monitoring</strong>The vault exposes <code style="font-family:'IBM Plex Mono',monospace;font-size:0.8em;">isZombieVault</code>, <code style="font-family:'IBM Plex Mono',monospace;font-size:0.8em;">vaultBadDebt</code>, and <code style="font-family:'IBM Plex Mono',monospace;font-size:0.8em;">systemBadDebtEstimate</code> — on-chain health monitoring for vaults where collateral value is below outstanding debt.</div></div>
+        </div>
+        <div>
+          <div class="detail-label">Contract Addresses · Base</div>
+          <div class="ca-stack">
+            <div class="ca-row"><span class="ca-lbl">bSunDAI</span><span class="ca-addr">0xf5FC1c949c9A5fc96F031007ffdFCE2a895d6D3c</span></div>
+            <div class="ca-row"><span class="ca-lbl">Vault</span><span class="ca-addr">0x4DDCC8de4f0DA14647F6bD2388553526308599c3</span></div>
+            <div class="ca-row"><span class="ca-lbl">Oracle</span><span class="ca-addr">0xA39Ae3eC7435CD30508FA439378478EA9cAB91dD</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- SunPLS -->
     <div class="asset-block a-teal reveal">
       <div class="asset-main">
@@ -468,48 +510,6 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
             <div class="ca-row"><span class="ca-lbl">Oracle</span><span class="ca-addr">0xc8B4d7d885D41826CB46376676638449332aeA87</span></div>
             <div class="ca-row"><span class="ca-lbl">Controller</span><span class="ca-addr">0x0e736966F6d0dCd41acd575c3dDece3b3B6033A7</span></div>
             <div class="ca-row"><span class="ca-lbl">sSunPLS</span><span class="ca-addr">0x9b03a144A3dBaF1bf069474447168A9af54aA6a4</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- bSunDAI -->
-    <div class="asset-block a-blue reveal">
-      <div class="asset-main">
-        <div class="asset-color-bar"></div>
-        <div class="asset-badge"><svg width="6" height="6" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg> CDP Stable Asset · Base</div>
-        <h3 class="asset-name">bSunDAI</h3>
-        <p class="asset-tagline">// ETH-backed CDP on Base — hybrid Chainlink + Uniswap TWAP oracle</p>
-        <p class="asset-desc">
-          bSunDAI is the Base chain deployment of the SunDAI CDP architecture — ETH-collateralized, targeting a $1.00 peg, with no admin keys, no upgrade path, and no owner. Mint bSunDAI by depositing WETH at a minimum 150% collateral ratio.
-        </p>
-        <p class="asset-desc" style="margin-top:1rem;">
-          The <strong style="color:#4B8EFF">Hybrid Oracle v6.4</strong> uses Chainlink (via Aave) as the primary price source, backed by a median of three independent Uniswap v3 WETH/USDC pools. If they agree within 30%, Chainlink is used. If they diverge significantly, the TWAP takes over. A USDC depeg guard completely disables TWAP if Aave's oracle reports USDC below $0.97 — at which point Chainlink is used exclusively. This eliminates the risk of a USDC collapse corrupting the price feed.
-        </p>
-        <p class="asset-desc" style="margin-top:1rem;">
-          A vault-level ±10% clamp provides a second independent layer with asymmetric cooldowns — 4 hours for drops, 1 hour for pumps. Two protection layers. Fully autonomous. Deployed on Base.
-        </p>
-        <div class="asset-cta">
-          <a href="https://elitev5.github.io/SunDAI/BaseVault/index.html" target="_blank" class="asset-link" style="font-size:0.68rem;">Open Vault →</a>
-          <a href="https://elitev5.github.io/SunDAI/BaseVault/liquidations.html" target="_blank" class="asset-link" style="font-size:0.68rem;">Liquidations →</a>
-        </div>
-      </div>
-      <div class="asset-details">
-        <div>
-          <div class="detail-label">Oracle &amp; Mechanics</div>
-          <div class="detail-item"><div class="dmark"></div><div><strong>Chainlink-primary hybrid oracle</strong>Chainlink (Aave-backed) is the primary price source, validated against three Uniswap v3 WETH/USDC pool TWAPs. When they agree (within 30%), Chainlink is used. When they diverge, TWAP takes over. If Chainlink dies completely, TWAP continues automatically. Two systems that cross-check each other — neither alone can be wrong undetected.</div></div>
-          <div class="detail-item"><div class="dmark"></div><div><strong>USDC depeg guard</strong>If Aave's oracle reports USDC below $0.97, all TWAP feeds are disabled and the vault operates on Chainlink alone. Protects against a USDC collapse cascading into illegitimate liquidations.</div></div>
-          <div class="detail-item"><div class="dmark"></div><div><strong>Vault-level ±10% price clamp</strong>A second independent layer caps price movement per update — 4-hour cooldown for dumps, 1-hour for pumps. Both layers must be bypassed to trigger illegitimate liquidations.</div></div>
-          <div class="detail-item"><div class="dmark"></div><div><strong>Lock ETH → Mint bSunDAI</strong>Deposit WETH at 150% minimum collateral ratio. Liquidation threshold is 110%. Global health halt pauses new minting if system-wide ratio drops below 130%.</div></div>
-          <div class="detail-item"><div class="dmark"></div><div><strong>0.5% annual stability fee + $0.995 peg floor</strong>Stability fee accrues only on interaction. Dutch auction liquidations start at a 10% bonus and decrease to 2% over 3 hours — act fast for maximum reward. A hard peg floor is enforced via redemption: anyone can burn bSunDAI to receive $1 of ETH (minus 0.5% fee), making any price below $0.995 instantly arb-profitable.</div></div>
-          <div class="detail-item"><div class="dmark"></div><div><strong>Zombie vault monitoring</strong>The vault exposes <code style="font-family:'IBM Plex Mono',monospace;font-size:0.8em;">isZombieVault</code>, <code style="font-family:'IBM Plex Mono',monospace;font-size:0.8em;">vaultBadDebt</code>, and <code style="font-family:'IBM Plex Mono',monospace;font-size:0.8em;">systemBadDebtEstimate</code> — on-chain health monitoring for vaults where collateral value is below outstanding debt.</div></div>
-        </div>
-        <div>
-          <div class="detail-label">Contract Addresses · Base</div>
-          <div class="ca-stack">
-            <div class="ca-row"><span class="ca-lbl">bSunDAI</span><span class="ca-addr">0xf5FC1c949c9A5fc96F031007ffdFCE2a895d6D3c</span></div>
-            <div class="ca-row"><span class="ca-lbl">Vault</span><span class="ca-addr">0x4DDCC8de4f0DA14647F6bD2388553526308599c3</span></div>
-            <div class="ca-row"><span class="ca-lbl">Oracle</span><span class="ca-addr">0xA39Ae3eC7435CD30508FA439378478EA9cAB91dD</span></div>
           </div>
         </div>
       </div>
