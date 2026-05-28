@@ -711,13 +711,13 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
           <div class="detail-label">Contract Addresses · PulseChain</div>
           <div class="ca-stack">
             <div class="ca-row"><span class="ca-lbl">PRIVX Token</span><span class="ca-addr">0x34310B5d3a8d1e5f8e4A40dcf38E48d90170E986</span></div>
-            <div class="ca-row"><span class="ca-lbl">Mining Vault</span><span class="ca-addr">0x096540908D8bb7d00546e750a227f53D9E7bdFAF</span></div>
-            <div class="ca-row"><span class="ca-lbl">Fee Vault</span><span class="ca-addr">0x35719658D396a551d98ce2C7BaE66541CEAE0Cbd</span></div>
-            <div class="ca-row"><span class="ca-lbl">Shield · 100</span><span class="ca-addr">0x3872605025f0cfF24C0e40B6Fb61bA064fe300F8</span></div>
-            <div class="ca-row"><span class="ca-lbl">Shield · 1K</span><span class="ca-addr">0x4f8009c8756a7149cc553Fedd59dF8036Ca46847</span></div>
-            <div class="ca-row"><span class="ca-lbl">Shield · 10K</span><span class="ca-addr">0x67e6c3E1301e31B456f94348480a9BC54e7e5082</span></div>
-            <div class="ca-row"><span class="ca-lbl">Shield · 100K</span><span class="ca-addr">0xD8a1339B91aCADe52f65211f63085B9b5C1EFcF0</span></div>
-            <div class="ca-row"><span class="ca-lbl">PLONK Verifier</span><span class="ca-addr">0x67E1Ab04F6999Acd9F7FC33228e0D435eEFfF527</span></div>
+            <div class="ca-row"><span class="ca-lbl">Mining Vault</span><span class="ca-addr">0x925D32ff834285E0faefFBAc83Fc641A71660057</span></div>
+            <div class="ca-row"><span class="ca-lbl">Fee Vault</span><span class="ca-addr">0xBfa76b6961600331BA83F409789ddA36183F09Bf</span></div>
+            <div class="ca-row"><span class="ca-lbl">Shield · 100</span><span class="ca-addr">0x1e06B9A5D519241809701eD29142ef01dDfc9288</span></div>
+            <div class="ca-row"><span class="ca-lbl">Shield · 1K</span><span class="ca-addr">0x6aCC2D19b6cCe5FbeF91AF97e18592B215280161</span></div>
+            <div class="ca-row"><span class="ca-lbl">Shield · 10K</span><span class="ca-addr">0xb2Ef8c01BcC3f5B39d2648d598b90ed98E3cb9Cb</span></div>
+            <div class="ca-row"><span class="ca-lbl">Shield · 100K</span><span class="ca-addr">0xaa2E70cE38C40e07d529b9656124c96eA26197Be</span></div>
+            <div class="ca-row"><span class="ca-lbl">PLONK Verifier</span><span class="ca-addr">0xcEDa1071542d537221B5a01BFd1cF920cF8B9829</span></div>
             <div class="ca-row"><span class="ca-lbl">Poseidon Hasher</span><span class="ca-addr">0x72740d65A93f2e9d9741234371d62FeE36AEf9dF</span></div>
           </div>
         </div>
@@ -1457,10 +1457,10 @@ Example: privx-hurricane-privx-100-3a7f...d2b9-9c41...e8f2
 The note is generated entirely in-browser (Web Crypto API). Never sent to a server. Never stored on-chain. Never leaves the device unless the user copies it.
 
 CURRENTLY LIVE — PRIVX SHIELD (four denominations):
-100 PRIVX: Shield 0x3872605025f0cfF24C0e40B6Fb61bA064fe300F8
-1,000 PRIVX: Shield 0x4f8009c8756a7149cc553Fedd59dF8036Ca46847
-10,000 PRIVX: Shield 0x67e6c3E1301e31B456f94348480a9BC54e7e5082
-100,000 PRIVX: Shield 0xD8a1339B91aCADe52f65211f63085B9b5C1EFcF0
+100 PRIVX: Shield 0x1e06B9A5D519241809701eD29142ef01dDfc9288
+1,000 PRIVX: Shield 0x6aCC2D19b6cCe5FbeF91AF97e18592B215280161
+10,000 PRIVX: Shield 0xb2Ef8c01BcC3f5B39d2648d598b90ed98E3cb9Cb
+100,000 PRIVX: Shield 0xaa2E70cE38C40e07d529b9656124c96eA26197Be
 Deposit fee: 0.5% of denomination (feeBP = 50), taken in PRIVX, sent to Fee Vault
 Fee split: 80% → buy PRIVX + add PRIVX/WPLS LP (locked in Fee Vault forever, Protocol-Owned Liquidity) | 10% → Mining Vault (refills POP rewards) | 10% → burn PRIVX to dead address
 
@@ -1482,7 +1482,7 @@ Buy on PulseX: swap PLS → PRIVX
 Deflationary: every deposit fee burns 10% of the converted PRIVX permanently
 
 POP MINING VAULT V2:
-Address: 0x096540908D8bb7d00546e750a227f53D9E7bdFAF
+Address: 0x925D32ff834285E0faefFBAc83Fc641A71660057
 - Pays PRIVX automatically to withdrawal recipient on every successful withdrawal
 - Reward rate: quadratic decay — rate = BASE_RATE_BP × (vaultBalance / peakBalance)²
 - Max rate: hard cap at 10% of the fee amount per withdrawal
@@ -1492,7 +1492,7 @@ Address: 0x096540908D8bb7d00546e750a227f53D9E7bdFAF
 - Anyone can refill by calling topUp() with PRIVX — resets the emission curve
 
 FEE VAULT:
-Address: 0x35719658D396a551d98ce2C7BaE66541CEAE0Cbd
+Address: 0xBfa76b6961600331BA83F409789ddA36183F09Bf
 - Accumulates protocol fees from all shields
 - Anyone can trigger conversion: convertAuto(tokenAddress, slippageBP) — permissionless, no special role needed
 - slippageBP: 200 = 2% tolerance. Higher = more likely to succeed but more MEV-vulnerable.
@@ -1501,7 +1501,9 @@ Address: 0x35719658D396a551d98ce2C7BaE66541CEAE0Cbd
 
 ZK TECHNICAL DETAILS:
 - Circuit: PrivXMixer(14) — 14-level Poseidon Merkle tree (16,384 leaves)
-- Public signals: [root, nullifierHash, denomination]
+- Public signals: [root, nullifierHash, denomination, recipient] — 4 signals
+- pubSignals[0] = root | pubSignals[1] = nullifierHash | pubSignals[2] = denomination | pubSignals[3] = recipient address
+- The recipient address is cryptographically bound into the proof at generation time — it cannot be changed after proof generation without invalidating the proof
 - Private inputs: nullifier, secret, pathIndices[14], siblings[14]
 - commitment = Poseidon(nullifier, secret) — stored on-chain at deposit as a leaf
 - nullifierHash = Poseidon(nullifier, denomination) — prevents note replay across denomination pools
@@ -1511,14 +1513,14 @@ ZK TECHNICAL DETAILS:
 
 ALL CONTRACTS — PulseChain Mainnet:
 PRIVX Token: 0x34310B5d3a8d1e5f8e4A40dcf38E48d90170E986
-PLONK Verifier: 0x67E1Ab04F6999Acd9F7FC33228e0D435eEFfF527
+PLONK Verifier: 0xcEDa1071542d537221B5a01BFd1cF920cF8B9829
 Poseidon Hasher: 0x72740d65A93f2e9d9741234371d62FeE36AEf9dF
-POP Mining Vault V2: 0x096540908D8bb7d00546e750a227f53D9E7bdFAF
-Fee Vault: 0x35719658D396a551d98ce2C7BaE66541CEAE0Cbd
-Shield · 100 PRIVX: 0x3872605025f0cfF24C0e40B6Fb61bA064fe300F8
-Shield · 1,000 PRIVX: 0x4f8009c8756a7149cc553Fedd59dF8036Ca46847
-Shield · 10,000 PRIVX: 0x67e6c3E1301e31B456f94348480a9BC54e7e5082
-Shield · 100,000 PRIVX: 0xD8a1339B91aCADe52f65211f63085B9b5C1EFcF0
+POP Mining Vault V2: 0x925D32ff834285E0faefFBAc83Fc641A71660057
+Fee Vault: 0xBfa76b6961600331BA83F409789ddA36183F09Bf
+Shield · 100 PRIVX: 0x1e06B9A5D519241809701eD29142ef01dDfc9288
+Shield · 1,000 PRIVX: 0x6aCC2D19b6cCe5FbeF91AF97e18592B215280161
+Shield · 10,000 PRIVX: 0xb2Ef8c01BcC3f5B39d2648d598b90ed98E3cb9Cb
+Shield · 100,000 PRIVX: 0xaa2E70cE38C40e07d529b9656124c96eA26197Be
 
 SECURITY PROPERTIES (all shield contracts):
 No owner or admin key ✅ | No upgrade proxy ✅ | No pause function ✅ | No fee change ✅ | No withdrawal censorship ✅
@@ -1527,6 +1529,7 @@ Safe token transfers: OpenZeppelin SafeERC20 ✅
 Double-spend prevention: nullifier hash mapping (each note can only be withdrawn once) ✅
 Root freshness: 100-root circular history ✅
 Denomination binding: nullifierHash = Poseidon(nullifier, denomination) ✅
+Recipient address binding: recipient embedded as pubSignals[3] in ZK proof — contract enforces proof.recipient == _recipient argument, making MEV fund-redirection attacks impossible ✅
 
 STUCK: "I lost my private note"
 → There is no recovery. The note is the only key. Funds are permanently locked if the note is lost. This is intentional — the absence of a recovery mechanism is what makes the privacy guarantee possible. Be very clear and direct: no one can recover it.
@@ -1538,6 +1541,10 @@ STUCK: "My withdrawal reverted / failed"
 (3) Merkle root mismatch — wrong shield contract address for that token/denomination
 (4) Wrong network — must be on PulseChain Chain ID 369
 (5) Wallet not connected — connect MetaMask to PulseChain first
+(6) "recipient: mismatch" — the recipient address is cryptographically bound into the ZK proof at generation time; if the address shown in the UI when the proof was generated differs from the one passed to withdraw(), it fails. Reload the page, paste the note, set the correct recipient address, and regenerate the proof.
+
+STUCK: "My withdrawal failed with 'recipient: mismatch'"
+→ The recipient address is encoded into your ZK proof the moment you click "Generate ZK Proof." It cannot be changed after generation without regenerating the whole proof. Either you changed the recipient field after proof generation, or the wrong address was entered. Reload, paste your note, set the correct recipient, and generate a fresh proof. This check is a security feature — it makes it mathematically impossible for MEV bots to redirect your withdrawal to a different address.
 
 STUCK: "Proof generation failed or taking too long"
 → Check: are you on PulseChain (Chain ID 369)? Did the proving key download complete? (~29MB — check browser console for download progress from IPFS). Is the page tab still open and in focus? Try refreshing. Proof generation takes 15–30 seconds and must complete without closing the tab.
@@ -1549,7 +1556,7 @@ STUCK: "Can I use the same wallet to withdraw?"
 → For privacy: use a completely fresh wallet address that has never been funded from your deposit address or interacted with it. If you withdraw to the same wallet that deposited, the on-chain connection is re-established and the privacy benefit is reduced (though the ZK proof is still valid and the withdrawal succeeds).
 
 STUCK: "What is MEV protection / should I use it?"
-→ When you broadcast a withdrawal, your ZK proof is visible in the public mempool before it mines. A bot could theoretically extract the proof and redirect your funds to their own address. The optional Private RPC field lets you submit directly to validators, bypassing the mempool. For maximum protection: run your own PulseChain node. For most users: leaving blank (default wallet RPC) is acceptable. A relayer is coming soon that will eliminate this risk entirely.
+→ The recipient address is now cryptographically bound into the ZK proof — even if a bot sees your proof in the public mempool, they cannot redirect your withdrawal to a different address. The contract enforces "recipient: mismatch" if anyone tries to submit the proof with a different recipient. Fund-theft from proof front-running has been eliminated by the recipient binding security feature. A private RPC is still useful for general privacy (hiding which wallet you're withdrawing to and concealing timing), but the MEV theft risk is gone. For maximum privacy: use a private RPC or run your own PulseChain node.
 
 STUCK: "Should I trigger Fee Vault conversion?"
 → Anyone can call convertAuto(PRIVX_address, 200) on the Fee Vault. This converts accumulated PRIVX fees into POL + Mining Vault refill + burn. When significant PRIVX has built up, triggering it deepens liquidity and refills POP rewards for everyone. No special role needed. No funds leave the protocol.
@@ -1564,7 +1571,7 @@ Step 3: Select PRIVX tab. Choose your denomination: 100, 1,000, 10,000, or 100,0
 Step 4: Click deposit — wallet prompts for (a) approve and (b) deposit. Approve at least the denomination amount for the shield contract.
 Step 5: The app generates a private note entirely in-browser. SAVE THIS NOTE immediately — write it down physically. It is the ONLY way to recover your PRIVX. The app cannot regenerate it.
 Step 6 (optional but recommended): Wait hours or days before withdrawing. More deposits = better anonymity set = stronger privacy.
-Step 7: From a FRESH wallet (never connected to your deposit address), go to the Withdraw tab. Paste your saved note. Optionally set a recipient address (leave blank to use connected wallet). Optionally enter a private RPC for MEV protection.
+Step 7: From a FRESH wallet (never connected to your deposit address), go to the Withdraw tab. Paste your saved note. Set the recipient address (leave blank to use the connected wallet) — IMPORTANT: this address is cryptographically bound into your ZK proof when generation starts; do not change it afterward. Optionally enter a private RPC for additional privacy.
 Step 8: Click "Generate ZK Proof + Withdraw." The browser takes 15–30 seconds. Do NOT close the tab.
 Step 9: After the on-chain transaction confirms: your PRIVX arrives at the recipient address + a PRIVX mining reward is paid automatically.
 
@@ -1592,6 +1599,8 @@ RULES FOR PRIVX HURRICANE — NEVER CONFUSE:
 - Chain: PulseChain ONLY (Chain ID 369) — not on Base, not on Ethereum mainnet
 - Withdrawals ALWAYS work even if Mining Vault is empty — reward is skipped but tokens are still released
 - Note can only be withdrawn ONCE — nullifier is stored on-chain to prevent double-spend
+- RECIPIENT IS BOUND TO THE PROOF — the recipient address is embedded as pubSignals[3] in the ZK proof at generation time; only that exact wallet can receive the withdrawal. "recipient: mismatch" means the wrong recipient was used — regenerate the proof with the correct address.
+- MEV THEFT IS IMPOSSIBLE — because recipient is bound in the proof, bots cannot redirect withdrawals to their own address even if they see the proof in the mempool
 
 Networks: PulseChain (Chain ID 369) for pSunDAI, SunPLS, and PrivX Hurricane | Base (Chain ID 8453) for bSunDAI
 All contracts: immutable after deploy. No admin. No pause. No upgrade. No owner. The code is the only authority.
