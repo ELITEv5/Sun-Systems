@@ -1472,7 +1472,7 @@ Example: privx-hurricane-privx-100-3a7f...d2b9-9c41...e8f2
 ⚠️ THE NOTE IS THE ONLY KEY. If lost, funds are permanently locked in the contract — there is NO recovery mechanism whatsoever. Not even the development team can recover lost notes. Store it offline, encrypted, in multiple places.
 The note is generated entirely in-browser (Web Crypto API). Never sent to a server. Never stored on-chain. Never leaves the device unless the user copies it.
 
-CURRENTLY LIVE — FOUR TOKENS, SIXTEEN POOLS:
+CURRENTLY LIVE — FIVE TOKENS, TWENTY POOLS:
 
 PrivX shields (ERC20 approval required):
 100 PrivX:    0x74471E88588c2dF518379c4f9feC981158f741F4
@@ -1574,7 +1574,7 @@ STUCK: "I lost my private note"
 
 STUCK: "My withdrawal reverted / failed"
 → Ask which error they see. Most likely causes:
-(1) Wrong note format — note must start with "privx-hurricane-" followed by the token key (privx, dai, pdai, wpls, etc.) and be complete
+(1) Wrong note format — note must start with "privx-hurricane-" followed by the token key (privx, dai, pdai, wpls, pcock, etc.) and be complete
 (2) Note already withdrawn — each note can only be used once (nullifier stored on-chain to prevent double-spend)
 (3) Merkle root mismatch — wrong shield contract address for that token/denomination
 (4) Wrong network — must be on PulseChain Chain ID 369
@@ -1604,8 +1604,8 @@ STUCK: "The Mining Vault seems empty / I didn't get a PRIVX reward"
 
 ── HOW TO SHIELD TOKENS (step by step) ──
 Step 1: Go to https://elitev5.github.io/PrivX_Hurricane/privx.html and connect MetaMask to PulseChain (Chain ID 369).
-Step 2: Select your token tab — PrivX, DAI, pDAI, or PLS are live. Choose your denomination.
-Step 3: For token shields (PrivX, DAI, pDAI): click deposit — wallet prompts for (a) ERC20 approve and (b) deposit. For PLS shields: send native PLS directly — no approval needed.
+Step 2: Select your token tab — PrivX, DAI, pDAI, PLS, or pCOCK are live. Choose your denomination.
+Step 3: For token shields (PrivX, DAI, pDAI, pCOCK): click deposit — wallet prompts for (a) ERC20 approve and (b) deposit. For PLS shields: send native PLS directly — no approval needed.
 Step 4: The app generates a private note entirely in-browser. SAVE THIS NOTE immediately — write it down physically. It is the ONLY way to recover your funds. The app cannot regenerate it.
 Step 5 (optional but recommended): Wait hours or days before withdrawing. More deposits = better anonymity set = stronger privacy. Use the ★ Most Popular pool for the best anonymity set.
 Step 6: From a FRESH wallet (never connected to your deposit address), go to the Withdraw tab. Paste your saved note. Set the recipient address (leave blank to use the connected wallet) — IMPORTANT: this address is cryptographically bound into your ZK proof when generation starts; do not change it afterward. Optionally enter a private RPC for additional privacy.
