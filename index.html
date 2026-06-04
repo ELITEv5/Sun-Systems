@@ -695,6 +695,7 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
         </p>
         <div class="asset-cta">
           <a href="https://elitev5.github.io/PrivX_Hurricane/privx.html" target="_blank" class="asset-link">Open PrivX Shield →</a>
+          <a href="https://elitev5.github.io/PrivX_Hurricane/relayer.html" target="_blank" class="asset-link">Relayer →</a>
         </div>
       </div>
       <div class="asset-details">
@@ -757,6 +758,7 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
       <li><a href="https://ipfs.io/ipfs/bafybeigbbfwtonwvyv4isujc5pbhianl6wm25h3xlqozbl6dlmduh5lvuy/index.html" target="_blank">SunPLS</a></li>
       <li><a href="https://elitev5.github.io/Old-Glory-RISE-Token/old-glory-token-dapp/index.html" target="_blank">RISE</a></li>
       <li><a href="https://elitev5.github.io/PrivX_Hurricane/privx.html" target="_blank">PrivX Hurricane</a></li>
+      <li><a href="https://elitev5.github.io/PrivX_Hurricane/relayer.html" target="_blank">PrivX Relayer</a></li>
     </ul>
   </div>
 </footer>
@@ -1618,6 +1620,24 @@ Step 2: Select the token to convert (the UI auto-fills the current shield token 
 Step 3: Set slippage (200 = 2% default — increase if it fails, e.g. 500 for 5%).
 Step 4: Click "Convert Fees → PRIVX POL + Vault + Burn." Transaction runs the 80/10/10 split: POL, Mining Vault top-up, burn.
 Step 5: Refresh stats to confirm totalPrivxBurned and polLpBalance increased.
+
+── RELAYER MODE — WITHDRAWING WITHOUT GAS ──
+Fresh wallets have no PLS for gas. Two solutions:
+
+OPTION 1 — PLS shield self-funding (recommended):
+Deposit into any PLS shield first. Withdraw to the fresh wallet — native PLS arrives in the same transaction. Fresh wallet is now funded and can submit its own token shield withdrawals independently. No third party needed.
+
+OPTION 2 — Relayer Mode:
+In the Withdraw tab, toggle "Relayer Mode" ON. Generate the ZK proof in the browser (no wallet needed). Copy or download the proof JSON. Send it to any willing wallet — they submit it via the relayer page (https://elitev5.github.io/PrivX_Hurricane/relayer.html). Funds go to the fresh wallet regardless.
+
+WHY RELAYERS CANNOT STEAL: The recipient address is cryptographically embedded in the ZK proof as pubSignals[3]. The contract enforces recipient: mismatch if anyone tries to submit with a different address. Mathematically enforced — not a policy.
+
+CRITICAL — NOTE VS PROOF JSON:
+Private note (privx-hurricane-…): NEVER share — contains nullifier + secret, anyone with it can generate a proof to any recipient.
+Proof JSON: SAFE to share — contains no private data, only the completed proof locked to the specified recipient. Nullifier and secret are never output by the proof generation.
+
+STUCK: "fresh wallet has no gas"
+→ Best path: use the PLS shield to fund it (withdraw PLS to fresh wallet, arrives with gas in same tx). Second path: use Relayer Mode to generate proof JSON, send to any funded wallet to submit.
 
 PRIVACY TIPS (always share these when asked):
 1. Never deposit and withdraw from the same wallet address
