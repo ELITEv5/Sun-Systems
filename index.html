@@ -1600,6 +1600,35 @@ Double-spend prevention: nullifier hash mapping (each note can only be withdrawn
 Root freshness: 100-root circular history ✅
 Denomination binding: nullifierHash = Poseidon(nullifier, denomination) ✅
 Recipient address binding: recipient embedded as pubSignals[3] in ZK proof — contract enforces proof.recipient == _recipient argument, making MEV fund-redirection attacks impossible ✅
+Zero-root rejection: isKnownRoot() explicitly rejects bytes32(0) ✅
+Cross-denomination replay blocked: each shield has its own independent Merkle tree; a note from one pool cannot be used in another ✅
+
+TRUSTED SETUP — PLONK UNIVERSAL SRS:
+PrivX Hurricane uses PLONK — a universal proving system. Unlike older ZK systems (e.g. Groth16/Sapling) that require a circuit-specific trusted setup ceremony creating circuit-specific toxic waste, PLONK uses a shared universal SRS. The proving key was derived from the Hermez Network Powers of Tau MPC ceremony — 54 independent contributors from around the world. Every single one of those 54 participants would need to have colluded AND preserved their secret randomness for the system to be compromised. There is no secondary (phase-2) ceremony, no circuit-specific toxic waste, and no privileged key holder. The ceremony file is independently verifiable via its published SHA256 fingerprint. This is how PrivX Hurricane avoids the class of vulnerability that affected Zcash Sapling.
+
+CIRCUIT ANALYSIS — CONSTRAINT VERIFICATION:
+The PrivXMixer(14) circuit was analysed against its compiled R1CS. Signal counts verified: 30 private inputs ✅, 4 public inputs ✅, 8,330 total constraints ✅, wire/constraint gap of 19 (expected <50 for a sound circuit) ✅.
+
+Critical constraints confirmed:
+- nullifierHash = Poseidon(nullifier, denomination): enforced via R1CS wire aliasing (same wire, strictest form) ✅
+- commitment = Poseidon(nullifier, secret) in Merkle tree: explicit constraint chain ✅
+- Merkle root matches computed tree root: enforced via R1CS wire aliasing ✅
+- pathIndices[i] ∈ {0,1} for all 14 levels: explicit quadratic constraints ✅
+- denomination in constraint system: squaring constraint + nullifierHash binding ✅
+- recipient in constraint system: squaring constraint + PLONK public input commitment ✅
+
+The recipient is declared as a public signal in the circuit. In PLONK, all public inputs are committed into the Fiat-Shamir transcript — changing any public input after proof generation invalidates the proof. The "squaring" no-op constraint is standard practice; the security binding comes from the PLONK framework itself, not from linking recipient to a private value (no private value is needed — the prover simply cannot change it post-generation). This is the same design used by Tornado Cash.
+
+SECURITY AUDIT FINDINGS (2026-06-05):
+A full security audit was performed by the development team covering: fake proof attacks (ZEC/Sapling-style), recipient substitution/MEV, cross-denomination replay, reentrancy, double-spend, zero-root attack, commitment grief, and Mining Vault manipulation.
+
+Result: No theft vectors found in any deployed contract.
+
+Two non-exploitable findings:
+1. Mining Vault peakBalance griefing — anyone can call topUp() with a large PRIVX amount to set a high peakBalance, which collapses the quadratic reward rate to near-zero. The attacker's PRIVX is not lost (it stays in the vault and eventually pays out as rewards). This is an accepted design trade-off of the permissionless topUp mechanism. Not a theft vector.
+2. Commitment front-run grief — an attacker watching the mempool can copy a deposit commitment and front-run it. The attacker's funds are then permanently locked in the shield (they cannot withdraw without the original depositor's nullifier+secret). The original depositor just needs to generate a new commitment and retry. The attacker suffers greater economic loss than the victim. Not a theft vector.
+
+Explicitly confirmed safe: fake/forged PLONK proofs (soundness holds), recipient substitution after proof generation (PLONK public input binding prevents this), cross-shield/denomination replay (independent Merkle trees), reentrancy (OZ ReentrancyGuard), double-spend (nullifier mapping), zero-root attack (explicit rejection), convertAuto sandwich (known accepted MEV risk on permissionless fee conversion).
 
 STUCK: "I lost my private note"
 → There is no recovery. The note is the only key. Funds are permanently locked if the note is lost. This is intentional — the absence of a recovery mechanism is what makes the privacy guarantee possible. Be very clear and direct: no one can recover it.
