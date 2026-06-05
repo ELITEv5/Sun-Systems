@@ -691,7 +691,7 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
           Every successful withdrawal produces a <strong style="color:#B57AFF;">Proof of Privacy (POP)</strong> — a verifiable record that you used the protocol — which triggers an automatic PRIVX mining reward directly to the recipient. No claim transaction. No staking. Use the protocol, earn PRIVX.
         </p>
         <p class="asset-desc" style="margin-top:1rem;">
-          Now shields <strong style="color:#B57AFF;">seven tokens live</strong> across twenty-eight pools: <strong style="color:#B57AFF;">PrivX</strong> (100 / 1K / 10K / 100K), <strong style="color:#B57AFF;">pDAI</strong> (1K / 10K / 100K / 1M), <strong style="color:#B57AFF;">PLS</strong> (100K / 1M / 10M / 100M), <strong style="color:#B57AFF;">DAI</strong> (10 / 100 / 1K / 10K), and <strong style="color:#B57AFF;">pCOCK</strong> (100 / 1K / 10K / 100K), and <strong style="color:#B57AFF;">WETH</strong> (0.01 / 0.1 / 1 / 10), and <strong style="color:#B57AFF;">HEX</strong> (1K / 10K / 100K / 1M). PLSX and pSunDAI coming soon. A 0.5% deposit fee funds Protocol-Owned Liquidity (80%), the Mining Vault (10%), and a permanent PRIVX burn (10%).
+          Now shields <strong style="color:#B57AFF;">nine tokens live</strong> across thirty-six pools: <strong style="color:#B57AFF;">PrivX</strong> (100 / 1K / 10K / 100K), <strong style="color:#B57AFF;">pDAI</strong> (1K / 10K / 100K / 1M), <strong style="color:#B57AFF;">PLS</strong> (100K / 1M / 10M / 100M), <strong style="color:#B57AFF;">DAI</strong> (10 / 100 / 1K / 10K), <strong style="color:#B57AFF;">pCOCK</strong> (100 / 1K / 10K / 100K), <strong style="color:#B57AFF;">WETH</strong> (0.01 / 0.1 / 1 / 10), <strong style="color:#B57AFF;">HEX</strong> (1K / 10K / 100K / 1M), <strong style="color:#B57AFF;">PLSX</strong> (100K / 1M / 10M / 100M), and <strong style="color:#B57AFF;">pSunDAI</strong> (10 / 100 / 1K / 10K). A 0.5% deposit fee funds Protocol-Owned Liquidity (80%), the Mining Vault (10%), and a permanent PRIVX burn (10%).
         </p>
         <div class="asset-cta">
           <a href="https://elitev5.github.io/PrivX_Hurricane/privx.html" target="_blank" class="asset-link">Open PrivX Shield →</a>
@@ -848,7 +848,7 @@ SunPLS = floating PLS-denominated peg, has R, has controller, has redemptions, s
 bSunDAI = USD $1 peg, ETH-collateralized CDP on Base, Chainlink-primary oracle with USDC depeg guard, HAS redemption (no CR threshold), liquidation bonus 10%→2% over 3h (Base chain)
 SunDAI = community meme token, ritual Destiny Vault only, not a stable asset
 RISE = yield/demand token, no CDP, no vault, no collateral
-PrivX Hurricane = multi-token ZK privacy protocol on PulseChain, NOT a CDP, NOT a stable asset — PRIVX is the POP mining token (21M fixed supply). Live shields: PrivX (100/1K/10K/100K), pDAI (1K/10K/100K/1M), PLS (100K/1M/10M/100M), DAI (10/100/1K/10K), pCOCK (100/1K/10K/100K), WETH (0.01/0.1/1/10), HEX (1K/10K/100K/1M — 8 decimals). Users deposit native PLS directly for PLS shields; ERC20 approve required for all token shields. UI at https://elitev5.github.io/PrivX_Hurricane/privx.html
+PrivX Hurricane = multi-token ZK privacy protocol on PulseChain, NOT a CDP, NOT a stable asset — PRIVX is the POP mining token (21M fixed supply). Live shields: PrivX (100/1K/10K/100K), pDAI (1K/10K/100K/1M), PLS (100K/1M/10M/100M), DAI (10/100/1K/10K), pCOCK (100/1K/10K/100K), WETH (0.01/0.1/1/10), HEX (1K/10K/100K/1M — 8 decimals), PLSX (100K/1M/10M/100M), pSunDAI (10/100/1K/10K). Users deposit native PLS directly for PLS shields; ERC20 approve required for all token shields. UI at https://elitev5.github.io/PrivX_Hurricane/privx.html
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -1482,7 +1482,7 @@ Example: privx-hurricane-privx-100-3a7f...d2b9-9c41...e8f2
 ⚠️ THE NOTE IS THE ONLY KEY. If lost, funds are permanently locked in the contract — there is NO recovery mechanism whatsoever. Not even the development team can recover lost notes. Store it offline, encrypted, in multiple places.
 The note is generated entirely in-browser (Web Crypto API). Never sent to a server. Never stored on-chain. Never leaves the device unless the user copies it.
 
-CURRENTLY LIVE — FIVE TOKENS, TWENTY POOLS:
+CURRENTLY LIVE — NINE TOKENS, THIRTY-SIX POOLS:
 
 PrivX shields (ERC20 approval required):
 100 PrivX:    0x74471E88588c2dF518379c4f9feC981158f741F4
@@ -1508,7 +1508,23 @@ PLS shields (NO approval needed — send native PLS as msg.value, denomination +
 10,000,000 PLS: 0xE97135be5b9D6A3020C733AD122c4A6092ABF1F7
 100,000,000 PLS:0xEB4297A2c769eD02778Fa9D3197a58665beD8834
 
-COMING SOON (not yet deployed): PLSX, HEX, pSunDAI
+HEX shields (ERC20 approval required, token CA: 0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39, 8 DECIMALS):
+1,000 HEX:    0x833F7eDDbCe1e713e83b83006A793C3A51d00eE2
+10,000 HEX:   0xAdd967989567A8cD6a5473e79B43A44fca139d2C
+100,000 HEX:  0x7FC864dA7aAcc6EcAf6E9D5baC442429734a66Ee
+1,000,000 HEX:0x7D33b4ace754062d17256a65c046068a7f49651C
+
+PLSX shields (ERC20 approval required, token CA: 0x95B303987A60C71504D99Aa1b13B4DA07b0790ab):
+100,000 PLSX:    0x9632527f45A93579C0c26b58c7d99267997264Fb
+1,000,000 PLSX:  0x0C0aFe4Df8DBf983A3045AC1FB04d6b2f503d4fe
+10,000,000 PLSX: 0x951bde47464C6a1BB34BF10bC85a7cAE9C418534
+100,000,000 PLSX:0xF039cEc211769bdc29De85FF19c3dAe85aabA75d
+
+pSunDAI shields (ERC20 approval required, token CA: 0x1c2a9d0d6c641F92284EeCF8aC62D1e39D703E4f):
+10 pSunDAI:    0xb1ba7B8cE0F620D060e9bb72cE1bFc9B8DE6B850
+100 pSunDAI:   0xF212be1797ba1F3b6aB4ec43cdE466d7c82475AF
+1,000 pSunDAI: 0xa5A2572092D65aaaCeA44E85c3ac029cf2F48F4E
+10,000 pSunDAI:0x79301169e16b3c87DC0Ba2aAAE5EfC8311e700f7
 
 WETH shields (ERC20 approval required, token CA: 0x02DcdD04e3F455D838cd1249292C58f3B79e3C3C):
 0.01 WETH: 0xD446cbF3BBae6f90E7a1a48E853F35A269cE7Cde
@@ -1620,7 +1636,7 @@ STUCK: "The Mining Vault seems empty / I didn't get a PRIVX reward"
 
 ── HOW TO SHIELD TOKENS (step by step) ──
 Step 1: Go to https://elitev5.github.io/PrivX_Hurricane/privx.html and connect MetaMask to PulseChain (Chain ID 369).
-Step 2: Select your token tab — PrivX, DAI, pDAI, PLS, or pCOCK are live. Choose your denomination.
+Step 2: Select your token tab — PrivX, DAI, pDAI, PLS, pCOCK, WETH, HEX, PLSX, and pSunDAI are all live. Choose your denomination.
 Step 3: For token shields (PrivX, DAI, pDAI, pCOCK): click deposit — wallet prompts for (a) ERC20 approve and (b) deposit. For PLS shields: send native PLS directly — no approval needed.
 Step 4: The app generates a private note entirely in-browser. SAVE THIS NOTE immediately — write it down physically. It is the ONLY way to recover your funds. The app cannot regenerate it.
 Step 5 (optional but recommended): Wait hours or days before withdrawing. More deposits = better anonymity set = stronger privacy. Use the ★ Most Popular pool for the best anonymity set.
@@ -1666,7 +1682,7 @@ RULES FOR PRIVX HURRICANE — NEVER CONFUSE:
 - PRIVX token is NOT a governance token — it is a Proof-of-Privacy MINING token
 - Proof generation ALWAYS takes ~15–30 seconds — this is a fundamental property of the cryptography, cannot be reduced without changing the security model
 - Lost private note = permanently lost funds — no exceptions, no backdoor, no recovery mechanism exists
-- Live tokens: PrivX, DAI, pDAI, PLS, pCOCK, WETH. Coming soon: PLSX, HEX, pSunDAI.
+- Live tokens: PrivX, DAI, pDAI, PLS, pCOCK, WETH, HEX, PLSX, pSunDAI — all nine tokens live across thirty-six pools.
 - PLS shields: send native PLS (no approval needed). Token shields: ERC20 approve required before deposit.
 - Chain: PulseChain ONLY (Chain ID 369) — not on Base, not on Ethereum mainnet
 - Withdrawals ALWAYS work even if Mining Vault is empty — reward is skipped but tokens are still released
