@@ -929,7 +929,7 @@ bSunDAI = USD $1 peg, ETH-collateralized CDP on Base, Chainlink-primary oracle w
 SunDAI = community meme token, ritual Destiny Vault only, not a stable asset
 RISE = yield/demand token, no CDP, no vault, no collateral
 PrivX Hurricane = multi-token ZK privacy protocol on PulseChain, NOT a CDP, NOT a stable asset — PRIVX is the POP mining token (21M fixed supply). Live Hurricane shields (6 tokens, 24 pools): PLS (100K/1M/10M/100M — native PLS wrap/unwrap, NO approval needed), HEX (1K/10K/100K/1M — 8 decimals), PLSX (100K/1M/10M/100M), DAI (10/100/1K/10K), WETH (0.01/0.1/1/10), PrivX (100/1K/10K/100K). ERC20 approve required for HEX/PLSX/DAI/WETH/PrivX shields. PLS shields: send native PLS as msg.value — denomination + 0.5% fee. Recipients of PLS withdrawals receive native PLS, not WPLS. UI at https://ipfs.io/ipfs/bafybeibzl4hnhaiulbcb6mcpf6n4yd4cshrakmwzlynyyt7trbhvlgevq4/index.html
-PrivX Pay = self-custodial PWA wallet on PulseChain, NOT a CDP, NOT Hurricane itself — uses dedicated dollar-denomination PLONK shield pools ($1/$5/$10/$20/$50/$100) in DAI, pSunDAI, and USDC. Has its own internal seed-phrase + PIN vault (no MetaMask). Flow: Restock → Shield (deposit stablecoin into ZK pool) → Restock → Bills (PLONK proof mints a bearer bill stored as an `hp-` note in the vault) → bills printed/shared as QR cash notes → recipient scans in Pay tab to sweep. 100 PLS gas pre-funded per bill. Backup = 12-word seed phrase + encrypted backup file (decryptable only with same seed). No viewer keys, no recovery without seed. PWA at https://ipfs.io/ipfs/bafybeiak7w57fccfhwmcn5jlvcskoz4e7tqbdiqicjlfheisdz7h5zxsbe
+PrivX Pay = self-custodial PWA wallet on PulseChain, NOT a CDP, NOT Hurricane itself — uses dedicated dollar-denomination PLONK shield pools ($1/$5/$10/$20/$50/$100) in DAI, pSunDAI, and USDC. Has its own internal seed-phrase + PIN vault (no MetaMask). Flow: Restock → Shield (deposit stablecoin into ZK pool) → Restock → Bills (PLONK proof mints a bearer bill stored as an \`hp-\` note in the vault) → bills printed/shared as QR cash notes → recipient scans in Pay tab to sweep. 100 PLS gas pre-funded per bill. Backup = 12-word seed phrase + encrypted backup file (decryptable only with same seed). No viewer keys, no recovery without seed. PWA at https://ipfs.io/ipfs/bafybeiak7w57fccfhwmcn5jlvcskoz4e7tqbdiqicjlfheisdz7h5zxsbe
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -1817,7 +1817,7 @@ ASSET TYPE: ZK bearer cash — NOT a CDP, NOT a Hurricane withdrawal tool, NOT a
 WHAT IT IS (explain this way to users):
 PrivX Pay is a self-custodial PWA wallet — no MetaMask, no browser extension, no sign-up. The user creates a wallet directly in the app using a 12-word seed phrase and a PIN. The wallet is encrypted and stored in the browser's localStorage using AES-GCM derived from the PIN via PBKDF2. Bills and notes are also stored encrypted in this vault.
 
-To create private cash: Restock → Shield (deposit stablecoins into a PLONK shield pool) → Restock → Bills (the app generates a PLONK ZK proof and mints a bearer bill — a funded ephemeral wallet with no on-chain link to the user). The bill is stored as a note (`hp-{token}-{denom}-{nullifier}-{secret}`) in the vault and can be printed or displayed as a QR cash note. To spend: recipient opens PrivX Pay → Pay tab → scans QR or pastes note string → enters destination address → sweeps. The note format starts with `hp-` (not `privx-hurricane-`).
+To create private cash: Restock → Shield (deposit stablecoins into a PLONK shield pool) → Restock → Bills (the app generates a PLONK ZK proof and mints a bearer bill — a funded ephemeral wallet with no on-chain link to the user). The bill is stored as a note (\`hp-{token}-{denom}-{nullifier}-{secret}\`) in the vault and can be printed or displayed as a QR cash note. To spend: recipient opens PrivX Pay → Pay tab → scans QR or pastes note string → enters destination address → sweeps. The note format starts with \`hp-\` (not \`privx-hurricane-\`).
 
 Works on ANY device: phone, tablet, laptop. Can be installed to home screen (iPhone: Safari → Share → Add to Home Screen; Android: Chrome → ⋮ → Add to Home Screen). After install, works offline. Runs from cached IPFS build on device — no auto-updates.
 
@@ -1833,7 +1833,7 @@ THE BEARER BILL MODEL:
 - A bill = a ZK pre-withdrawn ephemeral wallet containing stablecoins
 - The PLONK proof severs the on-chain link between the shield deposit and the bill wallet — no tracing
 - 100 PLS pre-funded in the bill wallet for gas when redeeming
-- The note string (`hp-dai-20-...`) encodes the nullifier + secret needed to prove ownership of that shield note
+- The note string (\`hp-dai-20-...\`) encodes the nullifier + secret needed to prove ownership of that shield note
 - Bills and notes live in the user's encrypted PrivX Pay vault (not as raw strings they have to copy themselves)
 - POSSESSION OF THE QR NOTE / NOTE STRING = OWNERSHIP OF THE FUNDS
 - Transfer by showing or sharing the QR note — the bearer instrument model
@@ -1861,7 +1861,7 @@ ENCRYPTED BACKUP (accurate — seed-derived key, NOT eth_signTypedData):
 
 CRITICAL RULES FOR PRIVX PAY:
 - SELF-CUSTODIAL WALLET — PrivX Pay has its own internal wallet with seed phrase + PIN vault. No MetaMask, no browser wallet, no external signing.
-- NOTE FORMAT: `hp-{token}-{denom}-{nullifierHex}-{secretHex}` — different from Hurricane's `privx-hurricane-...` format. Never confuse them.
+- NOTE FORMAT: \`hp-{token}-{denom}-{nullifierHex}-{secretHex}\` — different from Hurricane's \`privx-hurricane-...\` format. Never confuse them.
 - NOTES ARE IN THE VAULT — bills and notes are stored encrypted in the local vault, not as raw strings the user manages manually. The QR note or note string is the bearer instrument shared externally.
 - NO RECOVERY WITHOUT SEED PHRASE — if seed phrase is lost and device is wiped, all funds are inaccessible. Seed phrase = master key.
 - NO ADMIN — same immutable PLONK contracts as Hurricane, no pause, no upgrade
