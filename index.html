@@ -694,8 +694,9 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
           Now shields <strong style="color:#B57AFF;">six tokens live</strong> across twenty-four pools: <strong style="color:#B57AFF;">PLS</strong> (100K / 1M / 10M / 100M), <strong style="color:#B57AFF;">HEX</strong> (1K / 10K / 100K / 1M), <strong style="color:#B57AFF;">PLSX</strong> (100K / 1M / 10M / 100M), <strong style="color:#B57AFF;">DAI</strong> (10 / 100 / 1K / 10K), <strong style="color:#B57AFF;">WETH</strong> (0.01 / 0.1 / 1 / 10), and <strong style="color:#B57AFF;">PrivX</strong> (100 / 1K / 10K / 100K). PLS shields use native wrap/unwrap — recipients receive native PLS, not WPLS. A 0.5% deposit fee funds Protocol-Owned Liquidity (80%), the Mining Vault (10%), and a permanent PRIVX burn (10%).
         </p>
         <div class="asset-cta">
-          <a href="https://elitev5.github.io/PrivX_Hurricane/privx.html" target="_blank" class="asset-link">Open PrivX Shield →</a>
-          <a href="https://elitev5.github.io/PrivX_Hurricane/relayer.html" target="_blank" class="asset-link">Relayer →</a>
+          <a href="https://ipfs.io/ipfs/bafybeibzl4hnhaiulbcb6mcpf6n4yd4cshrakmwzlynyyt7trbhvlgevq4/index.html" target="_blank" class="asset-link">Open PrivX Shield →</a>
+          <a href="https://ipfs.io/ipfs/bafybeibzl4hnhaiulbcb6mcpf6n4yd4cshrakmwzlynyyt7trbhvlgevq4/relayer.html" target="_blank" class="asset-link">Relayer →</a>
+          <a href="https://ipfs.io/ipfs/bafybeiak7w57fccfhwmcn5jlvcskoz4e7tqbdiqicjlfheisdz7h5zxsbe" target="_blank" class="asset-link">PrivX Pay →</a>
         </div>
       </div>
       <div class="asset-details">
@@ -748,6 +749,72 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
   </div>
 </section>
 
+<section id="privxpay" style="background:var(--bg);border-top:1px solid var(--border);">
+  <div class="wrap">
+    <div class="reveal" style="margin-bottom:4rem;">
+      <p class="eyebrow" style="color:#B57AFF;">Bearer Cash Layer</p>
+      <h2 class="sec-title">PrivX Pay — ZK Bearer Cash</h2>
+      <p class="sec-body">The world's first ZK-powered digital cash. Shield stablecoins into PLONK privacy pools and receive a bearer bill — a pre-withdrawn, ZK-unlocked note that transfers value like paper cash. No accounts. No history. No recovery. Possession is ownership.</p>
+    </div>
+
+    <div class="asset-block a-purple reveal">
+      <div class="asset-main">
+        <div class="asset-color-bar"></div>
+        <div class="asset-badge"><svg width="6" height="6" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg> Bearer Cash · PulseChain</div>
+        <h3 class="asset-name">PrivX Pay</h3>
+        <p class="asset-tagline">// Deposit stablecoins. Receive a ZK-unlocked bearer bill. Spend it like cash.</p>
+        <p class="asset-desc">
+          PrivX Pay turns PLONK zero-knowledge shields into <strong style="color:#B57AFF;">spendable bearer bills</strong>. Fund a bill by shielding DAI, pSunDAI, or USDC into the appropriate dollar-denomination pool — $1 / $5 / $10 / $20 / $50 / $100. The protocol ZK-withdraws the shielded funds to an ephemeral bill wallet (pre-funded with 100 PLS for gas), applies the PLONK unlink, and returns an encrypted bill string. Hand the bill string to anyone. They import it, the PWA sweeps the balance to their wallet.
+        </p>
+        <p class="asset-desc" style="margin-top:1rem;">
+          <strong style="color:#B57AFF;">No viewer keys. No recovery. No reversal.</strong> The bill string is the money. The PLONK proof severs the on-chain link between your shield deposit and the bill wallet — making it mathematically impossible to trace which deposit funded which bill.
+        </p>
+        <p class="asset-desc" style="margin-top:1rem;">
+          Every bill creation earns a <strong style="color:#B57AFF;">PRIVX Proof-of-Privacy mining reward</strong> automatically — because a PrivX Pay bill IS a Hurricane withdrawal, abstracted into a portable bearer format.
+        </p>
+        <div class="asset-cta">
+          <a href="https://ipfs.io/ipfs/bafybeiak7w57fccfhwmcn5jlvcskoz4e7tqbdiqicjlfheisdz7h5zxsbe" target="_blank" class="asset-link">Open PrivX Pay PWA →</a>
+        </div>
+      </div>
+      <div class="asset-details">
+        <div>
+          <div class="detail-label">How PrivX Pay Bills Work</div>
+          <div class="detail-item"><div class="dmark" style="background:#8A2BE2;"></div><div><strong>Shield → Bill</strong>Choose denomination and token (DAI / pSunDAI / USDC). The PWA deposits into the matching PLONK pool, generates a ZK proof, and withdraws to a fresh ephemeral wallet. 100 PLS pre-funded for gas. Bill string returned encrypted.</div></div>
+          <div class="detail-item"><div class="dmark" style="background:#8A2BE2;"></div><div><strong>Bearer cash model</strong>Whoever holds the bill string owns the funds. No accounts. No identity. No approval to transfer — just share the encrypted string. The recipient imports it, decrypts it, and sweeps the balance.</div></div>
+          <div class="detail-item"><div class="dmark" style="background:#8A2BE2;"></div><div><strong>ZK unlinking</strong>A PLONK zero-knowledge proof severs the deposit→withdrawal link on-chain. The bill wallet has no on-chain connection to the shield depositor. The math enforces the unlink — not a policy.</div></div>
+          <div class="detail-item"><div class="dmark" style="background:#8A2BE2;"></div><div><strong>Encrypted backup</strong>The PWA encrypts the bill string with your connected wallet key (eth_signTypedData). Ciphertext is safe to store anywhere — only your wallet can decrypt it. Zero knowledge of the bill contents is revealed to any third party.</div></div>
+          <div class="detail-item"><div class="dmark" style="background:#8A2BE2;"></div><div><strong>No recovery path</strong>No viewer key, no admin override, no customer support. If the bill string is lost, funds are permanently locked. This is the source of the privacy guarantee — the same guarantee as holding physical cash.</div></div>
+          <div class="detail-item"><div class="dmark" style="background:#8A2BE2;"></div><div><strong>PRIVX POP mining</strong>Each bill creation pays a PRIVX mining reward to the bill wallet automatically — no separate claim. The anonymity set grows with every bill created in the same pool.</div></div>
+        </div>
+        <div>
+          <div class="detail-label">PrivX Pay Shield Contracts · PulseChain</div>
+          <div class="ca-stack">
+            <div class="ca-row"><span class="ca-lbl">DAI · $1</span><span class="ca-addr">0xdDdf0fe3A1A85eA5A913347FF8069a04390e4C31</span></div>
+            <div class="ca-row"><span class="ca-lbl">DAI · $5</span><span class="ca-addr">0x1D57f03d48A2E5d9cE97d73F2f7710c313ee8577</span></div>
+            <div class="ca-row"><span class="ca-lbl">DAI · $10</span><span class="ca-addr">0xFe63926D5535EA3B6e1EA204bdDf93F4E2a4b906</span></div>
+            <div class="ca-row"><span class="ca-lbl">DAI · $20</span><span class="ca-addr">0xE0fA07E91a4A1005C63f9414Fe11B9E84C9C599B</span></div>
+            <div class="ca-row"><span class="ca-lbl">DAI · $50</span><span class="ca-addr">0x7cfe4718be7991fCA3979Fb0008Bd26e51D01980</span></div>
+            <div class="ca-row"><span class="ca-lbl">DAI · $100</span><span class="ca-addr">0xDA6e061F10deE54DDcF8B3d054F2fdDC5848Ee79</span></div>
+            <div class="ca-row"><span class="ca-lbl">pSunDAI · $1</span><span class="ca-addr">0x35187f9aa04297A17Ce123B99e19573fCa389b86</span></div>
+            <div class="ca-row"><span class="ca-lbl">pSunDAI · $5</span><span class="ca-addr">0x163b7E39E9019245dF6648b7B9DE99eDe328705F</span></div>
+            <div class="ca-row"><span class="ca-lbl">pSunDAI · $10</span><span class="ca-addr">0x6b17dD5c9DCde755AF4f1797e626B23A7Ec33CD4</span></div>
+            <div class="ca-row"><span class="ca-lbl">pSunDAI · $20</span><span class="ca-addr">0xc8aCD0E405939CF7c29F3e16037098F186d83B1A</span></div>
+            <div class="ca-row"><span class="ca-lbl">pSunDAI · $50</span><span class="ca-addr">0xbEb3eb96F3379D664f314aeEf1D401D630bE8eA4</span></div>
+            <div class="ca-row"><span class="ca-lbl">pSunDAI · $100</span><span class="ca-addr">0x1720103Ac2f5E8d50Cb52bf3f55A2da973E7959D</span></div>
+            <div class="ca-row"><span class="ca-lbl">USDC · $1</span><span class="ca-addr">0x6613d13bf8deB21cA06062904C875b36D053F04e</span></div>
+            <div class="ca-row"><span class="ca-lbl">USDC · $5</span><span class="ca-addr">0x96A869E58B97736615e57742a920667100A801d7</span></div>
+            <div class="ca-row"><span class="ca-lbl">USDC · $10</span><span class="ca-addr">0xe853A0966C4Add92D8c5935486B7E7fF7194a079</span></div>
+            <div class="ca-row"><span class="ca-lbl">USDC · $20</span><span class="ca-addr">0x658b5d0793b6796D6E3e95671C183b4B2F8CC24A</span></div>
+            <div class="ca-row"><span class="ca-lbl">USDC · $50</span><span class="ca-addr">0x835c48cF6270f2efF812254b1425400432652fB0</span></div>
+            <div class="ca-row"><span class="ca-lbl">USDC · $100</span><span class="ca-addr">0xc9569CF23D706627d7901ad15d9fBfaA49B0D5E2</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <div class="disclaimer">
   <p>This website is for informational purposes only and does not constitute financial, investment, or legal advice. All digital assets involve significant risk including total loss of principal. Do not participate with more than you can afford to lose. ELITE TEAM6 protocols are experimental, immutable smart contracts deployed without admin controls — read and understand all contract code before interacting. Nothing on this page represents a promise, projection, or guarantee of any financial outcome. DYOR.</p>
 </div>
@@ -761,8 +828,9 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
       <li><a href="https://elitev5.github.io/SunDAI/BaseVault/index.html" target="_blank">bSunDAI</a></li>
       <li><a href="https://ipfs.io/ipfs/bafybeigbbfwtonwvyv4isujc5pbhianl6wm25h3xlqozbl6dlmduh5lvuy/index.html" target="_blank">SunPLS</a></li>
       <li><a href="https://elitev5.github.io/Old-Glory-RISE-Token/old-glory-token-dapp/index.html" target="_blank">RISE</a></li>
-      <li><a href="https://elitev5.github.io/PrivX_Hurricane/privx.html" target="_blank">PrivX Hurricane</a></li>
-      <li><a href="https://elitev5.github.io/PrivX_Hurricane/relayer.html" target="_blank">PrivX Relayer</a></li>
+      <li><a href="https://ipfs.io/ipfs/bafybeibzl4hnhaiulbcb6mcpf6n4yd4cshrakmwzlynyyt7trbhvlgevq4/index.html" target="_blank">PrivX Shield</a></li>
+      <li><a href="https://ipfs.io/ipfs/bafybeibzl4hnhaiulbcb6mcpf6n4yd4cshrakmwzlynyyt7trbhvlgevq4/relayer.html" target="_blank">Relayer</a></li>
+      <li><a href="https://ipfs.io/ipfs/bafybeiak7w57fccfhwmcn5jlvcskoz4e7tqbdiqicjlfheisdz7h5zxsbe" target="_blank">PrivX Pay</a></li>
     </ul>
   </div>
 </footer>
@@ -791,7 +859,7 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
     <div style="display:flex;gap:0.6rem;align-items:flex-start;">
       <img src="SunPLS_token.png" style="width:20px;height:20px;border-radius:50%;flex-shrink:0;margin-top:0.15rem;">
       <div style="background:var(--bg3);border:1px solid var(--border);border-radius:2px 8px 8px 8px;padding:0.75rem 1rem;font-size:0.85rem;color:#e8e8e8;line-height:1.6;min-width:0;word-wrap:break-word;overflow-wrap:break-word;">
-        Ask me anything about the Elite Team6 protocols — PrivX Hurricane shields, vaults, oracles, liquidations, redemptions, RISE, the Destiny Vault, contract calls, error messages. I know every contract.
+        Ask me anything about the Elite Team6 protocols — PrivX Hurricane shields, PrivX Pay bearer bills, vaults, oracles, liquidations, redemptions, RISE, the Destiny Vault, contract calls, error messages. I know every contract.
       </div>
     </div>
   </div>
@@ -838,13 +906,14 @@ SunPLS vault:
 NEVER tell a pSunDAI user to wait when depositAndAutoMintPLS() is available.
 NEVER tell a SunPLS user that depositAndAutoMintPLS() bypasses the health check — it does not.
 
-RULE 2 — SIX ASSETS, NEVER MIX THEIR LOGIC:
+RULE 2 — SEVEN ASSETS, NEVER MIX THEIR LOGIC:
 pSunDAI = USD $1 peg, ETH-free, PLS-collateral, 5-pair PulseX oracle (PulseChain)
 SunPLS = floating PLS-denominated peg, has R, has controller, has redemptions, single-pair oracle (PulseChain)
 bSunDAI = USD $1 peg, ETH-collateralized CDP on Base, Chainlink-primary oracle with USDC depeg guard, HAS redemption (no CR threshold), liquidation bonus 10%→2% over 3h (Base chain)
 SunDAI = community meme token, ritual Destiny Vault only, not a stable asset
 RISE = yield/demand token, no CDP, no vault, no collateral
-PrivX Hurricane = multi-token ZK privacy protocol on PulseChain, NOT a CDP, NOT a stable asset — PRIVX is the POP mining token (21M fixed supply). Live Hurricane shields (6 tokens, 24 pools): PLS (100K/1M/10M/100M — native PLS wrap/unwrap, NO approval needed), HEX (1K/10K/100K/1M — 8 decimals), PLSX (100K/1M/10M/100M), DAI (10/100/1K/10K), WETH (0.01/0.1/1/10), PrivX (100/1K/10K/100K). ERC20 approve required for HEX/PLSX/DAI/WETH/PrivX shields. PLS shields: send native PLS as msg.value — denomination + 0.5% fee. Recipients of PLS withdrawals receive native PLS, not WPLS. UI at https://elitev5.github.io/PrivX_Hurricane/privx.html
+PrivX Hurricane = multi-token ZK privacy protocol on PulseChain, NOT a CDP, NOT a stable asset — PRIVX is the POP mining token (21M fixed supply). Live Hurricane shields (6 tokens, 24 pools): PLS (100K/1M/10M/100M — native PLS wrap/unwrap, NO approval needed), HEX (1K/10K/100K/1M — 8 decimals), PLSX (100K/1M/10M/100M), DAI (10/100/1K/10K), WETH (0.01/0.1/1/10), PrivX (100/1K/10K/100K). ERC20 approve required for HEX/PLSX/DAI/WETH/PrivX shields. PLS shields: send native PLS as msg.value — denomination + 0.5% fee. Recipients of PLS withdrawals receive native PLS, not WPLS. UI at https://ipfs.io/ipfs/bafybeibzl4hnhaiulbcb6mcpf6n4yd4cshrakmwzlynyyt7trbhvlgevq4/index.html
+PrivX Pay = ZK bearer cash layer on PulseChain, NOT a CDP, NOT a stable asset, NOT Hurricane itself — uses dedicated dollar-denomination PLONK shield pools ($1/$5/$10/$20/$50/$100) in DAI, pSunDAI, and USDC. A bill is a ZK-pre-withdrawn ephemeral wallet: the protocol shields the stablecoin, generates a PLONK proof, and withdraws to a fresh ephemeral bill wallet pre-funded with 100 PLS for gas. The bill string (containing the ephemeral wallet key) is returned encrypted. Possession of the bill string = ownership of the funds. No viewer keys, no recovery, no reversal. PWA at https://ipfs.io/ipfs/bafybeiak7w57fccfhwmcn5jlvcskoz4e7tqbdiqicjlfheisdz7h5zxsbe
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -858,7 +927,7 @@ Your personality:
 - Keep responses focused — don't dump every fact at once, answer what they asked
 
 TRIAGE — when someone says they're stuck, ask:
-1. Which asset/vault? (pSunDAI, SunPLS, bSunDAI, SunDAI Destiny Vault, RISE, PrivX Hurricane)
+1. Which asset/vault? (pSunDAI, SunPLS, bSunDAI, SunDAI Destiny Vault, RISE, PrivX Hurricane, PrivX Pay)
 2. What were they trying to do? (deposit, mint, repay, withdraw, liquidate, redeem, claim)
 3. What happened? (error message, transaction reverted, nothing happened, wrong amount)
 
@@ -1458,7 +1527,8 @@ All vaults: must repay ≥ 20% of debt per call. 10-min cooldown between liquida
 
 ━━━ PRIVX HURRICANE — ZK PRIVACY PROTOCOL ━━━
 Chain: PulseChain (Chain ID 369)
-UI: https://elitev5.github.io/PrivX_Hurricane/privx.html
+UI: https://ipfs.io/ipfs/bafybeibzl4hnhaiulbcb6mcpf6n4yd4cshrakmwzlynyyt7trbhvlgevq4/index.html
+Relayer: https://ipfs.io/ipfs/bafybeibzl4hnhaiulbcb6mcpf6n4yd4cshrakmwzlynyyt7trbhvlgevq4/relayer.html
 ASSET TYPE: Privacy/ZK protocol — NOT a CDP, NOT a stable asset, NOT a yield token
 
 WHAT IT IS:
@@ -1668,7 +1738,7 @@ STUCK: "The Mining Vault seems empty / I didn't get a PRIVX reward"
 → If the vault is empty, withdrawals still succeed — only the PRIVX reward is skipped (wrapped in try/catch). Anyone can call topUp() with PRIVX to refill the vault and reset the emission curve. The Fee Vault auto-refills on every conversion cycle.
 
 ── HOW TO SHIELD TOKENS (step by step) ──
-Step 1: Go to https://elitev5.github.io/PrivX_Hurricane/privx.html and connect MetaMask to PulseChain (Chain ID 369).
+Step 1: Go to https://ipfs.io/ipfs/bafybeibzl4hnhaiulbcb6mcpf6n4yd4cshrakmwzlynyyt7trbhvlgevq4/index.html and connect MetaMask to PulseChain (Chain ID 369).
 Step 2: Select your token tab — PLS, HEX, PLSX, DAI, WETH, and PrivX are all live. Choose your denomination.
 Step 3: For token shields (HEX, PLSX, DAI, WETH, PrivX): click deposit — wallet prompts for (a) ERC20 approve and (b) deposit. For PLS shields: send native PLS directly — no approval needed. You will receive native PLS on withdrawal.
 Step 4: The app generates a private note entirely in-browser. SAVE THIS NOTE immediately — write it down physically. It is the ONLY way to recover your funds. The app cannot regenerate it.
@@ -1678,7 +1748,7 @@ Step 7: Click "Generate ZK Proof + Withdraw." The browser takes 15–30 seconds.
 Step 8: After the on-chain transaction confirms: your tokens arrive at the recipient address + a PRIVX mining reward is paid automatically.
 
 ── HOW TO TRIGGER FEE VAULT CONVERSION ──
-Step 1: Connect wallet to PulseChain. Open the Fee Vault modal on the PrivX Hurricane page (https://elitev5.github.io/PrivX_Hurricane/privx.html).
+Step 1: Connect wallet to PulseChain. Open the Fee Vault modal on the PrivX Hurricane page (https://ipfs.io/ipfs/bafybeibzl4hnhaiulbcb6mcpf6n4yd4cshrakmwzlynyyt7trbhvlgevq4/index.html).
 Step 2: Select the token to convert (the UI auto-fills the current shield token address). For manual entry, use the token CA of whichever token has accumulated fees.
 Step 3: Set slippage (200 = 2% default — increase if it fails, e.g. 500 for 5%).
 Step 4: Click "Convert Fees → PRIVX POL + Vault + Burn." Transaction runs the 80/10/10 split: POL, Mining Vault top-up, burn.
@@ -1691,7 +1761,7 @@ OPTION 1 — PLS shield self-funding (recommended):
 Deposit into any PLS shield first. Withdraw to the fresh wallet — native PLS arrives in the same transaction. Fresh wallet is now funded and can submit its own token shield withdrawals independently. No third party needed.
 
 OPTION 2 — Relayer Mode:
-In the Withdraw tab, toggle "Relayer Mode" ON. Generate the ZK proof in the browser (no wallet needed). Copy or download the proof JSON. Send it to any willing wallet — they submit it via the relayer page (https://elitev5.github.io/PrivX_Hurricane/relayer.html). Funds go to the fresh wallet regardless.
+In the Withdraw tab, toggle "Relayer Mode" ON. Generate the ZK proof in the browser (no wallet needed). Copy or download the proof JSON. Send it to any willing wallet — they submit it via the relayer page (https://ipfs.io/ipfs/bafybeibzl4hnhaiulbcb6mcpf6n4yd4cshrakmwzlynyyt7trbhvlgevq4/relayer.html). Funds go to the fresh wallet regardless.
 
 WHY RELAYERS CANNOT STEAL: The recipient address is cryptographically embedded in the ZK proof as pubSignals[3]. The contract enforces recipient: mismatch if anyone tries to submit with a different address. Mathematically enforced — not a policy.
 
@@ -1723,7 +1793,119 @@ RULES FOR PRIVX HURRICANE — NEVER CONFUSE:
 - RECIPIENT IS BOUND TO THE PROOF — the recipient address is embedded as pubSignals[3] in the ZK proof at generation time; only that exact wallet can receive the withdrawal. "recipient: mismatch" means the wrong recipient was used — regenerate the proof with the correct address.
 - MEV THEFT IS IMPOSSIBLE — because recipient is bound in the proof, bots cannot redirect withdrawals to their own address even if they see the proof in the mempool
 
-Networks: PulseChain (Chain ID 369) for pSunDAI, SunPLS, and PrivX Hurricane | Base (Chain ID 8453) for bSunDAI
+━━━ PRIVX PAY — ZK BEARER CASH ━━━
+Chain: PulseChain (Chain ID 369)
+PWA: https://ipfs.io/ipfs/bafybeiak7w57fccfhwmcn5jlvcskoz4e7tqbdiqicjlfheisdz7h5zxsbe
+ASSET TYPE: ZK bearer cash — NOT a CDP, NOT a Hurricane withdrawal tool, NOT a stable asset — it is a bearer bill creation and redemption system built on top of PLONK shields
+
+WHAT IT IS:
+PrivX Pay is a PWA (Progressive Web App) that uses PLONK zero-knowledge shields to create digital bearer bills in stablecoin denominations. You deposit DAI, pSunDAI, or USDC into a dollar-denomination shield pool, and the protocol ZK-withdraws the funds to a fresh ephemeral bill wallet pre-funded with 100 PLS for gas. The resulting bill string encodes the ephemeral wallet private key. Whoever holds the bill string owns the funds — like paper cash.
+
+THE BEARER BILL MODEL:
+- A bill = a ZK pre-withdrawn ephemeral wallet containing the stablecoin
+- The PLONK proof severs the on-chain link between the shield deposit and the bill wallet — no tracing
+- 100 PLS is pre-funded into the bill wallet to cover gas when redeeming
+- The bill string contains the ephemeral wallet private key
+- POSSESSION OF THE BILL STRING = OWNERSHIP OF THE FUNDS — exactly like holding a banknote
+- Bills are not addresses on a ledger — they are bearer instruments. Transfer by sharing the string.
+
+BILL CREATION (Funding Flow):
+1. Choose denomination ($1 / $5 / $10 / $20 / $50 / $100) and token (DAI / pSunDAI / USDC)
+2. Approve the token for the matching shield contract
+3. PWA deposits token into the PLONK shield pool
+4. PWA generates a ZK proof (~15–30 seconds) for the fresh ephemeral bill wallet address as recipient
+5. Shield contract withdraws funds to the ephemeral bill wallet; 100 PLS sent to bill wallet for gas
+6. Bill string is generated; PWA offers encrypted backup (encrypts with your wallet key via eth_signTypedData)
+7. A PRIVX POP mining reward is paid automatically to the bill wallet
+
+BILL REDEMPTION (Spending Flow):
+1. Recipient receives the bill string (or scans QR code)
+2. Import the bill string into PrivX Pay PWA
+3. PWA derives the ephemeral wallet from the bill string private key
+4. Recipient enters their destination address and signs the sweep transaction from the ephemeral wallet
+5. Full stablecoin balance sweeps to recipient — bill is consumed, 100 PLS dust stays or is swept
+
+ENCRYPTED BACKUP:
+- The PWA can encrypt the bill string using eth_signTypedData with the user's connected wallet
+- The ciphertext is safe to store anywhere (IPFS, cloud, notes app) — it reveals nothing without the wallet
+- To recover: connect the same wallet, paste the ciphertext, PWA decrypts and recovers the bill string
+- This is NOT a recovery system from the perspective of lost wallets — the connected wallet is the only key
+
+CRITICAL RULES FOR PRIVX PAY:
+- NO VIEWER KEYS — there is no way to check a bill balance without holding the bill string (the private key)
+- NO RECOVERY — if the bill string is lost AND the encrypted backup is lost, funds are permanently gone
+- NO REVERSAL — once a bill is funded, it cannot be pulled back by the creator
+- NO ADMIN — same immutable PLONK contracts, no admin, no pause, no upgrade
+- A BILL IS SPENT ONCE — when the ephemeral wallet is swept, it is empty. Cannot double-spend.
+- BILL STRING ≠ PRIVATE NOTE — Hurricane uses a note format (privx-hurricane-…); PrivX Pay bills contain an ephemeral wallet private key. Never confuse them. The bill's ZK proof has ALREADY been submitted — the bill wallet holds real funds, no proof generation needed to spend.
+- PRIVX PAY USES DOLLAR DENOMINATIONS — unlike Hurricane which uses token quantity denominations. PrivX Pay $10 = 10 DAI or 10 pSunDAI or 10 USDC.
+- PrivX Pay $10 DAI uses the same shield contract as Hurricane DAI·10 (0xFe63926D5535EA3B6e1EA204bdDf93F4E2a4b906). PrivX Pay $100 DAI = Hurricane DAI·100. Other denominations ($1, $5, $20, $50) and all pSunDAI/USDC pools are PrivX Pay-exclusive contracts.
+
+TOKEN ADDRESSES (PulseChain):
+DAI: 0xefD766cCb38EaF1dfd701853BFCe31359239F305
+pSunDAI: 0x1c2a9d0d6c641F92284EeCF8aC62D1e39D703E4f
+USDC: 0x15D38573d2feeb82e7ad5187aB8c1D52810B1f07
+
+SHIELD CONTRACTS — DAI (6 pools, ERC20 approve required):
+$1 DAI:   0xdDdf0fe3A1A85eA5A913347FF8069a04390e4C31
+$5 DAI:   0x1D57f03d48A2E5d9cE97d73F2f7710c313ee8577
+$10 DAI:  0xFe63926D5535EA3B6e1EA204bdDf93F4E2a4b906  (also Hurricane DAI·10)
+$20 DAI:  0xE0fA07E91a4A1005C63f9414Fe11B9E84C9C599B
+$50 DAI:  0x7cfe4718be7991fCA3979Fb0008Bd26e51D01980
+$100 DAI: 0xDA6e061F10deE54DDcF8B3d054F2fdDC5848Ee79  (also Hurricane DAI·100)
+
+SHIELD CONTRACTS — pSunDAI (6 pools, ERC20 approve required):
+$1 pSunDAI:   0x35187f9aa04297A17Ce123B99e19573fCa389b86
+$5 pSunDAI:   0x163b7E39E9019245dF6648b7B9DE99eDe328705F
+$10 pSunDAI:  0x6b17dD5c9DCde755AF4f1797e626B23A7Ec33CD4
+$20 pSunDAI:  0xc8aCD0E405939CF7c29F3e16037098F186d83B1A
+$50 pSunDAI:  0xbEb3eb96F3379D664f314aeEf1D401D630bE8eA4
+$100 pSunDAI: 0x1720103Ac2f5E8d50Cb52bf3f55A2da973E7959D
+
+SHIELD CONTRACTS — USDC (6 pools, ERC20 approve required):
+$1 USDC:   0x6613d13bf8deB21cA06062904C875b36D053F04e
+$5 USDC:   0x96A869E58B97736615e57742a920667100A801d7
+$10 USDC:  0xe853A0966C4Add92D8c5935486B7E7fF7194a079
+$20 USDC:  0x658b5d0793b6796D6E3e95671C183b4B2F8CC24A
+$50 USDC:  0x835c48cF6270f2efF812254b1425400432652fB0
+$100 USDC: 0xc9569CF23D706627d7901ad15d9fBfaA49B0D5E2
+
+STUCK: "How do I create a PrivX Pay bill?"
+→ Open the PWA at https://ipfs.io/ipfs/bafybeiak7w57fccfhwmcn5jlvcskoz4e7tqbdiqicjlfheisdz7h5zxsbe
+→ Connect wallet on PulseChain (Chain ID 369). Select denomination and token. Approve token. Fund — PWA handles the rest: deposits, generates ZK proof, funds bill wallet with 100 PLS, returns bill string. Save the encrypted backup.
+
+STUCK: "How do I redeem / spend a PrivX Pay bill?"
+→ Open the PrivX Pay PWA. Go to Redeem / Import. Paste the bill string. The PWA derives the ephemeral wallet and shows the balance. Enter recipient address and sign — the sweep goes out from the bill wallet key. Bill is fully consumed after sweep.
+
+STUCK: "Can I check a bill balance without spending it?"
+→ No. The bill string contains the ephemeral wallet private key. Import it into the PWA to see the balance — but anyone who imports it can also spend it. If you share the bill string, you've transferred the money. This is by design.
+
+STUCK: "I lost my encrypted PrivX Pay backup"
+→ If the bill string itself is also gone: the funds in the ephemeral bill wallet are permanently locked. No recovery path exists. The encrypted backup is the only backup — it requires the same wallet that created the encryption to decrypt. If the bill string is intact (copied elsewhere) → the bill is still spendable.
+
+STUCK: "My bill isn't sweeping / sweep failed"
+→ Check: is the bill wallet funded with PLS? The bill wallet was pre-funded with 100 PLS at creation — but if that was spent or the bill is very old, gas may be exhausted. Can send a small amount of PLS to the bill wallet address to cover gas. Check the bill wallet address on PulseScan to verify balance.
+
+STUCK: "Can PrivX Pay be used for anything other than stablecoins?"
+→ Currently PrivX Pay supports DAI, pSunDAI, and USDC in dollar denominations. For other tokens/amounts, use PrivX Hurricane directly at https://ipfs.io/ipfs/bafybeibzl4hnhaiulbcb6mcpf6n4yd4cshrakmwzlynyyt7trbhvlgevq4/index.html
+
+── HOW TO CREATE A PRIVX PAY BILL (step by step) ──
+Step 1: Open PrivX Pay PWA at https://ipfs.io/ipfs/bafybeiak7w57fccfhwmcn5jlvcskoz4e7tqbdiqicjlfheisdz7h5zxsbe
+Step 2: Connect MetaMask on PulseChain (Chain ID 369).
+Step 3: Navigate to the "Fund" or "Create Bill" tab. Select your denomination ($1/$5/$10/$20/$50/$100) and token (DAI / pSunDAI / USDC).
+Step 4: Click Fund — your wallet prompts for (a) ERC20 approve for the shield contract, then (b) the deposit transaction. Confirm both.
+Step 5: The PWA generates a PLONK ZK proof for the ephemeral bill wallet (~15–30 seconds, do not close tab). The protocol simultaneously sends 100 PLS to the bill wallet for gas.
+Step 6: The bill string is displayed. Save it immediately. Use "Encrypt & Backup" to create the encrypted ciphertext backup using your wallet key. Store the ciphertext somewhere safe.
+Step 7: Your bill is ready. Share the bill string with the recipient — or keep it as digital cash in your PWA wallet section.
+
+── HOW TO REDEEM A PRIVX PAY BILL (step by step) ──
+Step 1: Open PrivX Pay PWA. Go to Redeem / Import Bill tab.
+Step 2: Paste the bill string. The PWA decodes the ephemeral wallet and shows denomination, token, and balance.
+Step 3: Enter the destination address (where funds should go) — or leave blank to use the connected wallet.
+Step 4: Click Sweep / Redeem. The PWA signs the sweep transaction using the ephemeral wallet private key from the bill string. Funds move to recipient.
+Step 5: Bill is fully consumed. The empty ephemeral wallet retains any remaining dust PLS.
+
+Networks: PulseChain (Chain ID 369) for pSunDAI, SunPLS, and PrivX Hurricane and PrivX Pay | Base (Chain ID 8453) for bSunDAI
 All contracts: immutable after deploy. No admin. No pause. No upgrade. No owner. The code is the only authority.
 Permissionless: anyone can call triggerEpoch(), poke(), liquidate(), redeem(), harvest(), convertAuto(), topUp() — no whitelist.
 If a transaction reverts with no message: usually a require() without a string — check isLiquidatable(), canRedeem() (SunPLS), vaultInfo() before calling.
