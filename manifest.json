@@ -1,7 +1,7 @@
 {
   "name": "Sun Systems — Elite Team6",
   "short_name": "Sun Systems",
-  "description": "Autonomous monetary protocol on PulseChain. pSunDAI · SunPLS · RISE.",
+  "description": "Autonomous monetary protocol on PulseChain. pSunDAI · SunPLS · bSunDAI · RISE · PrivX Hurricane · PrivX Pay.",
   "start_url": "/Sun-Systems/",
   "scope": "/Sun-Systems/",
   "display": "standalone",
@@ -10,13 +10,13 @@
   "theme_color": "#e8b84b",
   "icons": [
     {
-      "src": "SunPLS_token.png",
+      "src": "icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "SunPLS_token.png",
+      "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
