@@ -836,7 +836,7 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
 
 <footer>
   <div class="fi">
-    <div class="fl">Elite Team6 · Autonomous Monetary Protocol · <a href="https://ipfs.io/ipfs/bafybeif4lwjze36lz4zatiro3tdk5pruuctmyz5zwmhg23usu62ppqs4jq" target="_blank" style="color:var(--gold);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:0.72em;letter-spacing:0.05em;" title="Censorship-resistant build on IPFS">IPFS ↗</a></div>
+    <div class="fl">Elite Team6 · Autonomous Monetary Protocol · <a href="https://ipfs.io/ipfs/bafybeiamlvjf47b3a5oeu5dxgenippqanym2bkkmfmbqzrxpjnvdcvpu5q" target="_blank" style="color:var(--gold);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:0.72em;letter-spacing:0.05em;" title="Censorship-resistant build on IPFS">IPFS ↗</a></div>
     <ul class="flinks">
       <li><a href="https://github.com/ELITEv5/SunPLS" target="_blank">GitHub</a></li>
       <li><a href="https://elitev5.github.io/SunDAIV2/index.html" target="_blank">pSunDAI</a></li>
@@ -1391,9 +1391,9 @@ Step 6: Flash crashes under 4 hours have zero effect on the oracle price — thi
 
 ── HOW TO WAKE UP / ADVANCE THE SUNPLS ORACLE AND EPOCH ──
 The SunPLS oracle updates on every vault interaction. The Controller epoch must be triggered manually.
-Step 1: Check the oracle — call getCreepingState() on 0xc8B4d7d885D41826CB46376676638449332aeA87. If isCreeping=true, a large price move is accumulating confirmations (3 needed). Each vault interaction counts as a confirmation call.
+Step 1: Check the oracle — call getCreepingState() on 0x0A0E4adFBF38Dd227ed25D4f7e48B44D3a6aCa49. If isCreeping=true, a large price move is accumulating confirmations (3 needed). Each vault interaction counts as a confirmation call.
 Step 2: If oracle seems stuck, just interact with the vault (even a tiny deposit) — it calls oracle.update() automatically.
-Step 3: To advance the monetary policy epoch, call triggerEpoch() on the Controller (0x0e736966F6d0dCd41acd575c3dDece3b3B6033A7). Anyone can call this. No arguments needed.
+Step 3: To advance the monetary policy epoch, call triggerEpoch() on the Controller (0xd231F209aCd14e66cbe72b23a0c5C1105651b4c6). Anyone can call this. No arguments needed.
 Step 4: Epochs run every 3600 seconds (1 hour). If less than an hour has passed since the last epoch, triggerEpoch() will revert.
 Step 5: After triggering an epoch, R may move slightly toward P, and the interest rate r adjusts. Check the controller's R() and r values to see the new state.
 Step 6: Call oracleStatus() on the controller to see which degradation mode it's running in (A=healthy, B=peek fallback, C=stored, D=frozen). Mode A is normal.
@@ -1479,7 +1479,7 @@ The oracle auto-updates on vault interactions. To manually push it:
 5. Flash crashes under 4h have ZERO effect on oracle price — intentional protection, no action needed.
 
 ── TRIGGER A SunPLS EPOCH (WAKE UP CONTROLLER) ──
-1. Call triggerEpoch() on controller 0x0e736966F6d0dCd41acd575c3dDece3b3B6033A7 — no args, any wallet
+1. Call triggerEpoch() on controller 0xd231F209aCd14e66cbe72b23a0c5C1105651b4c6 — no args, any wallet
 2. Reverts if < 1 hour since last epoch — check epochCount to confirm
 3. Preview before triggering: previewNextEpoch() → expectedRate, expectedR, mode, effectiveKBps
 4. Check oracle health: oracleStatus() → Mode A (full), B (degraded K), C (stored), D (frozen)
