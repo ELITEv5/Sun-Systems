@@ -658,10 +658,10 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
           <div class="ca-stack" style="margin:0 2.2rem 1.2rem;">
             <div class="ca-row"><span class="ca-lbl">SunDAI</span><span class="ca-addr">0x41C6b24019Bd67CC58fe7bb059D532C12356712B</span></div>
             <div class="ca-row"><span class="ca-lbl">Destiny Vault</span><span class="ca-addr">0x6F0F93d2D29b2242E2FeB678c912Ac5880eAF4D0</span></div>
-            <div class="ca-row"><span class="ca-lbl">pSunDAI</span><span class="ca-addr">0x1c2a9d0d6c641F92284EeCF8aC62D1e39D703E4f</span></div>
+            <div class="ca-row"><span class="ca-lbl">pSunDAI V7</span><span class="ca-addr">0x0b5701078675870AaA121Da2AECD906A1720B008</span></div>
           </div>
           <div class="dt-links">
-            <a href="https://elitev5.github.io/SunDAI/Destiny-Vault/index.html" target="_blank" class="dt-link">Open Destiny Vault →</a>
+            <a href="https://elitev5.github.io/SunDAIV2/Destiny/index.html" target="_blank" class="dt-link">Open Destiny Vault →</a>
             <a href="https://elitev5.github.io/SunDAIV2/index.html" target="_blank" class="dt-link" style="font-size:0.68rem;">pSunDAI Vault →</a>
           </div>
         </div>
@@ -1309,8 +1309,10 @@ COMMON QUESTIONS:
 "When was last epoch?" → epochCount and lastEpochTime (public state vars)
 
 ━━━ DESTINY VAULT (SunDAI Blackhole) ━━━
+UI: https://elitev5.github.io/SunDAIV2/Destiny/index.html
 SunDAI: 0x41C6b24019Bd67CC58fe7bb059D532C12356712B
 Destiny Vault: 0x6F0F93d2D29b2242E2FeB678c912Ac5880eAF4D0
+pSunDAI (minted at rebirth, V7): 0x0b5701078675870AaA121Da2AECD906A1720B008
 
 PRE-IGNITION FUNCTIONS (only while price < $1 and !ignited):
 - stake(uint256 sundaiAmount) — requires SunDAI approval
@@ -1425,7 +1427,7 @@ Step 5: After redemption the vault cannot be liquidated for 5 minutes. The vault
 Step 6: The arbitrage works because: if SunPLS market price < R, you can buy SunPLS cheap on DEX then redeem at R for more PLS value than you paid.
 
 ── HOW TO STAKE IN THE DESTINY VAULT (SunDAI) ──
-Step 1: Get SunDAI tokens (0x41C6b24019Bd67CC58fe7bb059D532C12356712B) from PulseX.
+Step 1: Go to https://elitev5.github.io/SunDAIV2/Destiny/index.html — or get SunDAI tokens (0x41C6b24019Bd67CC58fe7bb059D532C12356712B) from PulseX.
 Step 2: Check isLocked() on the Destiny Vault (0x6F0F93d2D29b2242E2FeB678c912Ac5880eAF4D0) — if true, staking is closed (price already hit $1 or ignition happened).
 Step 3: Approve SunDAI (or SunDAI/WPLS LP) for the Destiny Vault contract.
 Step 4: Call stake(amount) for plain SunDAI OR stakeLP(amount) for SunDAI/WPLS LP tokens (LP earns 1.5× weight).
