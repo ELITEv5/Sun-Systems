@@ -568,17 +568,17 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
             </div>
           </div>
           <div class="mech">
-            <div class="mech-tag">LP</div>
+            <div class="mech-tag">POL</div>
             <div class="mech-text">
-              <strong>2× reward weight for liquidity providers</strong>
-              <span>Providing RISE/WPLS liquidity doubles share weight in the yield distribution. The protocol rewards those who support the market, not just those who hold.</span>
+              <strong>Protocol-Owned Liquidity — permanent price floor</strong>
+              <span>Each swap round, a configurable portion of accumulated fees buys WPLS and pairs it with RISE as permanent LP — burned to the dead address forever. Every trade deepens a floor no one can pull.</span>
             </div>
           </div>
           <div class="mech">
             <div class="mech-tag">Hold</div>
             <div class="mech-text">
-              <strong>No staking required — yield is automatic</strong>
-              <span>Hold RISE in any wallet. pSunDAI accumulates automatically. Claim after a 1-hour cooldown. Minimum: 0.369 pSunDAI — a nod to PulseChain's Chain ID 369.</span>
+              <strong>1 RISE = 1 yield share — no staking, no lockup</strong>
+              <span>Every eligible wallet earns proportional pSunDAI just by holding. Share weight equals your balance — simple, fair, manipulation-proof. Claim after a 1-hour cooldown. Minimum: 0.369 pSunDAI — PulseChain's Chain ID 369.</span>
             </div>
           </div>
         </div>
@@ -604,7 +604,7 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
           <div class="ra-cell">
             <div class="ra-label">Contract</div>
             <div class="ca-stack" style="margin-top:0.5rem;">
-              <div class="ca-row"><span class="ca-lbl">RISE</span><span class="ca-addr">0x9De9a56f971038ef1Cca7195CCB8b49b570b83b3</span></div>
+              <div class="ca-row"><span class="ca-lbl">RISE V21</span><span class="ca-addr">0x90f3ddf0A60BD752d5dffBEedA179f6670C152b3</span></div>
             </div>
           </div>
         </div>
@@ -657,7 +657,7 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
           <div class="dt-warn">⚠ POINT OF NO RETURN — Staked assets become permanent collateral at ignition. Only commit what you are willing to see destroyed and reborn as pSunDAI.</div>
           <div class="ca-stack" style="margin:0 2.2rem 1.2rem;">
             <div class="ca-row"><span class="ca-lbl">SunDAI</span><span class="ca-addr">0x41C6b24019Bd67CC58fe7bb059D532C12356712B</span></div>
-            <div class="ca-row"><span class="ca-lbl">Destiny Vault</span><span class="ca-addr">0x69943d780E3427d1aAB9373A5c618D8f18226820</span></div>
+            <div class="ca-row"><span class="ca-lbl">Destiny Vault</span><span class="ca-addr">0x6F0F93d2D29b2242E2FeB678c912Ac5880eAF4D0</span></div>
             <div class="ca-row"><span class="ca-lbl">pSunDAI</span><span class="ca-addr">0x1c2a9d0d6c641F92284EeCF8aC62D1e39D703E4f</span></div>
           </div>
           <div class="dt-links">
@@ -928,7 +928,7 @@ pSunDAI = USD $1 peg, ETH-free, PLS-collateral, 5-pair PulseX oracle (PulseChain
 SunPLS = floating PLS-denominated peg, has R, has controller, has redemptions, single-pair oracle (PulseChain)
 bSunDAI = USD $1 peg, ETH-collateralized CDP on Base, Chainlink-primary oracle with USDC depeg guard, HAS redemption (no CR threshold), liquidation bonus 10%→2% over 3h (Base chain)
 SunDAI = community meme token, ritual Destiny Vault only, not a stable asset
-RISE = yield/demand token, no CDP, no vault, no collateral
+RISE = yield/demand token, no CDP, no vault, no collateral — v21 CA: 0x90f3ddf0A60BD752d5dffBEedA179f6670C152b3
 PrivX Hurricane = multi-token ZK privacy protocol on PulseChain, NOT a CDP, NOT a stable asset — PRIVX is the POP mining token (21M fixed supply). Live Hurricane shields (6 tokens, 24 pools): PLS (100K/1M/10M/100M — native PLS wrap/unwrap, NO approval needed), HEX (1K/10K/100K/1M — 8 decimals), PLSX (100K/1M/10M/100M), DAI (10/100/1K/10K), WETH (0.01/0.1/1/10), PrivX (100/1K/10K/100K). ERC20 approve required for HEX/PLSX/DAI/WETH/PrivX shields. PLS shields: send native PLS as msg.value — denomination + 0.5% fee. Recipients of PLS withdrawals receive native PLS, not WPLS. UI at https://ipfs.io/ipfs/bafybeiejsos5dv2bztajit44zum2knr47osvy32v3aeelkhyagbah2q4ki/index.html
 PrivX Pay = self-custodial PWA wallet on PulseChain, NOT a CDP, NOT Hurricane itself — uses dedicated dollar-denomination PLONK shield pools ($1/$5/$10/$20/$50/$100) in DAI, pSunDAI, and USDC. Has its own internal seed-phrase + PIN vault (no MetaMask). Flow: Restock → Shield (deposit stablecoin into ZK pool) → Restock → Bills (PLONK proof mints a bearer bill stored as an \`hp-\` note in the vault) → bills printed/shared as QR cash notes → recipient scans in Pay tab to sweep. 100 PLS gas pre-funded per bill. Backup = 12-word seed phrase + encrypted backup file (decryptable only with same seed). No viewer keys, no recovery without seed. PWA at https://ipfs.io/ipfs/bafybeibigcsjscul7r6e4v4n5ngwf64un7kodspt46oqbgrqy25ge552zq
 
@@ -993,7 +993,7 @@ STUCK: "I'm getting 'Invalid repay' or my repay fails"
 → Debt grows from interest — your current debt is probably higher than you expect. Call vaultInfo() first to get the exact current debt. Then repay that exact number, or use repayAndAutoWithdraw() which handles it automatically.
 
 STUCK: "how do I earn yield"
-→ RISE: just hold RISE — pSunDAI yield accumulates from every trade. Add RISE/WPLS liquidity for 2× share.
+→ RISE: just hold RISE — pSunDAI yield accumulates from every trade automatically. 1 RISE = 1 share. No staking or LP required. Claim after 1-hour cooldown once ≥ 0.369 pSunDAI accumulated.
 
 STUCK: "I want to close my vault completely"
 → pSunDAI: repayAndAutoWithdraw(yourFullDebt) — one call, done. Or repay() then withdrawPLS().
@@ -1010,7 +1010,7 @@ STUCK: "I want to close my vault completely"
 
 4. SunDAI — Community meme token on PulseChain. NOT a stable asset. NOT pegged to anything. Max supply 16,712,160. No mint function. Has the Destiny Vault: stake SunDAI before it hits $1, then it triggers an irreversible sequence converting stakes into pSunDAI collateral. SunDAI itself has no vault, no oracle, no CDP mechanics.
 
-5. RISE (Old Glory RISE v13) — Demand/yield token. NOT a stable asset. NOT a CDP. Every trade auto-converts fees to pSunDAI distributed to holders. No staking, no vault, no collateral. Fees start at 0% (launch phase) and scale proportionally with ecosystem health (pSunDAI LP depth) — hard-capped at 5% buy and 5% sell, immutable. Has Protocol-Owned Liquidity (POL): a configurable portion of fees deepens the RISE/WPLS LP permanently (LP tokens burned to dead address).
+5. RISE (Old Glory RISE v21) — Demand/yield token. NOT a stable asset. NOT a CDP. Every trade auto-converts fees to pSunDAI distributed to holders pro-rata to their balance. No staking, no lockup, no vault, no collateral. 1 RISE = 1 yield share — pure balance-based, manipulation-proof. Buy fee: 0.45% (0.10% burn + 0.35% yield). Sell fee: 4.00% (1.00% burn + 3.00% yield). Hard-capped at 5% total — immutable. Has Protocol-Owned Liquidity (POL): a configurable portion of fees deepens the RISE/WPLS LP permanently (LP tokens burned to dead address 0x369). CA: 0x90f3ddf0A60BD752d5dffBEedA179f6670C152b3
 
 RULES:
 - pSunDAI has NO R value, NO controller, NO redemption mechanism, NO P/R/r loop (PulseChain)
@@ -1310,7 +1310,7 @@ COMMON QUESTIONS:
 
 ━━━ DESTINY VAULT (SunDAI Blackhole) ━━━
 SunDAI: 0x41C6b24019Bd67CC58fe7bb059D532C12356712B
-Destiny Vault: 0x69943d780E3427d1aAB9373A5c618D8f18226820
+Destiny Vault: 0x6F0F93d2D29b2242E2FeB678c912Ac5880eAF4D0
 
 PRE-IGNITION FUNCTIONS (only while price < $1 and !ignited):
 - stake(uint256 sundaiAmount) — requires SunDAI approval
@@ -1340,16 +1340,19 @@ REVERT REASONS:
 "Nothing to claim" → your address has no stake weight
 ⚠️ Once ignited, stakes are PERMANENTLY gone — converted to pSunDAI collateral. Cannot be reversed.
 
-━━━ RISE (Old Glory RISE v13) ━━━
-Contract: 0x572e19392E62c29Bfc9217c7CEC647E6BC03c714
+━━━ RISE (Old Glory RISE v21) ━━━
+Contract: 0x90f3ddf0A60BD752d5dffBEedA179f6670C152b3
+pSunDAI (immutable): 0x0b5701078675870AaA121Da2AECD906A1720B008
+Dapp: https://elitev5.github.io/Old-Glory-RISE-Token/old-glory-token-dapp/index.html
 
-Every trade auto-converts fees to pSunDAI and distributes to holders. No staking needed.
-Fees: Start at 0% during the launch phase. Scale proportionally with ecosystem health (pSunDAI LP depth). Hard-capped at 5% buy and 5% sell — immutable by design. A portion of active fees burns RISE permanently; the rest converts to pSunDAI yield for holders.
-LP multiplier: RISE/WPLS liquidity providers earn 2× share weight
-Claim cooldown: 1 hour | Min claim: 0.369 pSunDAI (nod to PulseChain Chain ID 369) | Min hold to receive yield: 1 RISE
-Supply: 10,000,000
-POL (Protocol-Owned Liquidity): configurable polBips portion of fees auto-adds RISE/WPLS liquidity. LP tokens burned permanently to 0x0000000000000000000000000000000000000369. Deepens the floor with every trade. polBips starts at 0 and increases as LP matures.
-processYield(): public permissionless function — anyone can call to trigger fee conversion and pSunDAI distribution without waiting for a trade.
+Every trade auto-converts fees to pSunDAI and distributes to holders. No staking, no lockup, no LP required.
+Yield model: 1 RISE = 1 yield share. Share weight = your balance. Pure balance-based — fair and manipulation-proof. No LP multiplier. No staking bonus. Hold RISE, earn automatically.
+Buy fee: 0.45% total (0.10% burn + 0.35% yield). Sell fee: 4.00% total (1.00% burn + 3.00% yield). Hard cap: 5% total — immutable.
+Claim cooldown: 1 hour | Min claim: 0.369 pSunDAI (PulseChain Chain ID 369 easter egg) | Min balance to earn: 1 RISE
+Supply: 10,000,000 max — no mint function, deflationary (burns on every trade)
+POL (Protocol-Owned Liquidity): configurable polBips portion of each swap round auto-adds RISE/WPLS liquidity permanently. LP tokens burned to 0x0000000000000000000000000000000000000369 forever. Deepens price floor with every trade.
+processYield(): public permissionless function — anyone can call to trigger pSunDAI conversion and distribution without waiting for a trade.
+airdrop(address[], uint256[]): owner-only, sends RISE to multiple wallets in one tx.
 Veteran charity: funds directed to Wounded Warrior Project, Fisher House Foundation, and the USO.
 
 ━━━ STEP-BY-STEP INTERACTIVE GUIDES ━━━
@@ -1423,7 +1426,7 @@ Step 6: The arbitrage works because: if SunPLS market price < R, you can buy Sun
 
 ── HOW TO STAKE IN THE DESTINY VAULT (SunDAI) ──
 Step 1: Get SunDAI tokens (0x41C6b24019Bd67CC58fe7bb059D532C12356712B) from PulseX.
-Step 2: Check isLocked() on the Destiny Vault (0x69943d780E3427d1aAB9373A5c618D8f18226820) — if true, staking is closed (price already hit $1 or ignition happened).
+Step 2: Check isLocked() on the Destiny Vault (0x6F0F93d2D29b2242E2FeB678c912Ac5880eAF4D0) — if true, staking is closed (price already hit $1 or ignition happened).
 Step 3: Approve SunDAI (or SunDAI/WPLS LP) for the Destiny Vault contract.
 Step 4: Call stake(amount) for plain SunDAI OR stakeLP(amount) for SunDAI/WPLS LP tokens (LP earns 1.5× weight).
 Step 5: You can withdraw() your stake anytime before ignition.
@@ -1533,9 +1536,11 @@ All vaults: must repay ≥ 20% of debt per call. 10-min cooldown between liquida
 4. Your pSunDAI share = your weight / totalWeight × totalPayout
 
 ── CLAIM RISE YIELD ──
-1. Hold ≥ 1 RISE in wallet — no staking needed
-2. Wait ≥ 1 hour between claims, minimum 0.369 pSunDAI to claim
-3. Add RISE/WPLS liquidity for 2× yield share weight
+1. Hold ≥ 1 RISE in your wallet — no staking, no LP, no action required
+2. pSunDAI yield accumulates automatically from every buy and sell of RISE
+3. Claim once ≥ 0.369 pSunDAI has accumulated AND 1-hour cooldown has passed
+4. Call claimYield() from the dapp or directly — sends accumulated pSunDAI to your wallet
+5. Anyone can call processYield() to trigger a pSunDAI conversion cycle early — public, permissionless
 
 ── GENERAL TIPS ──
 - Always call vaultInfo(yourAddress) before any vault action
