@@ -518,11 +518,11 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
         <div>
           <div class="detail-label">Contract Addresses · PulseChain</div>
           <div class="ca-stack">
-            <div class="ca-row"><span class="ca-lbl">SunPLS Token</span><span class="ca-addr">0xe4b8EC561f03713207f9669981A0F5D793b0d687</span></div>
-            <div class="ca-row"><span class="ca-lbl">Vault</span><span class="ca-addr">0xAc2309E21F4acA2eC5fB14ae02a78AA0db7691ae</span></div>
-            <div class="ca-row"><span class="ca-lbl">Oracle</span><span class="ca-addr">0xBac6B5ee10d1de3f3A522948326438A4d059eFB7</span></div>
-            <div class="ca-row"><span class="ca-lbl">Controller</span><span class="ca-addr">0x4360e04780a8D7d930b620275546Df5193A7b6C4</span></div>
-            <div class="ca-row"><span class="ca-lbl">Stability Pool</span><span class="ca-addr">0xa820130b9CcDef6DF3f49856F2Fa6CEce5cdd80D</span></div>
+            <div class="ca-row"><span class="ca-lbl">SunPLS Token</span><span class="ca-addr">0xfbfe269C256A62425feD4b57Aabf44b3536f4AD4</span></div>
+            <div class="ca-row"><span class="ca-lbl">Vault</span><span class="ca-addr">0x7414121FBe16e18c03991F2980461f071a88Ce8f</span></div>
+            <div class="ca-row"><span class="ca-lbl">Oracle</span><span class="ca-addr">0x228436E79B91103d1F3fff8a80F33485186DEfdB</span></div>
+            <div class="ca-row"><span class="ca-lbl">Controller</span><span class="ca-addr">0x45dbaa6E65075391002c05f4EaDB3D6e8605218A</span></div>
+            <div class="ca-row"><span class="ca-lbl">Stability Pool</span><span class="ca-addr">0x1f55942646BB2edBC1B7ACE9EeD0D71560A6AF3D</span></div>
           </div>
         </div>
       </div>
@@ -988,7 +988,7 @@ STUCK: "I got liquidated / I'm being redeemed against"
 → Redeemed (bSunDAI): any vault with debt can be redeemed from, regardless of CR. Redeemer burns bSunDAI, takes equivalent ETH minus 0.5% fee (which stays in your vault improving your CR). It always improves your CR — your collateral decreases proportionally with your debt. If it happened, your vault is in better shape than before.
 
 STUCK: "I approved but transaction still fails"
-→ Check: did you approve the RIGHT contract? pSunDAI vault V7: 0x14d98E5Ad664964C9F25fc598Ca3835c172E0BEC | SunPLS vault: 0xAc2309E21F4acA2eC5fB14ae02a78AA0db7691ae | bSunDAI vault: 0x4DDCC8de4f0DA14647F6bD2388553526308599c3
+→ Check: did you approve the RIGHT contract? pSunDAI vault V7: 0x14d98E5Ad664964C9F25fc598Ca3835c172E0BEC | SunPLS vault: 0x7414121FBe16e18c03991F2980461f071a88Ce8f | bSunDAI vault: 0x4DDCC8de4f0DA14647F6bD2388553526308599c3
 → Check: did you approve enough? Approve the exact amount or max uint256.
 → Check: are you on the right network? pSunDAI/SunPLS: PulseChain Chain ID 369 | bSunDAI: Base Chain ID 8453. Wrong network = fails silently or hits wrong contract.
 
@@ -1206,12 +1206,12 @@ FUNCTIONS:
 DIAGNOSTICS: if isUSDCDepegged() is true → oracle running Chainlink-only mode, correct behavior. If inConfirmation=true or isStepping=true → oracle is confirming or stepping through a large ETH price move — correct behavior, not a bug. To manually refresh: call poke() if oracle age > 5 min.
 
 ━━━ SUNPLS VAULT ━━━
-Token:          0xe4b8EC561f03713207f9669981A0F5D793b0d687
-Vault:          0xAc2309E21F4acA2eC5fB14ae02a78AA0db7691ae
-Oracle:         0xBac6B5ee10d1de3f3A522948326438A4d059eFB7
-Controller:     0x4360e04780a8D7d930b620275546Df5193A7b6C4
-Stability Pool: 0xa820130b9CcDef6DF3f49856F2Fa6CEce5cdd80D
-PulseX Pair:    0xa2eE0374606c26638dA36E5fC078146bEA3b2728
+Token:          0xfbfe269C256A62425feD4b57Aabf44b3536f4AD4
+Vault:          0x7414121FBe16e18c03991F2980461f071a88Ce8f
+Oracle:         0x228436E79B91103d1F3fff8a80F33485186DEfdB
+Controller:     0x45dbaa6E65075391002c05f4EaDB3D6e8605218A
+Stability Pool: 0x1f55942646BB2edBC1B7ACE9EeD0D71560A6AF3D
+PulseX Pair:    0x44C152d91df1C2aD5a2F964cb982963a98e5885D
 Deployed: 2026-06-21 | Initial R: 1.227303007594859405 WPLS per SunPLS
 
 PRICE DIRECTION: oracle returns WPLS per SunPLS (1e18 scale).
@@ -1263,7 +1263,7 @@ LIQUIDATION FLOW:
 2. Try poolLiquidate(owner) first — instant, no SunPLS from caller
 3. If pool has insufficient SunPLS: use auctionLiquidate(owner, amount) — Dutch auction, better bonus the longer vault sits
 
-STABILITY POOL (0xa820130b9CcDef6DF3f49856F2Fa6CEce5cdd80D):
+STABILITY POOL (0x1f55942646BB2edBC1B7ACE9EeD0D71560A6AF3D):
 Deposit SunPLS → earn WPLS from liquidations + stability fees routed via vault.flushFeesToPool().
 - pool.deposit(sunplsAmount) — deposit SunPLS, start earning WPLS
 - pool.withdraw(sunplsAmount) — withdraw SunPLS + claim WPLS
@@ -1273,7 +1273,7 @@ Deposit SunPLS → earn WPLS from liquidations + stability fees routed via vault
 - pool.poolStats() → (totalSunPLSDeposited, totalSharesOutstanding, sunplsPerShare_1e18, totalWPLSHeld, lifetimeSunPLSAbsorbed, lifetimeWPLSFromLiquidations, lifetimeWPLSFromFees, totalLiquidations, currentAccWplsPerShare)
 
 ━━━ SUNPLS ORACLE ━━━
-Contract: 0xBac6B5ee10d1de3f3A522948326438A4d059eFB7
+Contract: 0x228436E79B91103d1F3fff8a80F33485186DEfdB
 
 Single-pair TWAP from SunPLS/WPLS PulseX pair. Price = WPLS per SunPLS. Standalone contract — anyone can update it.
 
@@ -1291,7 +1291,7 @@ Mode D — Dead oracle: rate and R both frozen; epoch still advances — system 
 DIAGNOSTICS: if oracle seems stale → call peek() to see last stored price and timestamp. Call isHealthy() — if false, oracle needs an update() call. Deposits, repayments, and withdrawals are NEVER blocked by a stale oracle.
 
 ━━━ SUNPLS CONTROLLER ━━━
-Contract: 0x4360e04780a8D7d930b620275546Df5193A7b6C4
+Contract: 0x45dbaa6E65075391002c05f4EaDB3D6e8605218A
 
 Proportional controller. Each 30-minute epoch: ε = P−R → Δr = K×ε → pushes new stability rate r to vault → R steps toward equilibrium (capped at 1% per epoch).
 Starting R: 1.227303007594859405 WPLS per SunPLS (seeded at deploy from live PulseX pair price).
