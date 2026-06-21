@@ -490,18 +490,18 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
         <h3 class="asset-name">SunPLS</h3>
         <p class="asset-tagline">// A peg that walks with the market — not one that breaks against it</p>
         <p class="asset-desc">
-          SunPLS is the protocol's earliest live deployment and the first implementation of the <strong style="color:var(--teal)">ProjectUSD specification</strong> — a fully autonomous monetary system built around a P/R/r feedback loop. Rather than targeting a dollar price, SunPLS tracks its own internal equilibrium <strong style="color:var(--teal)">R</strong> — a value denominated in PLS, derived from the protocol's collateral and debt state. R is not a price someone declared. It is what the math computed at genesis and has evolved from ever since, epoch by epoch, automatically.
+          SunPLS is the first implementation of the <strong style="color:var(--teal)">ProjectUSD specification</strong> — a fully autonomous monetary system built around a P/R/r feedback loop. Rather than targeting a dollar price, SunPLS tracks its own internal equilibrium <strong style="color:var(--teal)">R</strong> — a value denominated in PLS, seeded at 1.227 WPLS at genesis and evolved by the Controller ever since, epoch by epoch, automatically. R is not a price someone declared. It is what the math computed and continues to compute.
         </p>
         <p class="asset-desc" style="margin-top:1rem;">
-          The system observes the market price of SunPLS in PLS (P), measures its deviation from R, and adjusts the borrowing interest rate (r) to nudge supply and demand back toward equilibrium. Trade below R and rates tighten, discouraging new minting. Trade above R and rates ease, encouraging it. Automated monetary policy — no board meeting, no vote, no discretion.
+          The system observes the market price of SunPLS in PLS (P), measures its deviation from R, and adjusts the borrowing interest rate (r) each 30-minute epoch. Trade below R and rates tighten, discouraging new minting. Trade above R and rates ease toward zero — borrowing is always free at worst, never subsidized. Automated monetary policy — no board meeting, no vote, no discretion.
         </p>
         <p class="asset-desc" style="margin-top:1rem;">
-          Epochs and oracle updates have been running flawlessly for months. No emergency interventions. No frozen epochs. No failed liquidations. The system has operated exactly as designed through real market conditions — proof that fully autonomous monetary architecture works without anyone maintaining it.
+          SunPLS adds what RAI never had: a <strong style="color:var(--teal)">Stability Pool</strong> where SunPLS holders deposit to earn WPLS from liquidations and stability fees, and a <strong style="color:var(--teal)">pool-first liquidation</strong> system that lets instant liquidations run without the caller providing any SunPLS. Five immutable contracts. No admin keys. No upgrade path. Running without anyone maintaining it.
         </p>
         <div class="asset-cta">
           <a href="https://elitev5.github.io/SunPLSV2/index.html" target="_blank" class="asset-link">Open Vault →</a>
           <a href="https://elitev5.github.io/SunPLSV2/liquidations.html" target="_blank" class="asset-link" style="font-size:0.68rem;">Liquidations →</a>
-          <a href="https://ipfs.io/ipfs/bafybeic5dol7hbiaw5cs7mqv75hb3khyzkm4pk2ugsvfcvzkxymfaapkmm" target="_blank" class="asset-link" style="font-size:0.65rem;opacity:0.75;">IPFS ↗</a>
+          <a href="https://ipfs.io/ipfs/bafybeigfmnhcckubufvwn3wstqaz6wfg6lcchcsutnh56f3puwfrd3xr7a" target="_blank" class="asset-link" style="font-size:0.65rem;opacity:0.75;">IPFS ↗</a>
         </div>
       </div>
       <div class="asset-details">
@@ -509,18 +509,20 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
           <div class="detail-label">Floating Peg Mechanics</div>
           <div class="detail-item"><div class="dmark"></div><div><strong>P/R/r feedback loop</strong>The autonomous controller compares market price (P) against internal equilibrium (R) and adjusts the interest rate (r) each epoch. Price deviation drives rate response — no human discretion, no board meeting. Automated monetary policy.</div></div>
           <div class="detail-item"><div class="dmark"></div><div><strong>R is computed, not declared</strong>The equilibrium value updates each epoch based on actual collateral and debt state. No human sets a target. No governance can defend an arbitrary number. R is what the math says it is.</div></div>
-          <div class="detail-item"><div class="dmark"></div><div><strong>Vault CR zones — mint at 150%</strong>Above 150%: healthy, can mint and withdraw. 130%–150%: distressed, cannot mint more. Below 130%: redemption-eligible. Below 110%: liquidatable. Vault owners above 130% are completely immune to redemption.</div></div>
-          <div class="detail-item"><div class="dmark"></div><div><strong>Redemptions at R — with vault owner protection</strong>Only vaults at or below 130% CR can be redeemed against at R-value. The vault owner keeps a 0.5% fee as compensation for involuntary exit. A 5-minute gap after redemption prevents immediate follow-on liquidation.</div></div>
-          <div class="detail-item"><div class="dmark"></div><div><strong>Liquidations: below 110%</strong>Vaults that fall below 110% are opened to Dutch auction liquidation with a growing 2%–5% incentive bonus over 3 hours. The protocol self-heals automatically — no operator required.</div></div>
-          <div class="detail-item"><div class="dmark"></div><div><strong>Single-pair TWAP oracle with four degradation modes</strong>Price derived from the SunPLS/WPLS PulseX pair. If the oracle goes dark, the controller degrades gracefully through fallback modes — the system never freezes. Deposits, repayments, and withdrawals remain live even with a dead oracle.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Vault CR zones — mint at 150%</strong>Above 150%: healthy, can mint and withdraw. 110%–150%: redeemable — SunPLS holders can redeem against this vault at R-value. Below 110%: liquidatable. Vault owners above 150% are completely immune to redemption and liquidation.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Redemptions at R — hard economic floor</strong>Any vault below 150% CR can be redeemed against. Burn SunPLS, receive PLS at the full R-value — no slippage, no AMM. The vault owner keeps a 0.5% fee. This arbitrage loop closes automatically when SunPLS trades below R.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Two-path liquidation below 110%</strong>Pool-first: the Stability Pool absorbs debt and receives PLS collateral instantly — no SunPLS required from the caller. If the pool is empty, Dutch auction fallback activates — any caller provides SunPLS and receives PLS collateral with a growing bonus the longer the vault sits under 110%.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Stability Pool — earn WPLS from liquidations and fees</strong>Deposit SunPLS to earn WPLS. Two yield sources: PLS collateral from pool-first liquidations (converted to WPLS), and borrower stability fees routed via flushFeesToPool(). Fully permissionless — deposit and withdraw anytime.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Single-pair TWAP oracle with four degradation modes</strong>Price derived from the SunPLS/WPLS PulseX pair. If the oracle goes dark, the controller degrades gracefully through fallback modes A→D — the system never freezes. Deposits, repayments, and withdrawals remain live even with a dead oracle.</div></div>
         </div>
         <div>
-          <div class="detail-label">Contract Addresses · PulseChain (V2)</div>
+          <div class="detail-label">Contract Addresses · PulseChain</div>
           <div class="ca-stack">
-            <div class="ca-row"><span class="ca-lbl">SunPLS</span><span class="ca-addr">0xaac685D900CC42569061d91F6a521658AA397f32</span></div>
-            <div class="ca-row"><span class="ca-lbl">Vault V2</span><span class="ca-addr">0x5A87Aa7A3C68ACA0bb0CDe423Bf1f107284135BC</span></div>
-            <div class="ca-row"><span class="ca-lbl">Oracle V2</span><span class="ca-addr">0x0A0E4adFBF38Dd227ed25D4f7e48B44D3a6aCa49</span></div>
-            <div class="ca-row"><span class="ca-lbl">Controller V2</span><span class="ca-addr">0xd231F209aCd14e66cbe72b23a0c5C1105651b4c6</span></div>
+            <div class="ca-row"><span class="ca-lbl">SunPLS Token</span><span class="ca-addr">0xe4b8EC561f03713207f9669981A0F5D793b0d687</span></div>
+            <div class="ca-row"><span class="ca-lbl">Vault</span><span class="ca-addr">0xAc2309E21F4acA2eC5fB14ae02a78AA0db7691ae</span></div>
+            <div class="ca-row"><span class="ca-lbl">Oracle</span><span class="ca-addr">0xBac6B5ee10d1de3f3A522948326438A4d059eFB7</span></div>
+            <div class="ca-row"><span class="ca-lbl">Controller</span><span class="ca-addr">0x4360e04780a8D7d930b620275546Df5193A7b6C4</span></div>
+            <div class="ca-row"><span class="ca-lbl">Stability Pool</span><span class="ca-addr">0xa820130b9CcDef6DF3f49856F2Fa6CEce5cdd80D</span></div>
           </div>
         </div>
       </div>
@@ -840,7 +842,7 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
 
 <footer>
   <div class="fi">
-    <div class="fl">Elite Team6 · Autonomous Monetary Protocol · <a href="https://ipfs.io/ipfs/bafybeifmwxhglcku4gcxbwmqwkx47kzttt4x4vtvwvd2c2ji5e3o2sh5ie" target="_blank" style="color:var(--gold);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:0.72em;letter-spacing:0.05em;" title="Censorship-resistant build on IPFS">IPFS ↗</a></div>
+    <div class="fl">Elite Team6 · Autonomous Monetary Protocol · <a href="https://ipfs.io/ipfs/bafybeiebkytwvbaowj3swzfqamlla4yuuwr5r2ojc2xtjc4ykh47rji6ti" target="_blank" style="color:var(--gold);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:0.72em;letter-spacing:0.05em;" title="Censorship-resistant build on IPFS">IPFS ↗</a></div>
     <ul class="flinks">
       <li><a href="https://github.com/ELITEv5/SunPLSV2" target="_blank">GitHub</a></li>
       <li><a href="https://elitev5.github.io/SunDAIV2/index.html" target="_blank">pSunDAI</a></li>
@@ -917,17 +919,18 @@ pSunDAI vault:
 - If user hits "System undercollateralized" on pSunDAI → tell them to use depositAndAutoMintPLS() instead. Never tell them to wait.
 
 SunPLS vault:
-- mint() alone → blocked if systemHealth() < 130%
-- depositAndAutoMintPLS() → ALSO blocked if systemHealth() < 130%. Same check. No bypass.
-- SunPLS recovery is through redemptions (distressed vaults get redeemed against, debt clears) and Controller rate tightening — not new deposits.
+- mint() alone → blocked if system CR is unhealthy. No single-tx bypass function — depositPLS() and mint() are always separate calls.
+- SunPLS recovery is through redemptions (distressed vaults below 150% CR get redeemed against, debt clears) and Controller rate tightening.
 - If user hits "System undercollateralized" on SunPLS → they must wait for system health to recover via redemptions or PLS price increase. They can still depositPLS() without minting.
+- SunPLS has NO withdrawal cooldown — withdraw() is available immediately after depositing.
 
 NEVER tell a pSunDAI user to wait when depositAndAutoMintPLS() is available.
-NEVER tell a SunPLS user that depositAndAutoMintPLS() bypasses the health check — it does not.
+NEVER tell a SunPLS user there is a 5-minute withdrawal cooldown — there is none.
+NEVER tell a SunPLS user that depositAndAutoMintPLS() exists as a single function — it does not in the new vault.
 
 RULE 2 — SEVEN ASSETS, NEVER MIX THEIR LOGIC:
 pSunDAI = USD $1 peg, ETH-free, PLS-collateral, 5-pair PulseX oracle (PulseChain)
-SunPLS = floating PLS-denominated peg, has R, has controller, has redemptions, single-pair oracle (PulseChain)
+SunPLS = floating PLS-denominated peg, has R (started 1.227 WPLS), has controller (30-min epochs), has redemptions (vaults <150% CR), has Stability Pool (deposit SunPLS → earn WPLS), pool-first liquidation, single-pair oracle (PulseChain)
 bSunDAI = USD $1 peg, ETH-collateralized CDP on Base, Chainlink-primary oracle with USDC depeg guard, HAS redemption (no CR threshold), liquidation bonus 10%→2% over 3h (Base chain)
 SunDAI = community meme token, ritual Destiny Vault only, not a stable asset
 RISE = yield/demand token, no CDP, no vault, no collateral — v21 CA: 0x90f3ddf0A60BD752d5dffBEedA179f6670C152b3
@@ -956,8 +959,9 @@ STUCK: "my transaction keeps reverting"
 → Ask them to paste the exact error message. Then match it to the revert reasons below and give the fix.
 
 STUCK: "I can't withdraw"
-→ pSunDAI/SunPLS: Did you deposit in the last 5 minutes? (Cooldown active). Is your CR still ≥150% after withdrawal? (Would breach 150% CR). Do you have debt? (repay first or use repayAndAutoWithdraw).
-→ Ask: how long ago did you deposit, and do you have any debt?
+→ pSunDAI: Did you deposit in the last 5 minutes? (Cooldown active). Is your CR still ≥150% after withdrawal? (Would breach 150% CR). Do you have debt? (repay first or use repayAndAutoWithdraw).
+→ SunPLS: No cooldown — withdraw() is available immediately. Is your CR still ≥150% after withdrawal? Do you have debt? (repay first or use repayAndClose()).
+→ Ask: do you have any debt, and how much are you trying to withdraw?
 
 STUCK: "I can't mint"
 → Check: did system health drop below 130%? If so, manual mint() is blocked BUT depositAndAutoMintPLS() still works and actually helps system health — always suggest this first. Is your vault below 150% CR? (Insufficient collateral). Are you passing zero? (Zero mint).
@@ -972,7 +976,7 @@ STUCK: "my vault seems undercollateralized / I might get liquidated"
 
 STUCK: "the oracle seems wrong / stuck / not updating"
 → pSunDAI: call getPriceStatus() — if inConfirmation=true, it's working correctly, just waiting to confirm a large move. Flash crashes under 4h are fully ignored by design.
-→ SunPLS: call getCreepingState() — if isCreeping=true, a large move is being confirmed. Call triggerEpoch() on the controller to advance monetary policy.
+→ SunPLS: call oracle.peek() to see last stored price and timestamp. Call oracle.isHealthy() — if false, the oracle is stale. Call triggerEpoch() on the controller to advance monetary policy if epoch is overdue.
 → Manual poke: check lastUpdateTimestamp() on the oracle — if age > 30 min (pSunDAI) or > 5 min (bSunDAI), call poke(). If it reverts "Poke cooldown" wait the remaining time. Use getPriceStatus() to see full oracle state.
 
 STUCK: "I don't understand what R means / what is SunPLS worth"
@@ -980,11 +984,11 @@ STUCK: "I don't understand what R means / what is SunPLS worth"
 
 STUCK: "I got liquidated / I'm being redeemed against"
 → Liquidated: vault was below 110% CR. Remaining collateral is still in vault minus what was taken. Options: repay remaining debt, add more collateral, or close vault.
-→ Redeemed (SunPLS): your vault CR was ≤130%. Some collateral taken at R-value, debt reduced. 5-minute window before liquidation — use repay() or depositPLS() to get above 130%.
+→ Redeemed (SunPLS): your vault CR was <150%. Some collateral taken at R-value, debt reduced proportionally. Vault owner received 0.5% fee. Use repay() or depositPLS() to get above 150% to stop further redemptions.
 → Redeemed (bSunDAI): any vault with debt can be redeemed from, regardless of CR. Redeemer burns bSunDAI, takes equivalent ETH minus 0.5% fee (which stays in your vault improving your CR). It always improves your CR — your collateral decreases proportionally with your debt. If it happened, your vault is in better shape than before.
 
 STUCK: "I approved but transaction still fails"
-→ Check: did you approve the RIGHT contract? pSunDAI vault V7: 0x14d98E5Ad664964C9F25fc598Ca3835c172E0BEC | SunPLS vault V2: 0x5A87Aa7A3C68ACA0bb0CDe423Bf1f107284135BC | bSunDAI vault: 0x4DDCC8de4f0DA14647F6bD2388553526308599c3
+→ Check: did you approve the RIGHT contract? pSunDAI vault V7: 0x14d98E5Ad664964C9F25fc598Ca3835c172E0BEC | SunPLS vault: 0xAc2309E21F4acA2eC5fB14ae02a78AA0db7691ae | bSunDAI vault: 0x4DDCC8de4f0DA14647F6bD2388553526308599c3
 → Check: did you approve enough? Approve the exact amount or max uint256.
 → Check: are you on the right network? pSunDAI/SunPLS: PulseChain Chain ID 369 | bSunDAI: Base Chain ID 8453. Wrong network = fails silently or hits wrong contract.
 
@@ -999,14 +1003,14 @@ STUCK: "how do I earn yield"
 
 STUCK: "I want to close my vault completely"
 → pSunDAI: repayAndAutoWithdraw(yourFullDebt) — one call, done. Or repay() then withdrawPLS().
-→ SunPLS: repayAndWithdrawAll() — one call, done.
+→ SunPLS: repayAndClose() — one call, done.
 → Remind: always get fresh debt from vaultInfo() first — interest accrues silently.
 
 ━━━ CRITICAL: FIVE COMPLETELY DIFFERENT ASSETS — NEVER MIX THEIR LOGIC ━━━
 
 1. pSunDAI — USD-pegged stable asset on PulseChain. Targets $1.00. Minted by locking PLS at 150% CR. Has NO floating R value, NO controller, NO P/R/r feedback loop. Its oracle is the 5-pair hybrid median TWAP (DAI/USDC/USDT pools on PulseX) with a Spot Warning layer. Stability fee 0.5%/yr. Liquidation at 110%. NO redemption mechanism — users repay debt to exit. Chain ID 369. UI: https://elitev5.github.io/SunDAIV2/index.html | Liquidations: https://elitev5.github.io/SunDAIV2/liquidations.html
 
-2. SunPLS — Floating peg asset on PulseChain. Does NOT target $1. NOT pegged to USD. R is an internal equilibrium value denominated in WPLS per SunPLS — seeded at genesis oracle price and evolved by the Controller ever since. Has a P/R/r feedback loop via the ProjectUSD Controller. Has REDEMPTION (burn SunPLS → receive PLS at R-value from distressed vaults ≤130% CR). Has NO stability fee. Has NO 5-pair oracle — uses single-pair TWAP (SunPLS/WPLS on PulseX) with creeping confirmation. Chain ID 369. UI: https://elitev5.github.io/SunPLSV2/index.html | Liquidations: https://elitev5.github.io/SunPLSV2/liquidations.html
+2. SunPLS — Floating peg asset on PulseChain. Does NOT target $1. NOT pegged to USD. R is an internal equilibrium value denominated in WPLS per SunPLS — started at 1.227 WPLS at deployment and evolved by the Controller every 30-minute epoch ever since. Has a P/R/r feedback loop via the ProjectUSD Controller. Has REDEMPTION (burn SunPLS → receive PLS at R-value from any vault <150% CR — no minimum CR floor for redemption eligibility). Has Stability Pool (deposit SunPLS → earn WPLS from liquidations + fees). Has pool-first liquidation (instant, no SunPLS from caller) and Dutch auction fallback. Has NO stability fee on borrowing. Has NO withdrawal cooldown. Has NO 5-pair oracle — uses single-pair TWAP (SunPLS/WPLS on PulseX). MIN_RATE=0 (never negative). Chain ID 369. UI: https://elitev5.github.io/SunPLSV2/index.html | Liquidations: https://elitev5.github.io/SunPLSV2/liquidations.html
 
 3. bSunDAI — USD-pegged stable asset on Base. Targets $1.00. Minted by locking WETH at 150% CR. Oracle is Chainlink-primary with Uniswap v3 TWAP backup (NOT 5-pair PulseX median). Has USDC depeg guard. Stability fee 0.5%/yr. Liquidation at 110%. HAS a redemption mechanism: anyone can burn bSunDAI for $1 of WETH (minus 0.5% fee) from any vault with debt — no CR threshold required. Liquidation bonus starts HIGH at 10% and DECREASES to 2% over 3h (opposite of pSunDAI). Chain ID 8453 (Base).
 
@@ -1018,7 +1022,7 @@ RULES:
 - pSunDAI has NO R value, NO controller, NO redemption mechanism, NO P/R/r loop (PulseChain)
 - SunPLS has NO USD peg, NO stability fee, NO 5-pair oracle, NO fixed $1 target (PulseChain)
 - bSunDAI is on Base (Chain ID 8453) — NOT PulseChain. Uses WETH not PLS. Uses Chainlink+Uniswap oracle not PulseX.
-- bSunDAI HAS a redemption mechanism — any vault with debt can be redeemed, no CR threshold (different from SunPLS which requires CR ≤ 130%)
+- bSunDAI HAS a redemption mechanism — any vault with debt can be redeemed, no CR threshold (different from SunPLS which requires CR < 150%)
 - bSunDAI liquidation bonus STARTS at 10% and DECREASES to 2% — act fast (pSunDAI is the opposite: starts 2%, grows to 5%)
 - SunDAI is NOT a stable asset — it is a community token with a ritual vault
 - RISE is NOT a CDP — it is a yield/demand token for pSunDAI
@@ -1026,6 +1030,9 @@ RULES:
 - NEVER describe pSunDAI as having a floating peg or R value (that is SunPLS)
 - NEVER say pSunDAI has redemptions (it does not — only SunPLS and bSunDAI have redemptions, but they work very differently)
 - NEVER say SunPLS targets $1 (it does not — it targets R which floats in PLS terms)
+- NEVER say SunPLS has a withdrawal cooldown — it does not (unlike pSunDAI which has 5 min)
+- NEVER say SunPLS has negative rates — MIN_RATE=0, stability rate is always ≥ 0%
+- NEVER say SunPLS redemption requires CR ≤ 130% — the new vault threshold is < 150%
 - NEVER tell a bSunDAI user to use PulseChain — they are on Base (Chain ID 8453)
 - NEVER confuse bSunDAI's Chainlink+Uniswap oracle with pSunDAI's 5-pair PulseX oracle
 - NEVER say bSunDAI depositAndAutoMintETH() bypasses system health check — unlike pSunDAI, it is ALSO blocked when system CR < 130%
@@ -1198,117 +1205,111 @@ FUNCTIONS:
 
 DIAGNOSTICS: if isUSDCDepegged() is true → oracle running Chainlink-only mode, correct behavior. If inConfirmation=true or isStepping=true → oracle is confirming or stepping through a large ETH price move — correct behavior, not a bug. To manually refresh: call poke() if oracle age > 5 min.
 
-━━━ SUNPLS VAULT (V2) ━━━
-Token:      0xaac685D900CC42569061d91F6a521658AA397f32
-Vault:      0x5A87Aa7A3C68ACA0bb0CDe423Bf1f107284135BC
-Oracle:     0x0A0E4adFBF38Dd227ed25D4f7e48B44D3a6aCa49
-Controller: 0xd231F209aCd14e66cbe72b23a0c5C1105651b4c6
+━━━ SUNPLS VAULT ━━━
+Token:          0xe4b8EC561f03713207f9669981A0F5D793b0d687
+Vault:          0xAc2309E21F4acA2eC5fB14ae02a78AA0db7691ae
+Oracle:         0xBac6B5ee10d1de3f3A522948326438A4d059eFB7
+Controller:     0x4360e04780a8D7d930b620275546Df5193A7b6C4
+Stability Pool: 0xa820130b9CcDef6DF3f49856F2Fa6CEce5cdd80D
+PulseX Pair:    0xa2eE0374606c26638dA36E5fC078146bEA3b2728
+Deployed: 2026-06-21 | Initial R: 1.227303007594859405 WPLS per SunPLS
 
-PRICE DIRECTION: oracle returns WPLS per SunPLS (1e18 scale). e.g. 117378e18 = 1 SunPLS costs 117,378 PLS.
-Conversions: SunPLS_value_of_N_PLS = N × 1e18 / price | PLS_value_of_N_SunPLS = N × price / 1e18
-CR formula: CR = collateral × 1e18 × 100 / (debt × price)
+PRICE DIRECTION: oracle returns WPLS per SunPLS (1e18 scale).
+CR formula (bps): CR = (collateral × P) ÷ (debt × R) × 10000
 
-CONSTANTS: COLLATERAL_RATIO=150 | LIQUIDATION_RATIO=110 | REDEMPTION_RATIO=130 | AUTOMINT_RATIO=155 | MIN_ACTION_AMOUNT=1e14 | WITHDRAW_COOLDOWN=300s | LIQUIDATION_COOLDOWN=600s | REDEMPTION_LIQUIDATION_GAP=300s | MIN_LIQUIDATION_BPS=2000 | REDEMPTION_FEE_BPS=50 | AUCTION_TIME=3h | MIN_BONUS=200bps | MAX_BONUS=500bps | EMERGENCY_UNLOCK_TIME=30 days
+CONSTANTS: COLLATERAL_RATIO=150 | LIQUIDATION_RATIO=110 | REDEMPTION_RATIO=150 | AUTOMINT_RATIO=155 | NO WITHDRAWAL COOLDOWN | REDEMPTION_FEE_BPS=50 | MAX_RATE=30% APR | MIN_RATE=0 | DEBT_CEILING=100_000e18
 
 CR ZONE MAP:
->150% — Healthy. Can mint and withdraw. Fully immune to redemption.
-130–150% — Distressed. Redemption-eligible. Cannot mint more.
-110–130% — Seriously distressed. Redemption-eligible. Approaching liquidation.
-<110% — Liquidatable. Dutch auction active.
+>150% — Healthy. Can mint and withdraw. Fully immune to redemption and liquidation.
+110–150% — Redeemable. SunPLS holders can redeem against vault at R-value. Cannot mint more.
+<110% — Liquidatable. Pool-first instant (if pool funded), then Dutch auction fallback.
 
 USER FUNCTIONS:
-- depositPLS() payable | deposit(uint256) — deposit collateral
-- depositAndAutoMintPLS() payable — deposit + auto-mint at 155%
-- mint(uint256) — mint SunPLS; requires system CR ≥ 130% and vault CR would stay ≥ 150%
+- depositPLS() payable — deposit native PLS as collateral
+- withdraw(uint256) — withdraw PLS collateral; no cooldown
+- mint(uint256) — mint SunPLS; requires vault CR would stay ≥ 150%
 - repay(uint256) — burn SunPLS to reduce debt
-- repayAndWithdrawAll() — repay full debt + withdraw all collateral atomically
-- withdrawPLS(uint256) | withdrawWPLS(uint256) — withdraw collateral (5-min cooldown)
-- emergencyUnlock() — withdraw if debt=0 and 30+ days since last deposit
-- redeem(uint256 sunplsAmount, address targetVault) — redeem SunPLS at R-value against distressed vault
-- liquidate(address user, uint256 repayAmount) — liquidate vault below 110%
+- repayAndClose() — repay full accrued debt + withdraw all collateral atomically
+- poolLiquidate(address owner) — instant pool-first liquidation; no SunPLS from caller; Stability Pool absorbs debt and receives PLS; reverts cleanly if pool insufficient
+- auctionLiquidate(address owner, uint256 sunplsInput) — Dutch auction; caller provides SunPLS, receives PLS; better rate the longer vault sits under 110%; works even when pool is empty
+- redeem(uint256 sunplsIn, address targetVault) — burn SunPLS at R-value, receive PLS; target must be <150% CR
+- emergencyUnlock() — recover collateral if debt=0 and oracle degraded
 
 VIEW FUNCTIONS:
-- vaultInfo(address) → collateral, debt, collateralValueUSD, ratio, mintable, rate, redemptionVal, liquidatable, redeemable, oracleHealthy, systemRatio
-- redemptionPreview(address targetVault, uint256 sunplsAmount) → plsToRedeemer, feeToOwner, R, eligible
-- canLiquidate(address) | canRedeem(address) → bool
-- liquidationInfo(address) → debt, minRepay, reward, bonusBps
-- maxMint(address) | repayToHealth(address) → amounts
-- systemHealth() → system CR
-- getVaultCount() → total vaults ever opened
-- getVaultOwner(uint256 index) → address
+- getVault(address) → (collateral, debt, crBps, liquidatable, redeemable, lastAccrual)
+- globalStats() → TVL, totalMinted, surplus, badDebt, currentRate, redemptionPrice, systemCR, debtCeiling, utilization
+- vaultCount() → total vaults ever opened
+- vaultOwners(uint256 index) → address
+- R() on Controller → current equilibrium value (WPLS per SunPLS)
 
 REVERT REASONS & FIXES:
-"Too small" → below 1e14 minimum
-"Zero mint" → mint(0)
-"System undercollateralized" → system CR < 130%; both mint() AND depositAndAutoMintPLS() are blocked. Recovery is through redemptions against distressed vaults or PLS price recovery. User can still call depositPLS() to add collateral without minting.
-"Insufficient collateral" → vault would breach 150%; deposit more or mint less
-"Invalid repay amount" → repaying more than debt or zero; check current debt via vaultInfo()
-"Invalid amount" → withdraw exceeds collateral or zero
-"Cooldown active" → 5-min cooldown after deposit before withdrawing
-"Would breach 150% CR" → withdrawal makes vault unsafe
-"Repay debt first" → emergencyUnlock with active debt
+"Insufficient collateral" → vault would breach 150% CR; deposit more or mint less
+"System undercollateralized" → system CR unhealthy; mint() blocked. Recovery through redemptions against distressed vaults or PLS price recovery. User can still depositPLS() without minting.
+"Invalid repay" → repaying more than debt or zero; check current debt via getVault()
+"Vault CR too high" → target vault for redemption is ≥ 150%; it is immune; pick a different target
 "No debt in vault" → redeeming against zero-debt vault
-"Exceeds vault debt" → sunplsAmount > target vault's current debt
-"Vault CR too high to redeem against" → target vault CR > 130%; vault is immune; pick a different target
+"Exceeds vault debt" → sunplsIn > target vault's current debt
+"Vault is safe" → trying to liquidate a vault above 110%; check getVault(owner).liquidatable
 "Cannot self-redeem" → cannot redeem against your own vault
-"Vault is safe" → liquidating vault above 110%; use canLiquidate() first
-"Below min liquidation size" → must repay ≥ 20% of vault debt per call
-"Liquidation cooldown" → 10-min gap between liquidations of same vault
-"Recently redeemed: wait before liquidating" → 5-min anti-griefing gap after redemption
 "Cannot self-liquidate" → cannot liquidate your own vault
-"Nothing to do" → repayAndWithdrawAll on vault with no debt and no collateral
 
-REDEMPTION FLOW:
-1. Find vault with CR ≤ 130%: canRedeem(target) must return true
-2. Preview: redemptionPreview(target, amount) → see plsToRedeemer, feeToOwner, R, eligible
-3. Execute: redeem(amount, target) — burns your SunPLS, sends PLS to you, 0.5% stays with vault owner
-4. After redemption: vault cannot be liquidated for 5 min (vault owner can top up in this window)
+REDEMPTION FLOW (SunPLS → PLS arbitrage at R):
+1. Find vault with CR < 150%: getVault(target).redeemable must be true
+2. Execute: redeem(sunplsIn, target) — burns your SunPLS, you receive PLS at R-value, 0.5% fee stays with vault owner
+3. Always executes at R — no slippage, no AMM price impact
 
-━━━ SUNPLS ORACLE (V2) ━━━
-Contract: 0x0A0E4adFBF38Dd227ed25D4f7e48B44D3a6aCa49
+LIQUIDATION FLOW:
+1. Check getVault(owner).liquidatable — must be true (CR < 110%)
+2. Try poolLiquidate(owner) first — instant, no SunPLS from caller
+3. If pool has insufficient SunPLS: use auctionLiquidate(owner, amount) — Dutch auction, better bonus the longer vault sits
 
-Single-pair TWAP from SunPLS/WPLS PulseX. Price = WPLS per SunPLS.
-CREEPING: moves ≤5% → accepted instantly | moves >5% → need 3 confirmations (within 1% band each) → creep 10% per step
-Example 40% pump: ~(40/10) × 3 × 60s = ~12 min to converge
+STABILITY POOL (0xa820130b9CcDef6DF3f49856F2Fa6CEce5cdd80D):
+Deposit SunPLS → earn WPLS from liquidations + stability fees routed via vault.flushFeesToPool().
+- pool.deposit(sunplsAmount) — deposit SunPLS, start earning WPLS
+- pool.withdraw(sunplsAmount) — withdraw SunPLS + claim WPLS
+- pool.claimWPLS() — claim accrued WPLS without withdrawing
+- pool.withdrawAllAndClaim() — single-tx full exit
+- pool.depositorInfo(address) → (sunplsRedeemable, wplsClaimable, userShares, sharePercent)
+- pool.poolStats() → (totalSunPLSDeposited, totalSharesOutstanding, sunplsPerShare_1e18, totalWPLSHeld, lifetimeSunPLSAbsorbed, lifetimeWPLSFromLiquidations, lifetimeWPLSFromFees, totalLiquidations, currentAccWplsPerShare)
 
-CONSTANTS: MAX_DEVIATION_BPS=500 (5%) | MIN_TWAP_INTERVAL=60s | MAX_PRICE_AGE=300s | CREEP_STEP_BPS=1000 (10%) | CANDIDATE_TOLERANCE_BPS=100 (1% band)
+━━━ SUNPLS ORACLE ━━━
+Contract: 0xBac6B5ee10d1de3f3A522948326438A4d059eFB7
+
+Single-pair TWAP from SunPLS/WPLS PulseX pair. Price = WPLS per SunPLS. Standalone contract — anyone can update it.
 
 FUNCTIONS:
-- update() — called by vault on every interaction (state-changing, not for external calls)
-- peek() → (price, timestamp) — view, no state change
-- isHealthy() → bool (true if lastPrice changed within 5 min)
-- getSpotPrice() → current spot from reserves (view)
-- getCreepingState() → (pendingPrice, confirmCount, isCreeping)
+- update() — stores a fresh snapshot of AMM reserves with timestamp
+- peek() → (price, timestamp) — returns stored price and its timestamp; view, no state change
+- isHealthy() → bool — true if stored price is within the valid age window
 
-DIAGNOSTICS: if oracle seems stuck → getCreepingState(); if isCreeping=true, a large move is accumulating confirmations — this is correct behavior. Each vault interaction calls update() automatically.
+ORACLE DEGRADATION MODES (handled by Controller on each epoch):
+Mode A — Fresh update: full K, R updates normally
+Mode B — Peek fallback: stored snapshot used, K decays with price age, R frozen
+Mode C — Stored price buffer: last-known price with reduced K, R frozen
+Mode D — Dead oracle: rate and R both frozen; epoch still advances — system never permanently stalls
 
-━━━ SUNPLS CONTROLLER (V2) ━━━
-Contract: 0xd231F209aCd14e66cbe72b23a0c5C1105651b4c6
+DIAGNOSTICS: if oracle seems stale → call peek() to see last stored price and timestamp. Call isHealthy() — if false, oracle needs an update() call. Deposits, repayments, and withdrawals are NEVER blocked by a stale oracle.
 
-Proportional controller. Each epoch: ε = |P−R|/R → Δr = K×ε (capped at DELTA_R_MAX) → pushes new r to vault → optionally steps R toward P.
+━━━ SUNPLS CONTROLLER ━━━
+Contract: 0x4360e04780a8D7d930b620275546Df5193A7b6C4
 
-CONSTANTS: EPOCH_DURATION=3600s (1 hr) | K=1e15 (0.1% gain) | ALPHA=5e15 (0.5% R damping) | DEADBAND=1e15 (0.1% — no rate change below this) | DELTA_R_MAX=5e14 | MAX_R_MOVE_BPS=1000 (10%/epoch) | R_FLOOR=1e15
+Proportional controller. Each 30-minute epoch: ε = P−R → Δr = K×ε → pushes new stability rate r to vault → R steps toward equilibrium (capped at 1% per epoch).
+Starting R: 1.227303007594859405 WPLS per SunPLS (seeded at deploy from live PulseX pair price).
 
-ORACLE MODES:
-Mode A (fresh): full K, R updates → normal operation
-Mode B (peek fallback): K decays with price age, R frozen
-Mode C (stored price): same K decay, R frozen
-Mode D (dead): r and R both frozen, epoch still advances — system never permanently stalls
+CONSTANTS: EPOCH_DURATION=1800s (30 min) | K=1e15 (0.1% proportional gain) | ALPHA=5e14 (0.05% damping — 10× stickier than RAI) | MAX_R_MOVE_BPS=100 (1% max R shift per epoch) | MIN_RATE=0 (never negative) | MAX_RATE=30% APR
 
 KEY FUNCTIONS:
-- triggerEpoch() — permissionless, anyone calls to advance monetary policy; must wait EPOCH_DURATION since last epoch
+- triggerEpoch() — permissionless; anyone can call to advance monetary policy; must wait EPOCH_DURATION since last epoch
 - R() → current equilibrium value (WPLS per SunPLS)
-- r (public int256) → current interest rate; positive = debt grows; negative = debt shrinks
+- r (public) → current stability rate; always ≥ 0 (MIN_RATE=0, never negative)
 - epochCount → number of epochs completed
-- previewNextEpoch() → expectedRate, expectedR, epsilon, inDeadband, wouldFreeze, wouldTriggerLimiter, mode, effectiveKBps
-- oracleStatus() → oracleReportsHealthy, controllerHasStoredPrice, storedPriceAge, storedPriceUsable, currentEffectiveKBps, expectedMode
-- getParameters() → all tunable constants
 
 COMMON QUESTIONS:
-"Why is R not moving?" → R only updates in Mode A (fresh oracle). Check oracleStatus().
-"Why is my debt growing/shrinking?" → r is positive (rates tight, P < R) or negative (rates easy, P > R). Check vaultInfo(yourAddress).rate
+"Why is R not moving?" → R only updates when oracle is fresh (Mode A). If oracle is stale, R freezes.
+"Why is my debt growing?" → r is positive (P < R, rates tightened). Debt accrues silently. Always read getVault() for current debt before repaying.
 "How to trigger an epoch?" → call triggerEpoch() from any wallet. No args needed.
-"When was last epoch?" → epochCount and lastEpochTime (public state vars)
+"What is R right now?" → call R() on the Controller contract.
+"Can rates go negative?" → No. MIN_RATE=0 is a hard constant. Borrowing is free at worst, never subsidized.
 
 ━━━ DESTINY VAULT (SunDAI Blackhole) ━━━
 UI: https://elitev5.github.io/SunDAIV2/Destiny/index.html
