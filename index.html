@@ -501,7 +501,7 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
         <div class="asset-cta">
           <a href="https://elitev5.github.io/SunPLSV2/index.html" target="_blank" class="asset-link">Open Vault →</a>
           <a href="https://elitev5.github.io/SunPLSV2/liquidations.html" target="_blank" class="asset-link" style="font-size:0.68rem;">Liquidations →</a>
-          <a href="https://ipfs.io/ipfs/bafybeid3zldxknhxgtfjjjlahnviyyybvtfi6r63r4beku7hd6u4mve5om" target="_blank" class="asset-link" style="font-size:0.65rem;opacity:0.75;">IPFS ↗</a>
+          <a href="https://ipfs.io/ipfs/bafybeidhb2eqtwvnagrkxz2bhjdwfop5tqg3u5y4vhbcfgiq6g6fdw4ic4" target="_blank" class="asset-link" style="font-size:0.65rem;opacity:0.75;">IPFS ↗</a>
         </div>
       </div>
       <div class="asset-details">
@@ -518,11 +518,11 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
         <div>
           <div class="detail-label">Contract Addresses · PulseChain</div>
           <div class="ca-stack">
-            <div class="ca-row"><span class="ca-lbl">SunPLS Token</span><span class="ca-addr">0xfbfe269C256A62425feD4b57Aabf44b3536f4AD4</span></div>
-            <div class="ca-row"><span class="ca-lbl">Vault</span><span class="ca-addr">0x7414121FBe16e18c03991F2980461f071a88Ce8f</span></div>
-            <div class="ca-row"><span class="ca-lbl">Oracle</span><span class="ca-addr">0x228436E79B91103d1F3fff8a80F33485186DEfdB</span></div>
-            <div class="ca-row"><span class="ca-lbl">Controller</span><span class="ca-addr">0x45dbaa6E65075391002c05f4EaDB3D6e8605218A</span></div>
-            <div class="ca-row"><span class="ca-lbl">Stability Pool</span><span class="ca-addr">0x1f55942646BB2edBC1B7ACE9EeD0D71560A6AF3D</span></div>
+            <div class="ca-row"><span class="ca-lbl">SunPLS Token</span><span class="ca-addr">0x5d29509551378B55E0e79e3e9a7f610aC1f281D5</span></div>
+            <div class="ca-row"><span class="ca-lbl">Vault</span><span class="ca-addr">0xfbBd23B115FE4540e07A2d57004D0503Bb37B29e</span></div>
+            <div class="ca-row"><span class="ca-lbl">Oracle</span><span class="ca-addr">0xC74b5d405276FF87Ad798acCF104c6E727cfe66b</span></div>
+            <div class="ca-row"><span class="ca-lbl">Controller</span><span class="ca-addr">0x6828BD8c3eF04aA927374a45b4796A3cb6C54945</span></div>
+            <div class="ca-row"><span class="ca-lbl">Stability Pool</span><span class="ca-addr">0xeec42299EC0564A1804e8D7De87bE9463bf151B2</span></div>
           </div>
         </div>
       </div>
@@ -842,7 +842,7 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
 
 <footer>
   <div class="fi">
-    <div class="fl">Elite Team6 · Autonomous Monetary Protocol · <a href="https://ipfs.io/ipfs/bafybeif57gvnx2gb3mk27udb2kekd4sagy5zolcgualq6mxhzkyh4vyzge" target="_blank" style="color:var(--gold);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:0.72em;letter-spacing:0.05em;" title="Censorship-resistant build on IPFS">IPFS ↗</a></div>
+    <div class="fl">Elite Team6 · Autonomous Monetary Protocol · <a href="https://ipfs.io/ipfs/bafybeigpgqza3mzghdsapr7hp7ffq5znx4tsj57mxbpy5vlzwfsslrtgbm" target="_blank" style="color:var(--gold);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:0.72em;letter-spacing:0.05em;" title="Censorship-resistant build on IPFS">IPFS ↗</a></div>
     <ul class="flinks">
       <li><a href="https://github.com/ELITEv5/SunPLSV2" target="_blank">GitHub</a></li>
       <li><a href="https://elitev5.github.io/SunDAIV2/index.html" target="_blank">pSunDAI</a></li>
@@ -988,7 +988,7 @@ STUCK: "I got liquidated / I'm being redeemed against"
 → Redeemed (bSunDAI): any vault with debt can be redeemed from, regardless of CR. Redeemer burns bSunDAI, takes equivalent ETH minus 0.5% fee (which stays in your vault improving your CR). It always improves your CR — your collateral decreases proportionally with your debt. If it happened, your vault is in better shape than before.
 
 STUCK: "I approved but transaction still fails"
-→ Check: did you approve the RIGHT contract? pSunDAI vault V7: 0x14d98E5Ad664964C9F25fc598Ca3835c172E0BEC | SunPLS vault: 0x7414121FBe16e18c03991F2980461f071a88Ce8f | bSunDAI vault: 0x4DDCC8de4f0DA14647F6bD2388553526308599c3
+→ Check: did you approve the RIGHT contract? pSunDAI vault V7: 0x14d98E5Ad664964C9F25fc598Ca3835c172E0BEC | SunPLS vault: 0xfbBd23B115FE4540e07A2d57004D0503Bb37B29e | bSunDAI vault: 0x4DDCC8de4f0DA14647F6bD2388553526308599c3
 → Check: did you approve enough? Approve the exact amount or max uint256.
 → Check: are you on the right network? pSunDAI/SunPLS: PulseChain Chain ID 369 | bSunDAI: Base Chain ID 8453. Wrong network = fails silently or hits wrong contract.
 
@@ -1206,12 +1206,12 @@ FUNCTIONS:
 DIAGNOSTICS: if isUSDCDepegged() is true → oracle running Chainlink-only mode, correct behavior. If inConfirmation=true or isStepping=true → oracle is confirming or stepping through a large ETH price move — correct behavior, not a bug. To manually refresh: call poke() if oracle age > 5 min.
 
 ━━━ SUNPLS VAULT ━━━
-Token:          0xfbfe269C256A62425feD4b57Aabf44b3536f4AD4
-Vault:          0x7414121FBe16e18c03991F2980461f071a88Ce8f
-Oracle:         0x228436E79B91103d1F3fff8a80F33485186DEfdB
-Controller:     0x45dbaa6E65075391002c05f4EaDB3D6e8605218A
-Stability Pool: 0x1f55942646BB2edBC1B7ACE9EeD0D71560A6AF3D
-PulseX Pair:    0x44C152d91df1C2aD5a2F964cb982963a98e5885D
+Token:          0x5d29509551378B55E0e79e3e9a7f610aC1f281D5
+Vault:          0xfbBd23B115FE4540e07A2d57004D0503Bb37B29e
+Oracle:         0xC74b5d405276FF87Ad798acCF104c6E727cfe66b
+Controller:     0x6828BD8c3eF04aA927374a45b4796A3cb6C54945
+Stability Pool: 0xeec42299EC0564A1804e8D7De87bE9463bf151B2
+PulseX Pair:    0x4803EB64649d6647900149D6e60E3b45B13561E1
 Deployed: 2026-06-21 | Initial R: 1.227303007594859405 WPLS per SunPLS
 
 PRICE DIRECTION: oracle returns WPLS per SunPLS (1e18 scale).
@@ -1263,7 +1263,7 @@ LIQUIDATION FLOW:
 2. Try poolLiquidate(owner) first — instant, no SunPLS from caller
 3. If pool has insufficient SunPLS: use auctionLiquidate(owner, amount) — Dutch auction, better bonus the longer vault sits
 
-STABILITY POOL (0x1f55942646BB2edBC1B7ACE9EeD0D71560A6AF3D):
+STABILITY POOL (0xeec42299EC0564A1804e8D7De87bE9463bf151B2):
 Deposit SunPLS → earn WPLS from liquidations + stability fees routed via vault.flushFeesToPool().
 - pool.deposit(sunplsAmount) — deposit SunPLS, start earning WPLS
 - pool.withdraw(sunplsAmount) — withdraw SunPLS + claim WPLS
@@ -1273,7 +1273,7 @@ Deposit SunPLS → earn WPLS from liquidations + stability fees routed via vault
 - pool.poolStats() → (totalSunPLSDeposited, totalSharesOutstanding, sunplsPerShare_1e18, totalWPLSHeld, lifetimeSunPLSAbsorbed, lifetimeWPLSFromLiquidations, lifetimeWPLSFromFees, totalLiquidations, currentAccWplsPerShare)
 
 ━━━ SUNPLS ORACLE ━━━
-Contract: 0x228436E79B91103d1F3fff8a80F33485186DEfdB
+Contract: 0xC74b5d405276FF87Ad798acCF104c6E727cfe66b
 
 Single-pair TWAP from SunPLS/WPLS PulseX pair. Price = WPLS per SunPLS. Standalone contract — anyone can update it.
 
@@ -1291,7 +1291,7 @@ Mode D — Dead oracle: rate and R both frozen; epoch still advances — system 
 DIAGNOSTICS: if oracle seems stale → call peek() to see last stored price and timestamp. Call isHealthy() — if false, oracle needs an update() call. Deposits, repayments, and withdrawals are NEVER blocked by a stale oracle.
 
 ━━━ SUNPLS CONTROLLER ━━━
-Contract: 0x45dbaa6E65075391002c05f4EaDB3D6e8605218A
+Contract: 0x6828BD8c3eF04aA927374a45b4796A3cb6C54945
 
 Proportional controller. Each 30-minute epoch: ε = P−R → Δr = K×ε → pushes new stability rate r to vault → R steps toward equilibrium (capped at 1% per epoch).
 Starting R: 1.227303007594859405 WPLS per SunPLS (seeded at deploy from live PulseX pair price).
@@ -1401,9 +1401,9 @@ Step 6: Flash crashes under 4 hours have zero effect on the oracle price — thi
 
 ── HOW TO WAKE UP / ADVANCE THE SUNPLS ORACLE AND EPOCH ──
 The SunPLS oracle updates on every vault interaction. The Controller epoch must be triggered manually.
-Step 1: Check the oracle — call getCreepingState() on 0x0A0E4adFBF38Dd227ed25D4f7e48B44D3a6aCa49. If isCreeping=true, a large price move is accumulating confirmations (3 needed). Each vault interaction counts as a confirmation call.
+Step 1: Check the oracle — call getCreepingState() on 0xC74b5d405276FF87Ad798acCF104c6E727cfe66b. If isCreeping=true, a large price move is accumulating confirmations (3 needed). Each vault interaction counts as a confirmation call.
 Step 2: If oracle seems stuck, just interact with the vault (even a tiny deposit) — it calls oracle.update() automatically.
-Step 3: To advance the monetary policy epoch, call triggerEpoch() on the Controller (0xd231F209aCd14e66cbe72b23a0c5C1105651b4c6). Anyone can call this. No arguments needed.
+Step 3: To advance the monetary policy epoch, call triggerEpoch() on the Controller (0x6828BD8c3eF04aA927374a45b4796A3cb6C54945). Anyone can call this. No arguments needed.
 Step 4: Epochs run every 3600 seconds (1 hour). If less than an hour has passed since the last epoch, triggerEpoch() will revert.
 Step 5: After triggering an epoch, R may move slightly toward P, and the interest rate r adjusts. Check the controller's R() and r values to see the new state.
 Step 6: Call oracleStatus() on the controller to see which degradation mode it's running in (A=healthy, B=peek fallback, C=stored, D=frozen). Mode A is normal.
@@ -1489,7 +1489,7 @@ The oracle auto-updates on vault interactions. To manually push it:
 5. Flash crashes under 4h have ZERO effect on oracle price — intentional protection, no action needed.
 
 ── TRIGGER A SunPLS EPOCH (WAKE UP CONTROLLER) ──
-1. Call triggerEpoch() on controller 0xd231F209aCd14e66cbe72b23a0c5C1105651b4c6 — no args, any wallet
+1. Call triggerEpoch() on controller 0x6828BD8c3eF04aA927374a45b4796A3cb6C54945 — no args, any wallet
 2. Reverts if < 1 hour since last epoch — check epochCount to confirm
 3. Preview before triggering: previewNextEpoch() → expectedRate, expectedR, mode, effectiveKBps
 4. Check oracle health: oracleStatus() → Mode A (full), B (degraded K), C (stored), D (frozen)
