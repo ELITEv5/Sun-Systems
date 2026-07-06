@@ -660,13 +660,13 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
           <div class="dt-warn">⚠ POINT OF NO RETURN — Staked assets become permanent collateral at ignition. Only commit what you are willing to see destroyed and reborn as pSunDAI.</div>
           <div class="ca-stack" style="margin:0 2.2rem 1.2rem;">
             <div class="ca-row"><span class="ca-lbl">SunDAI</span><span class="ca-addr">0x41C6b24019Bd67CC58fe7bb059D532C12356712B</span></div>
-            <div class="ca-row"><span class="ca-lbl">Destiny Vault (v2)</span><span class="ca-addr">0xEfF88B68309870cCcC3B84Ae3A2659B5E5521C66</span></div>
+            <div class="ca-row"><span class="ca-lbl">Destiny Vault (v3)</span><span class="ca-addr">0x4c6cC935bEaFC90D0556694d82bd6C789996d35a</span></div>
             <div class="ca-row"><span class="ca-lbl">pSunDAI V9</span><span class="ca-addr">0x1b13cFddab761372cBBF815502E38b4e3613dDF9</span></div>
           </div>
           <div class="dt-links">
             <a href="https://elitev5.github.io/SunDAIV2/Destiny/index.html" target="_blank" class="dt-link">Open Destiny Vault →</a>
             <a href="https://ipfs.io/ipfs/bafybeiaxsz7kxppjnh4wspbvrcrc6mxw6nft4f7zylvhjffdfcjlhadzfa/index.html" target="_blank" class="dt-link" style="font-size:0.68rem;">pSunDAI Vault →</a>
-            <a href="https://ipfs.io/ipfs/bafybeihnh6r3xvps2u7ewqw3pnjkw3wne2rl6ofg435fo7hqv4ja7frzri" target="_blank" class="dt-link" style="font-size:0.6rem;opacity:0.75;">IPFS ↗</a>
+            <a href="https://ipfs.io/ipfs/bafybeigjm3wq36p5sgv3qbs4zm2vxtxeqt2d24gzjbava62lc3fmyloopi" target="_blank" class="dt-link" style="font-size:0.6rem;opacity:0.75;">IPFS ↗</a>
           </div>
         </div>
       </div>
@@ -842,7 +842,7 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
 
 <footer>
   <div class="fi">
-    <div class="fl">Elite Team6 · Autonomous Monetary Protocol · <a href="https://ipfs.io/ipfs/bafybeifzjei72dk4a34i34c6az7tbpa344etplqvfoucu4bhv3wzn4yaxq" target="_blank" style="color:var(--gold);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:0.72em;letter-spacing:0.05em;" title="Censorship-resistant build on IPFS">IPFS ↗</a></div>
+    <div class="fl">Elite Team6 · Autonomous Monetary Protocol · <a href="https://ipfs.io/ipfs/bafybeicgqqpjyddnukvv234yrbuvn2xkkez6ojfozxuooia62i4y4dobvu" target="_blank" style="color:var(--gold);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:0.72em;letter-spacing:0.05em;" title="Censorship-resistant build on IPFS">IPFS ↗</a></div>
     <ul class="flinks">
       <li><a href="https://github.com/ELITEv5/SunPLSV2" target="_blank">GitHub</a></li>
       <li><a href="https://ipfs.io/ipfs/bafybeiaxsz7kxppjnh4wspbvrcrc6mxw6nft4f7zylvhjffdfcjlhadzfa/index.html" target="_blank">pSunDAI</a></li>
@@ -1038,7 +1038,7 @@ RULES:
 - NEVER say bSunDAI depositAndAutoMintETH() bypasses system health check — unlike pSunDAI, it is ALSO blocked when system CR < 130%
 - BOTH pSunDAI (V9) and SunPLS have a "Stability Pool" — NEVER mix them up. pSunDAI's: deposit pSunDAI, earn PLS + a share of the 0.5% stability fee, functions are provideToStabilityPool/withdrawFromStabilityPool/claimCollateralGain/liquidateFromStabilityPool. SunPLS's: deposit SunPLS, earn WPLS from liquidations + flushFeesToPool(), functions are pool.deposit/pool.withdraw/pool.claimWPLS — a completely separate contract at its own address. Ask which asset before answering a Stability Pool question if it's ambiguous.
 - pSunDAI's clearBadDebt is V9-only and takes TWO arguments: clearBadDebt(address user, uint256 repayAmount) — caller must repay, receives collateral strictly pro-rata, NEVER for free. Do not describe it as a free/reward mechanism — that was the V8 behavior and it was a confirmed exploit, fixed in V9.
-- The Destiny Vault (v2, CA 0xEfF88B68309870cCcC3B84Ae3A2659B5E5521C66) mints pSunDAI V9 as of v2 — its constructor takes only the pSunDAI token address and derives the paired V9 vault on-chain via token.vault(), so they can never be mismatched. The prior instance (v1, CA 0x6262b68fc709239ABEb6a6eD5e32bdf0BE8DB543) minted V7 and held the real staked SunDAI/LP — that stake is being migrated to v2 by its owner; v1 is being retired, not actively used going forward. Always point users to v2.
+- The Destiny Vault (v3, CA 0x4c6cC935bEaFC90D0556694d82bd6C789996d35a) mints pSunDAI V9 — its constructor takes only the pSunDAI token address and derives the paired V9 vault on-chain via token.vault(), so they can never be mismatched. v2 (0xEfF88B68309870cCcC3B84Ae3A2659B5E5521C66) is abandoned — it had a real bug (wrong SunDial oracle address, read from an unused decoy contract instead of the real v1) that would have checked the $1 ignition threshold against the wrong price feed; caught and fixed before anyone staked into it. The original v1 (CA 0x6262b68fc709239ABEb6a6eD5e32bdf0BE8DB543) minted V7 and held the real staked SunDAI/LP — that stake is being migrated to v3 by its owner; v1 is being retired. Always point users to v3, never v1 or v2.
 - RISE is the same story: v21 (old, still technically live, CA 0x90f3ddf0A60BD752d5dffBEedA179f6670C152b3) paid V7 pSunDAI — but v21's yield never actually worked (no WPLS/pSunDAI-V7 PulseX pool ever existed, confirmed totalYieldPaid()==0 on-chain). v22 (current, CA 0x31966b74C8eEd9f4b0F8B186DcCfAE2444fD795C) is a redeploy with the reward token switched to pSunDAI V9 — a WPLS/pSunDAI-V9 pool does exist but is very thin, so yield may still be minimal for now. Always point users to v22, not v21.
 - The only thing still genuinely tied to pSunDAI V7 is PrivX Pay's own shield pools (dedicated $1–$100 pSunDAI shield contracts deployed against the V7 token specifically) — that's a real, separate, immutable dependency, not a stale reference. Give V7 only when asked specifically about those PrivX Pay pSunDAI shields; V9 for everything else (pSunDAI vault, Destiny Vault, RISE).
 - When asked about "the pSunDAI vault" generally (opening a new position, minting, liquidating), give V9 — it's the current, recommended, live product.
@@ -1339,14 +1339,14 @@ COMMON QUESTIONS:
 "What is R right now?" → call R() on the Controller contract.
 "Can rates go negative?" → No. MIN_RATE=0 is a hard constant. Borrowing is free at worst, never subsidized.
 
-━━━ DESTINY VAULT (SunDAI Blackhole) — v2, CURRENT/LIVE ━━━
+━━━ DESTINY VAULT (SunDAI Blackhole) — v3, CURRENT/LIVE ━━━
 UI: https://elitev5.github.io/SunDAIV2/Destiny/index.html
 SunDAI: 0x41C6b24019Bd67CC58fe7bb059D532C12356712B
-Destiny Vault (v2): 0xEfF88B68309870cCcC3B84Ae3A2659B5E5521C66
+Destiny Vault (v3): 0x4c6cC935bEaFC90D0556694d82bd6C789996d35a
 pSunDAI (minted at rebirth, V9 as of v2): 0x1b13cFddab761372cBBF815502E38b4e3613dDF9
 Threshold: $1.00 (1e18 in oracle units) — checked against the SunDial oracle, not pSunDAI's own oracle.
 
-v1 (0x6262b68fc709239ABEb6a6eD5e32bdf0BE8DB543, pSunDAI V7) held the real staked SunDAI/LP and is being retired by its owner in favor of v2 — always point users to v2. v2's constructor takes only the pSunDAI token address; the paired vault is derived on-chain via token.vault(), so it can never point at a mismatched vault/token pair. All ritual logic is otherwise byte-identical to v1.
+v1 (0x6262b68fc709239ABEb6a6eD5e32bdf0BE8DB543, pSunDAI V7) held the real staked SunDAI/LP and is being retired by its owner in favor of v3 — always point users to v3. v2 (0xEfF88B68309870cCcC3B84Ae3A2659B5E5521C66) is abandoned: it hardcoded the wrong SunDial Oracle address (read from an unused decoy Destiny Vault instead of the real v1), which would have checked the $1 ignition threshold against the wrong price feed — caught before anyone staked into it. v3's constructor takes only the pSunDAI token address; the paired vault is derived on-chain via token.vault(), so it can never point at a mismatched vault/token pair. All ritual logic is otherwise byte-identical to v1.
 
 PRE-IGNITION FUNCTIONS (only while oracle price < threshold and !ignited):
 - stake(uint256 sundaiAmt, uint256 plpAmt) — ONE function, both amounts in the same call (either can be 0, not both). Requires SunDAI and/or SunDAI/WPLS-LP approval first. LP stakes earn 1.5× weight (LP_MULTIPLIER_BPS=15000).
@@ -1483,9 +1483,9 @@ Step 4: Call redeem(sunplsAmount, targetVault). SunPLS is burned, you receive PL
 Step 5: After redemption the vault cannot be liquidated for 5 minutes. The vault owner can top up collateral in this window.
 Step 6: The arbitrage works because: if SunPLS market price < R, you can buy SunPLS cheap on DEX then redeem at R for more PLS value than you paid.
 
-── HOW TO STAKE IN THE DESTINY VAULT (SunDAI, v2) ──
+── HOW TO STAKE IN THE DESTINY VAULT (SunDAI, v3) ──
 Step 1: Go to https://elitev5.github.io/SunDAIV2/Destiny/index.html — or get SunDAI tokens (0x41C6b24019Bd67CC58fe7bb059D532C12356712B) from PulseX.
-Step 2: Check isLocked() on the Destiny Vault v2 (0xEfF88B68309870cCcC3B84Ae3A2659B5E5521C66) — if true, staking is closed (price already hit $1 or ignition happened).
+Step 2: Check isLocked() on the Destiny Vault v3 (0x4c6cC935bEaFC90D0556694d82bd6C789996d35a) — if true, staking is closed (price already hit $1 or ignition happened).
 Step 3: Approve SunDAI (and/or SunDAI/WPLS LP) for the Destiny Vault contract.
 Step 4: Call stake(sundaiAmt, plpAmt) — a single function, pass 0 for whichever you're not staking. LP earns 1.5× weight.
 Step 5: You can withdraw(sundaiAmt, plpAmt) anytime before ignition.
@@ -1593,7 +1593,7 @@ All vaults: must repay ≥ 20% of debt per call. bSunDAI and SunPLS: 10-min cool
 4. Manual: depositETH() OR approve WETH → deposit(amount) → then mint(amount ≤ vaultInfo(yourAddress).mintable)
 5. Check state: vaultInfo(yourAddress) — same fields as pSunDAI vault
 
-── DESTINY VAULT (SunDAI, v2) ──
+── DESTINY VAULT (SunDAI, v3) ──
 ⚠️ IRREVERSIBLE after ignition.
 1. Get SunDAI on PulseX → stake(sundaiAmt, plpAmt) — single call, 0 for whichever you're not staking, LP gets 1.5× weight
 2. withdraw(sundaiAmt, plpAmt) to exit before ignition
