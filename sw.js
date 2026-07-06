@@ -1,12 +1,11 @@
-const CACHE = 'sun-systems-v2';
+const CACHE = 'sun-systems-v3';
 const ASSETS = [
-  '/Sun-Systems/',
-  '/Sun-Systems/index.html',
-  '/Sun-Systems/SunPLS_token.png',
-  '/Sun-Systems/sundailogo.png',
-  '/Sun-Systems/icon-192.png',
-  '/Sun-Systems/icon-512.png',
-  '/Sun-Systems/manifest.json'
+  './',
+  './index.html',
+  './SunPLS_token.png',
+  './icon-192.png',
+  './icon-512.png',
+  './manifest.json'
 ];
 
 self.addEventListener('install', e => {
