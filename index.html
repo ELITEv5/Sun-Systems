@@ -448,14 +448,14 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
           bSunDAI is the Base chain deployment of the SunDAI CDP architecture — ETH-collateralized, targeting a $1.00 peg, with no admin keys, no upgrade path, and no owner. Mint bSunDAI by depositing WETH at a minimum 150% collateral ratio.
         </p>
         <p class="asset-desc" style="margin-top:1rem;">
-          The <strong style="color:#4B8EFF">Hybrid Oracle v6.4</strong> uses Chainlink (via Aave) as the primary price source, backed by a median of three independent Uniswap v3 WETH/USDC pools. If they agree within 30%, Chainlink is used. If they diverge significantly, the TWAP takes over. A USDC depeg guard completely disables TWAP if Aave's oracle reports USDC below $0.97 — at which point Chainlink is used exclusively. This eliminates the risk of a USDC collapse corrupting the price feed.
+          <strong style="color:#4B8EFF">V9</strong> adds a Liquity-style Stability Pool — deposit bSunDAI to absorb liquidations atomically and earn a share of liquidation bonuses plus real stability-fee yield, no vault of your own required. It also fixes a critical bug: <code style="font-family:'IBM Plex Mono',monospace;font-size:0.85em;">clearBadDebt</code> on zombie vaults now requires real, strictly pro-rata repayment instead of giving collateral away for free, and the debt ceiling is now dynamic — it scales automatically with real, live Base DEX liquidity instead of a single fixed number.
         </p>
         <p class="asset-desc" style="margin-top:1rem;">
-          A vault-level ±10% clamp provides a second independent layer with asymmetric cooldowns — 4 hours for drops, 1 hour for pumps. Two protection layers. Fully autonomous. Deployed on Base.
+          The <strong style="color:#4B8EFF">Hybrid Oracle v9</strong> uses Chainlink (via Aave) as the primary price source, cross-validated against a median of three independent Uniswap v3 WETH/USDC pools. If they agree within 30%, Chainlink is used; if they diverge, TWAP takes over. A USDC depeg guard disables TWAP entirely if Aave's oracle reports USDC below $0.97. If a sustained Chainlink/committed-price divergence triggers the live-liquidation track, that price is hard-clamped to within 15% of the conservative committed price — bounding how far a bad feed read or extreme volatility can push liquidation pricing. Fully autonomous. Deployed on Base.
         </p>
         <div class="asset-cta">
-          <a href="https://elitev5.github.io/SunDAI/BaseVault/index.html" target="_blank" class="asset-link" style="font-size:0.68rem;">Open Vault →</a>
-          <a href="https://elitev5.github.io/SunDAI/BaseVault/liquidations.html" target="_blank" class="asset-link" style="font-size:0.68rem;">Liquidations →</a>
+          <a href="https://elitev5.github.io/SunDAIV2/BASE/index.html" target="_blank" class="asset-link" style="font-size:0.68rem;">Open Vault →</a>
+          <a href="https://elitev5.github.io/SunDAIV2/BASE/liquidations.html" target="_blank" class="asset-link" style="font-size:0.68rem;">Liquidations →</a>
         </div>
       </div>
       <div class="asset-details">
@@ -463,17 +463,19 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
           <div class="detail-label">Oracle &amp; Mechanics</div>
           <div class="detail-item"><div class="dmark"></div><div><strong>Chainlink-primary hybrid oracle</strong>Chainlink (Aave-backed) is the primary price source, validated against three Uniswap v3 WETH/USDC pool TWAPs. When they agree (within 30%), Chainlink is used. When they diverge, TWAP takes over. If Chainlink dies completely, TWAP continues automatically. Two systems that cross-check each other — neither alone can be wrong undetected.</div></div>
           <div class="detail-item"><div class="dmark"></div><div><strong>USDC depeg guard</strong>If Aave's oracle reports USDC below $0.97, all TWAP feeds are disabled and the vault operates on Chainlink alone. Protects against a USDC collapse cascading into illegitimate liquidations.</div></div>
-          <div class="detail-item"><div class="dmark"></div><div><strong>Vault-level ±10% price clamp</strong>A second independent layer caps price movement per update — 4-hour cooldown for dumps, 1-hour for pumps. Both layers must be bypassed to trigger illegitimate liquidations.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Clamped live-liquidation price</strong>If live Chainlink stays 3%+ below the committed price for 30+ minutes, liquidations switch to live Chainlink — but hard-clamped to within 15% of committed. Bounds how far a bad feed read or extreme volatility can move liquidation pricing, without waiting for the full conservative confirmation window.</div></div>
           <div class="detail-item"><div class="dmark"></div><div><strong>Lock ETH → Mint bSunDAI</strong>Deposit WETH at 150% minimum collateral ratio. Liquidation threshold is 110%. Global health halt pauses new minting if system-wide ratio drops below 130%.</div></div>
-          <div class="detail-item"><div class="dmark"></div><div><strong>0.5% annual stability fee + $0.995 peg floor</strong>Stability fee accrues only on interaction. Dutch auction liquidations start at a 10% bonus and decrease to 2% over 3 hours — act fast for maximum reward. A hard peg floor is enforced via redemption: anyone can burn bSunDAI to receive $1 of ETH (minus 0.5% fee), making any price below $0.995 instantly arb-profitable.</div></div>
-          <div class="detail-item"><div class="dmark"></div><div><strong>Zombie vault monitoring</strong>The vault exposes <code style="font-family:'IBM Plex Mono',monospace;font-size:0.8em;">isZombieVault</code>, <code style="font-family:'IBM Plex Mono',monospace;font-size:0.8em;">vaultBadDebt</code>, and <code style="font-family:'IBM Plex Mono',monospace;font-size:0.8em;">systemBadDebtEstimate</code> — on-chain health monitoring for vaults where collateral value is below outstanding debt.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Stability Pool (new in V9)</strong>Deposit bSunDAI — no vault required — to absorb liquidations atomically via <code style="font-family:'IBM Plex Mono',monospace;font-size:0.8em;">liquidateFromStabilityPool</code>. Depositors earn the liquidation bonus (ETH) plus a continuous share of the 0.5% stability fee, minted directly as yield.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>0.5% annual stability fee + $0.995 peg floor</strong>Stability fee accrues only on interaction. Dutch auction liquidations start at a 10% bonus and decrease to 2% over 3 hours (partial liquidations must repay ≥20% of debt). A hard peg floor is enforced via redemption: anyone can burn bSunDAI to receive $1 of ETH (minus 0.5% fee), making any price below $0.995 instantly arb-profitable.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Dynamic debt ceiling (new in V9)</strong>The effective ceiling is the lesser of an immutable outer bound and real, live Base DEX liquidity × 5 — it grows automatically as liquidity deepens, no redeploy needed. A separate per-vault cap forces diversification.</div></div>
+          <div class="detail-item"><div class="dmark"></div><div><strong>Zombie vault monitoring &amp; fixed clearBadDebt</strong>The vault exposes <code style="font-family:'IBM Plex Mono',monospace;font-size:0.8em;">isZombieVault</code>, <code style="font-family:'IBM Plex Mono',monospace;font-size:0.8em;">vaultBadDebt</code>, and <code style="font-family:'IBM Plex Mono',monospace;font-size:0.8em;">systemBadDebtEstimate</code>. <code style="font-family:'IBM Plex Mono',monospace;font-size:0.8em;">clearBadDebt</code> now requires real, strictly pro-rata repayment — never a free giveaway.</div></div>
         </div>
         <div>
           <div class="detail-label">Contract Addresses · Base</div>
           <div class="ca-stack">
-            <div class="ca-row"><span class="ca-lbl">bSunDAI</span><span class="ca-addr">0xf5FC1c949c9A5fc96F031007ffdFCE2a895d6D3c</span></div>
-            <div class="ca-row"><span class="ca-lbl">Vault</span><span class="ca-addr">0x4DDCC8de4f0DA14647F6bD2388553526308599c3</span></div>
-            <div class="ca-row"><span class="ca-lbl">Oracle</span><span class="ca-addr">0xA39Ae3eC7435CD30508FA439378478EA9cAB91dD</span></div>
+            <div class="ca-row"><span class="ca-lbl">bSunDAI</span><span class="ca-addr">0x0594A2B4916dc2299e8e322973dC344C8c92BF4c</span></div>
+            <div class="ca-row"><span class="ca-lbl">Vault</span><span class="ca-addr">0x974cb2F1f02c520B796d0F0ECc9b8F58d69E0913</span></div>
+            <div class="ca-row"><span class="ca-lbl">Oracle</span><span class="ca-addr">0xdDbfBF4F6FCf11E9E8Ea1b2E2054e8ffeBC2dF9e</span></div>
           </div>
         </div>
       </div>
@@ -846,7 +848,7 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
     <ul class="flinks">
       <li><a href="https://github.com/ELITEv5/SunPLSV2" target="_blank">GitHub</a></li>
       <li><a href="https://ipfs.io/ipfs/bafybeiaxsz7kxppjnh4wspbvrcrc6mxw6nft4f7zylvhjffdfcjlhadzfa/index.html" target="_blank">pSunDAI</a></li>
-      <li><a href="https://elitev5.github.io/SunDAI/BaseVault/index.html" target="_blank">bSunDAI</a></li>
+      <li><a href="https://elitev5.github.io/SunDAIV2/BASE/index.html" target="_blank">bSunDAI</a></li>
       <li><a href="https://elitev5.github.io/SunPLSV2/index.html" target="_blank">SunPLS</a></li>
       <li><a href="https://elitev5.github.io/Old-Glory-RISE-Token/old-glory-token-dapp/index.html" target="_blank">RISE</a></li>
       <li><a href="https://ipfs.io/ipfs/bafybeih3cgoi2zroyj6izlqdxsn5fswukkzw5qbw6jxhmuaacml3xrjkca/index.html" target="_blank">PrivX Shield</a></li>
@@ -977,7 +979,7 @@ STUCK: "my vault seems undercollateralized / I might get liquidated"
 STUCK: "the oracle seems wrong / stuck / not updating"
 → pSunDAI: call getPriceStatus() — if inConfirmation=true, it's working correctly, just waiting to confirm a large move. Flash crashes under 4h are fully ignored by design.
 → SunPLS: call oracle.peek() to see last stored price and timestamp. Call oracle.isHealthy() — if false, the oracle is stale. Call triggerEpoch() on the controller to advance monetary policy if epoch is overdue.
-→ Manual poke: check lastUpdateTimestamp() on the oracle — if age > 30 min (pSunDAI) or > 5 min (bSunDAI), call poke(). If it reverts "Poke cooldown" wait the remaining time. Use getPriceStatus() to see full oracle state.
+→ Manual refresh: pSunDAI — if age > 30 min, call poke() on the oracle (rate-limited, reverts "Poke cooldown" if too early). bSunDAI — if age > 5 min, call refreshPrice() on the oracle instead (different function name, no rate limit — callable any time). Use getPriceStatus() on either oracle to see full state.
 
 STUCK: "I don't understand what R means / what is SunPLS worth"
 → Explain: R is the internal equilibrium value of SunPLS, denominated in PLS (not USD). It's not a price someone set — it's computed by the controller from collateral and debt state each epoch. It started at the oracle price of PLS when SunPLS launched and has evolved automatically. To see current R: call R() on the controller contract.
@@ -988,7 +990,7 @@ STUCK: "I got liquidated / I'm being redeemed against"
 → Redeemed (bSunDAI): any vault with debt can be redeemed from, regardless of CR. Redeemer burns bSunDAI, takes equivalent ETH minus 0.5% fee (which stays in your vault improving your CR). It always improves your CR — your collateral decreases proportionally with your debt. If it happened, your vault is in better shape than before.
 
 STUCK: "I approved but transaction still fails"
-→ Check: did you approve the RIGHT contract? pSunDAI vault V9: 0x23669aeeaE9Fe50e9453ABB556Ff75Eae3EEB931 | SunPLS vault: 0xfbBd23B115FE4540e07A2d57004D0503Bb37B29e | bSunDAI vault: 0x4DDCC8de4f0DA14647F6bD2388553526308599c3
+→ Check: did you approve the RIGHT contract? pSunDAI vault V9: 0x23669aeeaE9Fe50e9453ABB556Ff75Eae3EEB931 | SunPLS vault: 0xfbBd23B115FE4540e07A2d57004D0503Bb37B29e | bSunDAI vault V9: 0x974cb2F1f02c520B796d0F0ECc9b8F58d69E0913
 → Check: did you approve enough? Approve the exact amount or max uint256.
 → Check: are you on the right network? pSunDAI/SunPLS: PulseChain Chain ID 369 | bSunDAI: Base Chain ID 8453. Wrong network = fails silently or hits wrong contract.
 
@@ -1012,7 +1014,7 @@ STUCK: "I want to close my vault completely"
 
 2. SunPLS — Floating peg asset on PulseChain. Does NOT target $1. NOT pegged to USD. R is an internal equilibrium value denominated in WPLS per SunPLS — started at 1.227 WPLS at deployment and evolved by the Controller every 30-minute epoch ever since. Has a P/R/r feedback loop via the ProjectUSD Controller. Has REDEMPTION (burn SunPLS → receive PLS at R-value from any vault <150% CR — no minimum CR floor for redemption eligibility). Has Stability Pool (deposit SunPLS → earn WPLS from liquidations + fees). Has pool-first liquidation (instant, no SunPLS from caller) and Dutch auction fallback. Has NO stability fee on borrowing. Has NO withdrawal cooldown. Has NO 5-pair oracle — uses single-pair TWAP (SunPLS/WPLS on PulseX). MIN_RATE=0 (never negative). Chain ID 369. UI: https://elitev5.github.io/SunPLSV2/index.html | Liquidations: https://elitev5.github.io/SunPLSV2/liquidations.html
 
-3. bSunDAI — USD-pegged stable asset on Base. Targets $1.00. Minted by locking WETH at 150% CR. Oracle is Chainlink-primary with Uniswap v3 TWAP backup (NOT 5-pair PulseX median). Has USDC depeg guard. Stability fee 0.5%/yr. Liquidation at 110%. HAS a redemption mechanism: anyone can burn bSunDAI for $1 of WETH (minus 0.5% fee) from any vault with debt — no CR threshold required. Liquidation bonus starts HIGH at 10% and DECREASES to 2% over 3h (opposite of pSunDAI). Chain ID 8453 (Base).
+3. bSunDAI (V9) — USD-pegged stable asset on Base. Targets $1.00. Minted by locking WETH at 150% CR. Oracle is Chainlink-primary with Uniswap v3 TWAP backup (NOT 5-pair PulseX median). Has USDC depeg guard. Stability fee 0.5%/yr. Liquidation at 110%, no cooldown. HAS a redemption mechanism: anyone can burn bSunDAI for $1 of WETH (minus 0.5% fee) from any vault with debt — no CR threshold required. Liquidation bonus starts HIGH at 10% and DECREASES to 2% over 3h (opposite of pSunDAI). V9 added a Stability Pool (same design as pSunDAI's), fixed clearBadDebt (now pro-rata, no free giveaway), and a dynamic debt ceiling. Chain ID 8453 (Base).
 
 4. SunDAI — Community meme token on PulseChain. NOT a stable asset. NOT pegged to anything. Max supply 16,712,160. No mint function. Has the Destiny Vault: stake SunDAI before it hits $1, then it triggers an irreversible sequence converting stakes into pSunDAI collateral. SunDAI itself has no vault, no oracle, no CDP mechanics.
 
@@ -1152,30 +1154,39 @@ FUNCTIONS:
 
 DIAGNOSTICS: if price seems stale → call getPriceStatus(); if inConfirmation=true the oracle is deliberately waiting before accepting a large move (correct behavior, not a bug). If fewer than 3 of 5 pools are valid, the median itself returns 0/invalid and TWAP freezes at its last value rather than trusting a thin minority of pools.
 
-━━━ BSUNDAI VAULT (v6.5) — BASE CHAIN ━━━
-Token: 0xf5FC1c949c9A5fc96F031007ffdFCE2a895d6D3c
-Vault: 0x4DDCC8de4f0DA14647F6bD2388553526308599c3
-Oracle: 0xA39Ae3eC7435CD30508FA439378478EA9cAB91dD
+━━━ BSUNDAI VAULT (v9) — BASE CHAIN ━━━
+Token: 0x0594A2B4916dc2299e8e322973dC344C8c92BF4c
+Vault: 0x974cb2F1f02c520B796d0F0ECc9b8F58d69E0913
+Oracle: 0xdDbfBF4F6FCf11E9E8Ea1b2E2054e8ffeBC2dF9e
 Chain: Base (Chain ID 8453)
-UI: https://elitev5.github.io/SunDAI/BaseVault/index.html
-Liquidations: https://elitev5.github.io/SunDAI/BaseVault/liquidations.html
+UI: https://elitev5.github.io/SunDAIV2/BASE/index.html
+Liquidations: https://elitev5.github.io/SunDAIV2/BASE/liquidations.html
 
-ETH-collateralized CDP targeting $1.00 peg. Same CDP architecture as pSunDAI but on Base with WETH as collateral.
+ETH-collateralized CDP targeting $1.00 peg. Same CDP architecture as pSunDAI but on Base with WETH as collateral. V9 brought bSunDAI to parity with pSunDAI V9's hardening pass: fixed clearBadDebt (was a free-collateral-giveaway bug in the never-deployed v7 draft), added a clamped live-liquidation price, added a Stability Pool, and added a dynamic debt ceiling.
 
-CONSTANTS: COLLATERAL_RATIO=150 | LIQUIDATION_RATIO=110 | MIN_SYSTEM_HEALTH=130 | STABILITY_FEE_BPS=50 (0.5%/yr) | EMERGENCY_UNLOCK=30 days | AUCTION_TIME=3h | MIN_BONUS_BPS=200 (2%) | MAX_BONUS_BPS=1000 (10%)
-LIQUIDATION BONUS: starts at 10% (MAX_BONUS_BPS) and DECREASES to 2% (MIN_BONUS_BPS) over 3 hours — act fast for maximum reward
+CONSTANTS: COLLATERAL_RATIO=150 | LIQUIDATION_RATIO=110 | MIN_SYSTEM_HEALTH=130 | STABILITY_FEE_BPS=50 (0.5%/yr) | EMERGENCY_UNLOCK=30 days | AUCTION_TIME=3h | MIN_BONUS_BPS=200 (2%) | MAX_BONUS_BPS=1000 (10%) | MIN_LIQUIDATION_BPS=2000 (20% min partial liquidation) | SAFE_CAPACITY_MULTIPLIER=5 | MAX_VAULTS_AT_CAP=10 | LIQUIDATION_CALLER_TIP_BPS=50 (0.5% SP liquidation tip)
+LIQUIDATION BONUS: starts at 10% (MAX_BONUS_BPS) and DECREASES to 2% (MIN_BONUS_BPS) over 3 hours — act fast for maximum reward. No cooldown between liquidations (removed in V9 so the Stability Pool can mop up follow-on partial liquidations immediately).
 
 KEY DIFFERENCES FROM pSunDAI:
 - Collateral is WETH (not PLS/WPLS) — users deposit ETH which auto-wraps to WETH
 - Oracle is Chainlink-primary hybrid with Uniswap v3 TWAP backup (not 5-pair PulseX median)
 - USDC depeg guard: if Aave oracle reports USDC < $0.97, all TWAP disabled, Chainlink-only mode
-- HAS redemption mechanism: anyone can burn bSunDAI for $1 of ETH (minus 0.5% fee) from any vault with debt — creates hard $0.995 peg floor. NO CR threshold required (unlike SunPLS which requires CR ≤ 130%).
+- HAS redemption mechanism: anyone can burn bSunDAI for $1 of ETH (minus 0.5% fee) from any vault with debt — creates hard $0.995 peg floor. NO CR threshold required (unlike SunPLS which requires CR ≤ 130%). pSunDAI has no redemption mechanism at all.
 - Liquidation bonus starts HIGH (10%) and DECREASES to 2% over 3h — act FAST for maximum reward (OPPOSITE of pSunDAI which starts low and grows)
 - Has zombie vault views: isZombieVault(address), vaultBadDebt(address), systemBadDebtEstimate(uint256,uint256)
 - Lives on Base (Chain ID 8453), not PulseChain — users must be on Base network
+- IMPORTANT: there is NO separate "vault-level price clamp" layer on bSunDAI (unlike pSunDAI, which has one in _safeMintPrice). bSunDAI's only price-smoothing layer is the oracle's own committed-price state machine, plus the clamped live-Chainlink liquidation track described below. Do not describe a second vault-level clamp for bSunDAI — it does not exist.
 
-USER FUNCTIONS: depositAndAutoMintETH() payable, depositETH() payable, deposit(uint256 wethAmount) requires approve, mint(uint256), repay(uint256), repayAndAutoWithdraw(uint256 repayAmount), withdrawETH(uint256), emergencyUnlock(), emergencyRepay(uint256), emergencyWithdrawETH(uint256), liquidate(address user, uint256 repayAmount), redeem(uint256 bSunDAIAmount, address vaultOwner)
+USER FUNCTIONS: depositAndAutoMintETH() payable, depositETH() payable, deposit(uint256 wethAmount) requires approve, mint(uint256), repay(uint256), repayAndAutoWithdraw(uint256 repayAmount), withdrawETH(uint256), emergencyUnlock(), emergencyRepay(uint256), emergencyWithdrawETH(uint256), liquidate(address user, uint256 repayAmount), redeem(uint256 bSunDAIAmount, address vaultOwner), clearBadDebt(address user, uint256 repayAmount), settleDebt(uint256 amount), reconcile()
 NOTE: There is NO autoRepayToHealth() on bSunDAI. Use repayToHealth() to calculate, then repay() manually, or use repayAndAutoWithdraw().
+
+STABILITY POOL (new in V9) — same Product-Sum design as pSunDAI's:
+- provideToStabilityPool(uint256 amount) — deposit bSunDAI, requires approval first
+- withdrawFromStabilityPool(uint256 amount) — withdraw up to your compounded deposit; auto-claims pending ETH gain first
+- claimCollateralGain() — claim pending ETH gain without depositing/withdrawing
+- liquidateFromStabilityPool(address user) — permissionless, no capital required from caller; caller gets a 0.5% flat tip, rest of the reward (ETH) goes to SP depositors pro-rata
+- Earn yield: provideToStabilityPool(amount) → earns continuously (stability fee minted as yield + liquidation bonuses) → claimCollateralGain() anytime or withdrawFromStabilityPool(amount) to exit
+Clear a zombie vault (collateral < 100% of debt, voluntary, never profitable): clearBadDebt(user, repayAmount) — you pay repayAmount bSunDAI, receive collateral × repayAmount / debt in ETH, strictly pro-rata, no bonus. Fixed in V9 — previously (in the never-deployed v7 draft) this gave 100% of collateral away for free.
 
 VIEW FUNCTIONS:
 - vaultInfo(address) → collateral, debt, collateralUSD, ratio, mintable, oracleHealthy, price, systemRatio
@@ -1191,6 +1202,14 @@ VIEW FUNCTIONS:
 - systemHealth() → system CR
 - getVaultCount() → total vaults ever opened
 - getVaultOwners(uint256 start, uint256 count) → address[] (paginated)
+- maxSafeDebt() → uint256 — real-time liquidity-derived safe debt capacity (live WETH+USDC pool balances × 5)
+- effectiveDebtCeiling() → uint256 — min(immutable DEBT_CEILING, maxSafeDebt()) — the real, binding ceiling
+- vaultCap() → uint256 — maxSafeDebt() / 10, max debt a single vault may hold
+- getStabilityPoolStats() → (totalDeposits, totalCollateralHeld, currentP, scale, epoch)
+- getCompoundedStabilityDeposit(address depositor) → uint256
+- getDepositorCollateralGain(address depositor) → uint256
+- systemEquity() → int256 — surplusBuffer minus badDebtAccumulated
+- surplusBuffer() / badDebtAccumulated() → uint256 — protocol equity accounting (interest-accrual dust path only; clearBadDebt no longer feeds badDebtAccumulated since it always pays pro-rata)
 
 REVERT REASONS:
 "Invalid amount" → amount < MIN_ACTION_AMOUNT (1e14) or exceeds collateral on withdraw
@@ -1203,8 +1222,12 @@ REVERT REASONS:
 "Unsafe" → withdrawal would push vault below 150% CR
 "Withdraw paused" → oracle not fresh and vault has debt; can still withdraw if debt=0
 "Vault is safe" → trying to liquidate a vault above 110% CR
-"Liquidation cooldown" → 10-min gap required between liquidations of same vault
+"Too small" → partial liquidation repays less than 20% of the vault's debt (MIN_LIQUIDATION_BPS) and isn't a full repay
 "Cannot self-liquidate" → cannot liquidate your own vault
+"SP empty - use liquidate()" → liquidateFromStabilityPool called with zero Stability Pool deposits; use the normal liquidate() path instead
+"Debt ceiling reached" → totalDebt + amount exceeds effectiveDebtCeiling()
+"Vault cap reached" → a single vault would exceed vaultCap()
+"Not underwater - use liquidate()" → clearBadDebt called on a vault that's still ≥100% collateralized; use the normal liquidate() path instead, clearBadDebt is only for fully underwater vaults
 "Below minimum redemption" → must redeem at least 100 bSunDAI per call
 "Cannot self-redeem" → cannot redeem from your own vault
 "Exceeds vault debt" → bSunDAIAmount > vault's current debt
@@ -1217,21 +1240,28 @@ REDEMPTION GUIDE (bSunDAI — creates hard $0.995 peg floor):
 4. Minimum: 100 bSunDAI per redemption. Cannot self-redeem.
 5. Why it works: if bSunDAI trades below $0.995 anywhere, buy it cheap + redeem for $1 of ETH → instant profit → price rises back above $0.995
 
-━━━ BSUNDAI ORACLE (Hybrid v6.4) — BASE CHAIN ━━━
-Contract: 0xA39Ae3eC7435CD30508FA439378478EA9cAB91dD
+━━━ BSUNDAI ORACLE (Hybrid v9) — BASE CHAIN ━━━
+Contract: 0xdDbfBF4F6FCf11E9E8Ea1b2E2054e8ffeBC2dF9e
 
 Chainlink-primary hybrid. Chainlink (via Aave oracle) is primary; three Uniswap v3 WETH/USDC pools provide TWAP backup.
 Logic: if Chainlink and TWAP agree (within 30%) → use Chainlink | if they diverge → use TWAP | if Chainlink dies → TWAP auto-takes over | if USDC depegs → TWAP disabled, Chainlink-only.
-Vault-level ±10% price clamp with asymmetric cooldowns (same as pSunDAI vault layer).
+Committed price state machine (the ONLY price-smoothing layer — there is no separate vault-level clamp on bSunDAI): small moves (≤2% down, ≤5% up) accepted instantly; larger moves require confirmation (4h down, 30min up) before stepping toward the target.
+Chainlink warning track + clamped liquidation price (new in V9): if live Chainlink stays 3%+ below committed price for 30+ continuous minutes, getLiquidationPrice() switches liquidation eligibility/reward to live Chainlink — but hard-clamped to within 15% (MAX_CHAINLINK_DEVIATION_BPS) of the committed price. This closes the gap where an unbounded live-price track could be moved arbitrarily far by a bad feed read, a Chainlink glitch, or extreme volatility, without needing to wait for the full 4-hour committed-price confirmation.
 
 FUNCTIONS:
-- peekPrice() → (uint256 price, uint256 timestamp) — current oracle price
-- poke() — wake the oracle; callable when last update > 5 min ago (lower cooldown than pSunDAI)
-- getPriceStatus() → (currentPrice, rawPrice, targetPrice, inConfirmation, confirmStart, isStepping)
+- peekPrice() → (uint256 price, uint256 timestamp) — current oracle price, view-only, no state change
+- refreshPrice() — the real public poke function; advances the oracle's state machine. Callable by anyone, any time. (Not named "poke" — refreshPrice() is correct.)
+- getPriceWithTimestamp() → same as peekPrice but state-changing (called automatically by the vault on every interaction)
+- getPriceStatus() → (currentPrice, rawPrice, targetPrice, inConfirmation, confirmStart, isStepping, chainlinkWarningActive, chainlinkLiquidationEnabled)
+- getLiquidationPrice() → (uint256 price, bool isLive) — the clamped price the vault uses for liquidation eligibility/reward
+- getChainlinkPrice() → live, raw (unclamped) Chainlink price — diagnostic only, NOT what liquidation actually uses
+- isChainlinkLiquidationEnabled() → bool — true once the warning track has been active 30+ min
+- chainlinkWarningElapsed() → uint256 — seconds the warning track has been active (0 if inactive)
 - getUSDCPrice() → current USDC price from Aave oracle (8 decimal USD)
 - isUSDCDepegged() → bool — true if USDC < $0.97 (TWAP disabled, Chainlink-only mode active)
+- isOracleDead() → bool — true if committed price hasn't updated in 7+ days
 
-DIAGNOSTICS: if isUSDCDepegged() is true → oracle running Chainlink-only mode, correct behavior. If inConfirmation=true or isStepping=true → oracle is confirming or stepping through a large ETH price move — correct behavior, not a bug. To manually refresh: call poke() if oracle age > 5 min.
+DIAGNOSTICS: if isUSDCDepegged() is true → oracle running Chainlink-only mode, correct behavior. If inConfirmation=true or isStepping=true → oracle is confirming or stepping through a large ETH price move — correct behavior, not a bug. If chainlinkWarningActive=true but chainlinkLiquidationEnabled=false → warning just started, hasn't hit the 30-min confirm yet. To manually refresh: call refreshPrice() if oracle age is stale (vault checks freshness within a 5-min window for minting/withdrawal safety).
 
 ━━━ SUNPLS VAULT ━━━
 Token:          0x5d29509551378B55E0e79e3e9a7f610aC1f281D5
@@ -1470,7 +1500,7 @@ Step 4 — BONUS DIRECTION MATTERS:
   • bSunDAI: bonus STARTS at 10% and DECREASES to 2% over 3 hours — act FAST for maximum reward
 Step 5: Call liquidate(targetAddress, repayAmount). repayAmount must be ≥ 20% of the vault's total debt.
 Step 6: You receive PLS back instantly. The vault's debt decreases by repayAmount and collateral decreases by your reward.
-Step 7: pSunDAI V9 has NO liquidation cooldown — repeat calls can land back-to-back. bSunDAI and SunPLS still enforce a 10-minute cooldown between liquidations of the same vault.
+Step 7: pSunDAI V9 and bSunDAI V9 have NO liquidation cooldown — repeat calls can land back-to-back. SunPLS still enforces a 10-minute cooldown between liquidations of the same vault.
 Step 8: For SunPLS vaults only — if the vault was recently redeemed against, there's a 5-minute gap before liquidation is allowed ("Recently redeemed: wait before liquidating").
 Step 9: pSunDAI only — if the vault is fully underwater (collateral worth less than debt, isLiquidatable still shows liquidatable=false because ratio math breaks down), use clearBadDebt(target, repayAmount) instead. You pay repayAmount pSunDAI, get collateral back strictly pro-rata, no bonus — it's a voluntary loss to close the position, not a profit opportunity (this used to be free in V8, that was the confirmed exploit fixed in V9).
 
@@ -1570,7 +1600,7 @@ BONUS DIRECTION CRITICAL DIFFERENCE:
 - pSunDAI + SunPLS: bonus STARTS at 2% and GROWS to 5% over 3h — wait longer for more reward
 - bSunDAI: bonus STARTS at 10% and DECREASES to 2% over 3h — act FAST for maximum reward
 
-All vaults: must repay ≥ 20% of debt per call. bSunDAI and SunPLS: 10-min cooldown between liquidations of same vault. pSunDAI V9: NO liquidation cooldown.
+All vaults: must repay ≥ 20% of debt per call. SunPLS: 10-min cooldown between liquidations of same vault. pSunDAI V9 and bSunDAI V9: NO liquidation cooldown.
 
 ── REDEEM SUNPLS (arbitrage the peg — SunPLS only) ──
 1. canRedeem(targetVault) → must be true (CR ≤ 130%)
@@ -1587,7 +1617,7 @@ All vaults: must repay ≥ 20% of debt per call. bSunDAI and SunPLS: 10-min cool
 5. Arbitrage: if bSunDAI trades below $0.995 → buy cheap → redeem at $1 → instant profit → price rises
 
 ── OPEN A bSunDAI VAULT AND MINT (Base chain) ──
-1. Go to vault UI: https://elitev5.github.io/SunDAI/BaseVault/index.html
+1. Go to vault UI: https://elitev5.github.io/SunDAIV2/BASE/index.html
 2. Connect wallet on Base (Chain ID 8453)
 3. One-click: depositAndAutoMintETH() — send ETH, auto-wraps to WETH, mints at safe 155% buffer
 4. Manual: depositETH() OR approve WETH → deposit(amount) → then mint(amount ≤ vaultInfo(yourAddress).mintable)
