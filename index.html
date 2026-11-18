@@ -410,9 +410,9 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
           New in V9: a <strong style="color:var(--gold)">Stability Pool</strong> — deposit pSunDAI and it absorbs eligible liquidations atomically, no capital required from whoever triggers it. Depositors earn a continuous share of the 0.5% stability fee (whether or not anyone gets liquidated) plus liquidation bonuses, auto-compounding into their balance. `clearBadDebt` — which previously gave away a fully underwater vault's collateral for free — now requires real, strictly pro-rata repayment, closing the second confirmed exploit.
         </p>
         <div class="asset-cta">
-          <a href="https://bafybeiaxsz7kxppjnh4wspbvrcrc6mxw6nft4f7zylvhjffdfcjlhadzfa.ipfs.inbrowser.link/index.html" target="_blank" class="asset-link" style="font-size:0.68rem;">Open Vault →</a>
-          <a href="https://bafybeiaxsz7kxppjnh4wspbvrcrc6mxw6nft4f7zylvhjffdfcjlhadzfa.ipfs.inbrowser.link/liquidations.html" target="_blank" class="asset-link" style="font-size:0.68rem;">Liquidations →</a>
-          <a href="https://bafybeiaxsz7kxppjnh4wspbvrcrc6mxw6nft4f7zylvhjffdfcjlhadzfa.ipfs.inbrowser.link" target="_blank" class="asset-link" style="font-size:0.65rem;opacity:0.75;">IPFS ↗</a>
+          <a href="https://bafybeiar23l4syvidzgds2ycakszuej5haz4v55junldne6wurmfdfyx2q.ipfs.inbrowser.link/index.html" target="_blank" class="asset-link" style="font-size:0.68rem;">Open Vault →</a>
+          <a href="https://bafybeiar23l4syvidzgds2ycakszuej5haz4v55junldne6wurmfdfyx2q.ipfs.inbrowser.link/liquidations.html" target="_blank" class="asset-link" style="font-size:0.68rem;">Liquidations →</a>
+          <a href="https://bafybeiar23l4syvidzgds2ycakszuej5haz4v55junldne6wurmfdfyx2q.ipfs.inbrowser.link" target="_blank" class="asset-link" style="font-size:0.65rem;opacity:0.75;">IPFS ↗</a>
         </div>
       </div>
       <div class="asset-details">
@@ -668,7 +668,7 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
           </div>
           <div class="dt-links">
             <a href="https://bafybeigmbz7gzwi4m3a3p2cvwtua76rwgqk7aotyhbuldwwhpmq4pp7zya.ipfs.inbrowser.link/index.html" target="_blank" class="dt-link">Open Destiny Vault →</a>
-            <a href="https://bafybeiaxsz7kxppjnh4wspbvrcrc6mxw6nft4f7zylvhjffdfcjlhadzfa.ipfs.inbrowser.link/index.html" target="_blank" class="dt-link" style="font-size:0.68rem;">pSunDAI Vault →</a>
+            <a href="https://bafybeiar23l4syvidzgds2ycakszuej5haz4v55junldne6wurmfdfyx2q.ipfs.inbrowser.link/index.html" target="_blank" class="dt-link" style="font-size:0.68rem;">pSunDAI Vault →</a>
             <a href="https://bafybeigmbz7gzwi4m3a3p2cvwtua76rwgqk7aotyhbuldwwhpmq4pp7zya.ipfs.inbrowser.link" target="_blank" class="dt-link" style="font-size:0.6rem;opacity:0.75;">IPFS ↗</a>
           </div>
         </div>
@@ -848,7 +848,7 @@ footer{padding:2.5rem 2rem;background:var(--bg);border-top:1px solid var(--borde
     <div class="fl">Elite Team6 · Autonomous Monetary Protocol · <a href="https://bafybeihi5gxrmwxmnhzll3ghja7htstvdzwtp5x3lhwz47sakbhcjaoihy.ipfs.inbrowser.link" target="_blank" style="color:var(--gold);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:0.72em;letter-spacing:0.05em;" title="Censorship-resistant build on IPFS">IPFS ↗</a></div>
     <ul class="flinks">
       <li><a href="https://github.com/ELITEv5/SunPLSV2" target="_blank">GitHub</a></li>
-      <li><a href="https://bafybeiaxsz7kxppjnh4wspbvrcrc6mxw6nft4f7zylvhjffdfcjlhadzfa.ipfs.inbrowser.link/index.html" target="_blank">pSunDAI</a></li>
+      <li><a href="https://bafybeiar23l4syvidzgds2ycakszuej5haz4v55junldne6wurmfdfyx2q.ipfs.inbrowser.link/index.html" target="_blank">pSunDAI</a></li>
       <li><a href="https://bafybeig3mdd4epjpbg5xjcj4r2vkv2x6el4afahmcn5nyv3fkzboer5j7q.ipfs.inbrowser.link/index.html" target="_blank">bSunDAI</a></li>
       <li><a href="https://bafybeiadcvmqaac3hhpttbfk6ywnvmhsy44yijlqi72xrvscdeezre6pfi.ipfs.inbrowser.link/index.html" target="_blank">SunPLS</a></li>
       <li><a href="https://bafybeid275k2o2lvm4v2x7nddd7tigwk64vtyvhw3eca2itu4dy4hrhotq.ipfs.inbrowser.link/index.html" target="_blank">RISE</a></li>
@@ -1011,7 +1011,7 @@ STUCK: "I want to close my vault completely"
 
 ━━━ CRITICAL: FIVE COMPLETELY DIFFERENT ASSETS — NEVER MIX THEIR LOGIC ━━━
 
-1. pSunDAI (V9) — USD-pegged stable asset on PulseChain. Targets $1.00. Minted by locking PLS at 150% CR. Has NO floating R value, NO controller, NO P/R/r feedback loop. Its oracle is the 5-pair liquidity-weighted median TWAP (DAI/USDC/USDT pools on PulseX), requiring 3-of-5 pools valid, with a Spot Warning layer whose liquidation price is hard-clamped to within 15% of TWAP (V9 fix — closes an exploit where V8 used raw unbounded spot price). Stability fee 0.5%/yr, now routed into the V9 Stability Pool as real depositor yield instead of an inert counter. Liquidation at 110% — the Stability Pool absorbs eligible vaults atomically first (permissionless, no capital needed from the caller), keeper liquidate()/liquidateWithFlashMint() as fallback. clearBadDebt (fully underwater vaults) requires real pro-rata repayment as of V9 — it used to give collateral away for free, which was a confirmed exploit, now fixed. NO redemption mechanism — users repay debt to exit. Chain ID 369. UI: https://bafybeiaxsz7kxppjnh4wspbvrcrc6mxw6nft4f7zylvhjffdfcjlhadzfa.ipfs.inbrowser.link/index.html | Liquidations: https://bafybeiaxsz7kxppjnh4wspbvrcrc6mxw6nft4f7zylvhjffdfcjlhadzfa.ipfs.inbrowser.link/liquidations.html
+1. pSunDAI (V9) — USD-pegged stable asset on PulseChain. Targets $1.00. Minted by locking PLS at 150% CR. Has NO floating R value, NO controller, NO P/R/r feedback loop. Its oracle is the 5-pair liquidity-weighted median TWAP (DAI/USDC/USDT pools on PulseX), requiring 3-of-5 pools valid, with a Spot Warning layer whose liquidation price is hard-clamped to within 15% of TWAP (V9 fix — closes an exploit where V8 used raw unbounded spot price). Stability fee 0.5%/yr, now routed into the V9 Stability Pool as real depositor yield instead of an inert counter. Liquidation at 110% — the Stability Pool absorbs eligible vaults atomically first (permissionless, no capital needed from the caller), keeper liquidate()/liquidateWithFlashMint() as fallback. clearBadDebt (fully underwater vaults) requires real pro-rata repayment as of V9 — it used to give collateral away for free, which was a confirmed exploit, now fixed. NO redemption mechanism — users repay debt to exit. Chain ID 369. UI: https://bafybeiar23l4syvidzgds2ycakszuej5haz4v55junldne6wurmfdfyx2q.ipfs.inbrowser.link/index.html | Liquidations: https://bafybeiar23l4syvidzgds2ycakszuej5haz4v55junldne6wurmfdfyx2q.ipfs.inbrowser.link/liquidations.html
 
 2. SunPLS — Floating peg asset on PulseChain. Does NOT target $1. NOT pegged to USD. R is an internal equilibrium value denominated in WPLS per SunPLS — started at 1.227 WPLS at deployment and evolved by the Controller every 30-minute epoch ever since. Has a P/R/r feedback loop via the ProjectUSD Controller. Has REDEMPTION (burn SunPLS → receive PLS at R-value from any vault <150% CR — no minimum CR floor for redemption eligibility). Has Stability Pool (deposit SunPLS → earn WPLS from liquidations + fees). Has pool-first liquidation (instant, no SunPLS from caller) and Dutch auction fallback. Has NO stability fee on borrowing. Has NO withdrawal cooldown. Has NO 5-pair oracle — uses single-pair TWAP (SunPLS/WPLS on PulseX). MIN_RATE=0 (never negative). Chain ID 369. UI: https://bafybeiadcvmqaac3hhpttbfk6ywnvmhsy44yijlqi72xrvscdeezre6pfi.ipfs.inbrowser.link/index.html | Liquidations: https://bafybeiadcvmqaac3hhpttbfk6ywnvmhsy44yijlqi72xrvscdeezre6pfi.ipfs.inbrowser.link/liquidations.html
 
@@ -1050,8 +1050,8 @@ RULES:
 Token:  0x1b13cFddab761372cBBF815502E38b4e3613dDF9
 Vault:  0x23669aeeaE9Fe50e9453ABB556Ff75Eae3EEB931
 Oracle: 0xaaa9e184BA6Ef908c464A2c9e91B990bEAb7faB7
-UI: https://bafybeiaxsz7kxppjnh4wspbvrcrc6mxw6nft4f7zylvhjffdfcjlhadzfa.ipfs.inbrowser.link/index.html
-Liquidations: https://bafybeiaxsz7kxppjnh4wspbvrcrc6mxw6nft4f7zylvhjffdfcjlhadzfa.ipfs.inbrowser.link/liquidations.html
+UI: https://bafybeiar23l4syvidzgds2ycakszuej5haz4v55junldne6wurmfdfyx2q.ipfs.inbrowser.link/index.html
+Liquidations: https://bafybeiar23l4syvidzgds2ycakszuej5haz4v55junldne6wurmfdfyx2q.ipfs.inbrowser.link/liquidations.html
 
 V9 fixed two confirmed exploits found in V8 and added a Stability Pool. If a user asks "what's new" or "why V9", explain: (1) clearBadDebt used to give away a fully underwater vault's collateral for free, gated on a manipulable spot price — now requires real pro-rata repayment; (2) the spot-liquidation arm had no ceiling on manipulation profit — now hard-clamped to within 15% of TWAP; (3) new Stability Pool for atomic liquidation absorption and real yield.
 
@@ -1440,7 +1440,7 @@ Veteran charity: funds directed to Wounded Warrior Project, Fisher House Foundat
 When a user says they want to do something (open a vault, mint, withdraw, liquidate, etc.) walk them through it step by step, asking for confirmation at each stage. If they hit an error, diagnose it from the revert reason and tell them exactly what to do next.
 
 ── HOW TO OPEN A pSunDAI VAULT AND MINT ──
-Step 1: Go to https://bafybeiaxsz7kxppjnh4wspbvrcrc6mxw6nft4f7zylvhjffdfcjlhadzfa.ipfs.inbrowser.link/index.html
+Step 1: Go to https://bafybeiar23l4syvidzgds2ycakszuej5haz4v55junldne6wurmfdfyx2q.ipfs.inbrowser.link/index.html
 Step 2: Connect your PulseChain wallet (MetaMask, Rabby etc — make sure you're on Chain ID 369)
 Step 3: Choose how much PLS to deposit. More PLS = more pSunDAI you can mint. Minimum deposit: 0.0001 WPLS.
 Step 4: Decide your collateral ratio. Safe starting point: 200%+ CR. The minimum to mint is 150% but closer to 150% means closer to liquidation at 110%.
@@ -1537,7 +1537,7 @@ Step 7: After ignition, the sequence is: ignite() → executeConversion(minPlsOu
 When a user asks how to do something, walk them through it step by step. Ask which asset they mean if unclear. Be their guide.
 
 ── OPEN A pSunDAI VAULT AND MINT (V9) ──
-1. Go to vault UI: https://bafybeiaxsz7kxppjnh4wspbvrcrc6mxw6nft4f7zylvhjffdfcjlhadzfa.ipfs.inbrowser.link/index.html
+1. Go to vault UI: https://bafybeiar23l4syvidzgds2ycakszuej5haz4v55junldne6wurmfdfyx2q.ipfs.inbrowser.link/index.html
 2. Connect wallet on PulseChain (Chain ID 369)
 3. One-click: depositAndAutoMintPLS() — send PLS, auto-mints at safe 155% buffer. Done in one tx.
 4. Manual: depositPLS() OR approve WPLS → deposit(amount) → then mint(amount ≤ vaultInfo(yourAddress).mintable)
